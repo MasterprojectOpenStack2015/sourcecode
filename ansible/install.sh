@@ -77,6 +77,14 @@ ansible controller -b -a "rm /etc/mysql/conf.d/mysqld_openstack.cnf"
 ansible controller -b -m lineinfile -a "dest=/etc/mysql/conf.d/mysqld_openstack.cnf create=yes line=\"[mysqld]\nbind-address = 192.168.100.11\n\ndefault-storage-engine = innodb\ninnodb_file_per_table\ncollation-server = utf8_general_ci\ninit-connect = \'SET NAMES utf8\'\ncharacter-set-server = utf8\""
 ansible controller -b -a "service mysql restart"
 ansible controller -b -a "mysql_secure_installation"
+
+# mysql_secure_installation
+ansible controller -b -a mysql_user -a "user=\"\" host=\"$controller_node\" state=\"absent\""
+ansible controller -b -a mysql_user -a "user=\"\" state=\"absent\""
+ansible controller -b -a mysql_db -a "db=test state=absent"
+ansible controller -b -a mysql_user -a "user=\"\" state=\"absent\""
+ansible controller -b -a mysql_user -a "login_user=root login_password='' name=root password=\"root\" priv=*.*:ALL,GRANT host=$controller_node"
+ansible controller -b -a mysql_user -a "login_user=root login_password='' name=root password=\"root\" priv=*.*:ALL,GRANT host=localhost"
 echo "Installation Done."
 
-
+   
