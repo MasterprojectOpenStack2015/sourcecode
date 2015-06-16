@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd `dirname $0`
+
+vm_name=$1
+vm_folder=$2
+
+if [ $vm_name = '' ]
+then
+	>&2 echo expected name of virtual machine as first argument
+	exit 1
+fi
+
+if [ ! -d $vm_folder ]
+then
+	>&2 echo did not find virtual configuration folder machine named $vm_name
+	exit 2
+fi

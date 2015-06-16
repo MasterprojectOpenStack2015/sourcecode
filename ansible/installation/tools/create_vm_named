@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# go to local directory so it is easier to target files
+cd `dirname $0`
+
+vm_name=$1
+vm_folder=../config/vm/$vm_name
+
+if ! ./vm_configuration_with_name_exists $vm_name $vm_folder
+then
+	exit 1
+fi
+
+source ../config/installation_configuration.sh
+
+# copy the virtual machine image into the right folder
+cp $vm_base_image_file $vm_images_directory/${vm_name}.img
+
+# from https://wiki.ubuntuusers.de/virsh
+# create the virtual machine definition so it can be started
+virsh define $vm_folder/creation.xml
