@@ -18,10 +18,14 @@ then
 	( cd $downloaded_vm_image_folder ; wget $vm_image_url )
 fi
 
-ln -s $downloaded_vm_image_folder/* $vm_base_image_file
+if [ ! -f $vm_base_image_file ]
+then
+	ln -s $downloaded_vm_image_folder/* $vm_base_image_file
+fi
 
 # create virtual machines
 for virtual_machine_name in /config/vm/* 
 do 
+	echo $virtual_machine_name
 	tools/create_vm_named network $virtual_machine_name
 done
