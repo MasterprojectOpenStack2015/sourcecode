@@ -4,18 +4,19 @@
 source config/installation_configuration.sh
 
 # ready the directory for download
-vm_image_folder=$downloads_directory/images/vm
-mkdir -p $vm_image_folder
+downloaded_vm_image_folder=$downloads_directory/images/vm
+mkdir -p $downloaded_vm_image_folder
 
 ## multiple arguments to if http://stackoverflow.com/a/16203126
 
-if [ ! -f $vm_image_folder/* ] || [ `md5sum $vm_image_folder/* | grep -o -E '^\S{32}'` !=  ]
+if [ ! -f $downloaded_vm_image_folder/* ] || \
+   [ `md5sum $downloaded_vm_image_folder/* | grep -o -E '^\S{32}'` != $vm_image_md5_hash ]
 then
 	# remove any corrupt file
-	rm -r $vm_image_folder/*
+	rm -r $downloaded_vm_image_folder/*
 	# download the ubuntu cloud image
-	( cd $vm_image_folder ; wget $vm_image_url )
+	( cd $downloaded_vm_image_folder ; wget $vm_image_url )
 fi
 
-
+virsh define config/vm/network.xml
 
