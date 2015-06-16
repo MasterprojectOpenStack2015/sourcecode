@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # if ansible is not installed, yet
-if ! type ansible
+if ! type ansible >> /dev/null
 then
 	# install ansible
 	sudo apt-add-repository -y ppa:ansible/ansible
@@ -10,7 +10,7 @@ then
 fi
 
 # copy the ansible configuration to /etc/ansible
-if [-d /etc/ansible ]
+if [ -d /etc/ansible ]
 then
 	sudo cp ./config/ansible.cfg /etc/ansible
 fi
