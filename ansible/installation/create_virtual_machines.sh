@@ -16,8 +16,9 @@ then
 	rm -r $downloaded_vm_image_folder/*
 	# download the ubuntu cloud image
 	( cd $downloaded_vm_image_folder ; wget $vm_image_url )
-	ln -s $downloaded_vm_image_folder/* $vm_base_image_file
 fi
+
+ln -s $downloaded_vm_image_folder/* $vm_base_image_file
 
 # create virtual machines
 for virtual_machine_name in /config/vm/* 
