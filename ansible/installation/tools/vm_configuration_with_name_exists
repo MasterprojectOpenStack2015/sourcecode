@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd `dirname $0`
-
 vm_name=$1
 vm_folder=$2
 
@@ -13,6 +11,6 @@ fi
 
 if [ ! -d $vm_folder ]
 then
-	>&2 echo did not find virtual configuration folder machine named $vm_name
+	>&2 echo did not find virtual machine configuration folder machine named $vm_name in $vm_folder
 	exit 2
 fi

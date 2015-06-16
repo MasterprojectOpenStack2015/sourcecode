@@ -24,8 +24,8 @@ then
 fi
 
 # create virtual machines
-for virtual_machine_name in /config/vm/* 
+# for loop http://www.cyberciti.biz/faq/bash-loop-over-file/
+for virtual_machine_name in config/vm/* 
 do 
-	echo $virtual_machine_name
-	tools/create_vm_named network $virtual_machine_name
+	tools/create_vm_named `filename $virtual_machine_name`
 done

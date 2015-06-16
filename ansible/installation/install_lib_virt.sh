@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt-get install virtinst libvirt-bin
+sudo apt-get -y install virtinst libvirt-bin
