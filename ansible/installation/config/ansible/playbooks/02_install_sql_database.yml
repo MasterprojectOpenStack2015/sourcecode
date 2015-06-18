@@ -11,11 +11,11 @@
   - apt: 
       pkg: python-mysqldb
       state: installed 
-  - name: 
+  - name: add sql server on controller to configuration
     lineinfile: 
       dest: /etc/mysql/conf.d/mysqld_openstack.cnf
       create: yes
-      line: "[mysqld]\nbind-address = 192.168.100.11\n\ndefault-storage-engine = innodb\ninnodb_file_per_table\ncollation-server = utf8_general_ci\ninit-connect = \'SET NAMES utf8\'\ncharacter-set-server = utf8\""
+      line: "[mysqld]\nbind-address = 192.168.122.100\n\ndefault-storage-engine = innodb\ninnodb_file_per_table\ncollation-server = utf8_general_ci\ninit-connect = \'SET NAMES utf8\'\ncharacter-set-server = utf8"
   - name: restart mysql
     service: 
       name: mysql
