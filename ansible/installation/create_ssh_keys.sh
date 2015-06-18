@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # read the configuration file
 source config/installation_configuration.sh

@@ -12,7 +12,7 @@
     <devices>
         <disk type='file' device='disk'>
             <driver type='qcow2' cache='none'/>
-            <source file='/tmp/openstack_installation/images/network.img'/>
+            <source file='/tmp/openstack_installation/images/test1.img'/>
             <target dev='vda' bus='virtio'/>
         </disk>
         <disk type='file' device='disk'>

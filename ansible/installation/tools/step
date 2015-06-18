@@ -1,0 +1,19 @@
+#!/bin/bash
+
+step_status=`cat step_status`
+
+echo ---------------------------------------------------------
+if [ "$step_status" = "0" ]
+then
+	echo running $@
+	$@
+	step_status=$?
+else
+	echo skipping $@
+fi
+
+echo -n $step_status > step_status
+
+
+
+

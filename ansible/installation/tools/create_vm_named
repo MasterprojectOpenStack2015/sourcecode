@@ -18,4 +18,6 @@ cp $vm_base_image_file $vm_images_directory/${vm_name}.img
 
 # from https://wiki.ubuntuusers.de/virsh
 # create the virtual machine definition so it can be started
+virsh destroy $vm_name
+virsh undefine $vm_name
 virsh define $vm_folder/creation.xml

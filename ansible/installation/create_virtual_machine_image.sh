@@ -13,9 +13,10 @@ if [ ! -f $downloaded_vm_image_folder/* ] || \
    [ `md5sum $downloaded_vm_image_folder/* | grep -o -E '^\S{32}'` != $vm_image_md5_hash ]
 then
 	# remove any corrupt file
-	rm -r $downloaded_vm_image_folder/*
+	rm -rf $downloaded_vm_image_folder/*
 	# download the ubuntu cloud image
-	( cd $downloaded_vm_image_folder ; wget $vm_image_url )
+	( cd $downloaded_vm_image_folder ; wget $vm_image_url ) || \
+	( echo "error downloading $vm_image_url"; exit 1 )
 fi
 
 
@@ -25,6 +26,9 @@ fi
 
 if [ ! -f $vm_base_image_file ]
 then
+	rm -f ${vm_base_image_file}.dist
+	rm -f ${vm_base_image_file}.original
+	rm -f ${vm_base_image_file}.tmp
 	# link the image file
 	ln -s $downloaded_vm_image_folder/* ${vm_base_image_file}.dist
 	# uncompress the image file
@@ -36,6 +40,6 @@ then
 	
 	# we are done. The last operation is to create the vm_base_image_file
 	# this is the last statement within this if condition
-	mv $vm_base_image_file.tmp $vm_base_image_file
+	mv $vm_base_image_file.tmp $vm_base_image_file || exit 2
 fi
 
