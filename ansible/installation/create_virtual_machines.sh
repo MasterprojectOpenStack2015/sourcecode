@@ -3,29 +3,36 @@
 # read the configuration file
 source config/installation_configuration.sh
 
-# ready the directory for download
-downloaded_vm_image_folder=$downloads_directory/images/vm
-mkdir -p $downloaded_vm_image_folder
+# we follow this tutorial
+# http://serverascode.com/2014/03/17/trusty-libvirt.html
 
-# test if we need a download
-## multiple arguments to if http://stackoverflow.com/a/16203126
-if [ ! -f $downloaded_vm_image_folder/* ] || \
-   [ `md5sum $downloaded_vm_image_folder/* | grep -o -E '^\S{32}'` != $vm_image_md5_hash ]
+# Checkout cloud-localds
+if [ ! -f ~/cloud-utils/bin/cloud-localds ]
 then
-	# remove any corrupt file
-	rm -r $downloaded_vm_image_folder/*
-	# download the ubuntu cloud image
-	( cd $downloaded_vm_image_folder ; wget $vm_image_url )
+	( 	cd ~ ; \
+	  	bzr branch lp:cloud-utils
+	)
 fi
 
-if [ ! -f $vm_base_image_file ]
+# Create a user data file
+if [ -f $user_data_cloud_config_file ]
 then
-	ln -s $downloaded_vm_image_folder/* $vm_base_image_file
+	rm $user_data_cloud_config_file
 fi
+
+echo "#cloud-config
+password: $authorized_password_for_access_to_the_vm
+chpasswd: { expire: False }
+ssh_pwauth: True
+ssh_authorized_keys:
+  - `cat $authorized_public_key_file_for_access_to_the_vm`" > $user_data_cloud_config_file
+
+# Build the user-data image
+# Now we convert the $user_data_cloud_config_file file to an ISO file.
+~/cloud-utils/bin/cloud-localds $user_data_cloud_config_image $user_data_cloud_config_file
 
 # create virtual machines
-# for loop http://www.cyberciti.biz/faq/bash-loop-over-file/
-for virtual_machine_name in config/vm/* 
+for virtual_machine_name in `tools/vm_names`
 do 
-	tools/create_vm_named `filename $virtual_machine_name`
+	tools/create_vm_named $virtual_machine_name
 done

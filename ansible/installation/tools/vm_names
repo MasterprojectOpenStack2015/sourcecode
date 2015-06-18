@@ -1,0 +1,8 @@
+#!/bin/bash
+# this script lists all names of the vms that shall be created
+
+# for loop http://www.cyberciti.biz/faq/bash-loop-over-file/
+for virtual_machine_name in `dirname $0`/../config/vm/* 
+do 
+	echo -n "`filename $virtual_machine_name` "
+done
