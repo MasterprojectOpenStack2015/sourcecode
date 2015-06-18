@@ -16,7 +16,7 @@
             <target dev='vda' bus='virtio'/>
         </disk>
         <disk type='file' device='disk'>
-            <source file='/tmp/openstack_installation/images/user-data.cloud-config.img'/>
+            <source file='/tmp/openstack_installation/images/test1_user-data.cloud-config.img'/>
             <target dev='vdb' bus='virtio'/>
         </disk>
         <interface type='network'>
