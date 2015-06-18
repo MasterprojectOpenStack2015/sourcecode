@@ -1,0 +1,6 @@
+<network>
+	<name>neutron-tunnel</name>
+	<bridge name='br_tunnel' stp='on' delay='0' />
+</network>
+
+
