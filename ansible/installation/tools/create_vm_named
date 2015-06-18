@@ -13,8 +13,8 @@ fi
 
 source ../config/installation_configuration.sh
 
-virsh destroy $vm_name
-virsh undefine $vm_name
+virsh destroy $vm_name > /dev/null
+virsh undefine $vm_name > /dev/null
 
 # copy the virtual machine image into the right folder
 rm -f $vm_images_directory/${vm_name}.img

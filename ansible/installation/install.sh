@@ -12,6 +12,7 @@ tools/step ./create_ssh_keys.sh
 tools/step ./install_lib_virt.sh
 tools/step ./create_virtual_machine_image.sh
 tools/step ./create_virtual_machines.sh
+tools/step ./wait_for_virtual_machines_to_start.sh
 tools/step ./setup_virtual_machines.sh
 tools/step ./snapshot_virtual_machines.sh
 

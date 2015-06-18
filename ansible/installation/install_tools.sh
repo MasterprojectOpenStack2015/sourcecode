@@ -6,6 +6,12 @@ then
 	sudo apt-get -y install wcstools
 fi
 
+if ! type realpath > /dev/null
+then
+	# for the filename command
+	sudo apt-get -y install realpath
+fi
+
 if ! type bzr  > /dev/null
 then
 	# for virtual machine creation

@@ -9,8 +9,3 @@ then
 	sudo apt-get -y install software-properties-common ansible
 fi
 
-# copy the ansible configuration to /etc/ansible
-if [ -d /etc/ansible ]
-then
-	sudo cp ./config/ansible.cfg /etc/ansible
-fi
