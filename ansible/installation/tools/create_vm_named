@@ -35,6 +35,7 @@ echo "#cloud-config
 password: $authorized_password_for_access_to_the_vm
 chpasswd: { expire: False }
 hostname: $vm_name
+manage_etc_hosts: true
 ssh_pwauth: True
 " > $user_data_vm_config_file
 
