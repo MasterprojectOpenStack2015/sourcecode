@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source `dirname $0`/../config/installation_configuration.sh >> /dev/null
+`dirname $0`/hash_of_file_content $downloaded_vm_image_folder/*
