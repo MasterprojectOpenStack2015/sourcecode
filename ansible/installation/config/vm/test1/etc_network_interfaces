@@ -15,7 +15,7 @@ iface lo inet loopback
 # http://askubuntu.com/questions/31023/how-to-configure-eth0-manually
 auto eth0
 iface eth0 inet static
-        address 192.168.122.100
+        address {{ test_node_ip_address }}
         netmask 255.255.255.0
         broadcast 192.168.122.255 
         gateway 192.168.122.1
