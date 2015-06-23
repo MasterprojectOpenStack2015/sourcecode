@@ -12,13 +12,17 @@ downloads_directory='/tmp/openstack_installation/downloads'
 # When you change this also change vm_image_md5_hash.
 # I had a look at https://cloud-images.ubuntu.com/trusty/ for the url.
 # For the current release you can use https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
-vm_image_url='https://cloud-images.ubuntu.com/trusty/20150614/trusty-server-cloudimg-amd64-disk1.img'
+vm_image_url='https://cloud-images.ubuntu.com/trusty/20150313/trusty-server-cloudimg-amd64-disk1.img'
 
 # vm_image_md5_hash is the md5 hash of the vm image.
 # It is used to avoid duplicate downloads.
 # If this hash does not fit, the image will be downloaded
 # every time the vms are set up.
-vm_image_md5_hash=86dbf23e4a174c156ad773e6790e1897
+vm_image_md5_hash=ba8c94999ca0d5052ccc0d4b12b9aca4
+
+# downloaded_vm_image_folder is the folder where the downloaded vm image is 
+# saved.
+downloaded_vm_image_folder=$downloads_directory/images/vm
 
 ###############################################################################
 ###### configuration for the vms

@@ -1,6 +1,7 @@
 ---
 - hosts: all
-# https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
+# see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
+# for sudo: yes
   sudo: yes
   tasks:
   - name: update the cache
