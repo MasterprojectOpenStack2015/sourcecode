@@ -27,22 +27,6 @@
     service: 
       name: mysql
       state: restarted
-  -name: "mysql_secure_connection. see http://injustfiveminutes.com/2014/08/25/ansible-mysql_secure_installation-playbook/"
-    action: mysql_user user="{{ config.controller_node_ip_address }}" host="" state="absent"
-  - action: mysql_user user="" state="absent"
-  - action: mysql_db db=test state=absent
-  - name: Change root user password on first run
-    mysql_user: login_user=root
-                login_password=''
-                name=root
-                password={{ config.mysql_password }}
-                priv=*.*:ALL,GRANT
-                host={{ item }}
-    with_items:
-      - {{ config.controller_node_ip_address }}
-      - 127.0.0.1
-      - ::1
-      - localhost
 
 # this playbook was created according to
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
