@@ -1,14 +1,17 @@
 #!/usr/bin/python
 
 import sys
-import jinja2
+from jinja2 import Template
 
 template_file = sys.argv[1]
 
 variables_for_template = dict()
 
 for line in sys.stdin:
+    if line[-1] == "\n":
+        line = line[:-1]
     variable_name, value = line.split("=", 1)
+    assert variable_name == variable_name.strip(), "variable names shall not contain spaces"
     variables_for_template[variable_name] = value
 
 with open(template_file) as open_template_file:
@@ -16,7 +19,7 @@ with open(template_file) as open_template_file:
 
 # from http://jinja.pocoo.org/docs/dev/intro/#basic-api-usage
 template = Template(content)
-sys.stdout.write(template.render(name='John Doe')))
+sys.stdout.write(template.render(**variables_for_template))
 
 
 

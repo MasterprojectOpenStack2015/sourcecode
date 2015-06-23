@@ -3,7 +3,7 @@
 # start virtual machines
 for virtual_machine_name in `tools/vm_names`
 do 
-	virsh start $virtual_machine_name
+	virsh start $virtual_machine_name || exit 2
 done
 
 # copy ssh keys of virtual machines into known hosts file

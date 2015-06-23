@@ -13,8 +13,8 @@ fi
 
 source ../config/installation_configuration.sh
 
-virsh destroy $vm_name > /dev/null
-virsh undefine $vm_name > /dev/null
+virsh destroy $vm_name 2> /dev/null
+virsh undefine $vm_name 2> /dev/null
 
 # Create a new folder for the vm files.
 # Every file generated should be in this folder.
@@ -33,39 +33,40 @@ user_data_vm_config_image=$this_vm_files_folder/$user_data_cloud_config_image
 
 # save all useful variables for template rendering
 authorized_public_key_for_access_to_the_vm=`cat $authorized_public_key_file_for_access_to_the_vm`
-network_interface_file_base64=`cat $this_vm_files_folder/etc_network_interfaces | base64 -w0`
-variables_for_template_rendering=`./config_variables \
+variables_for_template_rendering="`./config_variables \
 	"vm_name=$vm_name" \
-	"user_data_vm_config_file=$user_data_vm_config_file" \
-	"user_data_cloud_config_file=$user_data_cloud_config_file" \
-	"user_data_cloud_config_image=$user_data_cloud_config_image" \
+	"user_data_vm_config_image=$user_data_vm_config_image" \
 	"authorized_public_key_for_access_to_the_vm=$authorized_public_key_for_access_to_the_vm" \
-	"vm_image_file=$vm_image_file"`
+	"vm_image_file=$vm_image_file"`"
 
 # Create a network configuration, we copy it into the vm.
-echo $variables_for_template_rendering \
-| 	./render_ $vm_config_folder/etc_network_interfaces > \
-                         $this_vm_files_folder/etc_network_interfaces
+echo "$variables_for_template_rendering" \
+| 	./render_template $vm_config_folder/etc_network_interfaces > \
+                          $this_vm_files_folder/etc_network_interfaces \
+|| exit 2
 
 # Add network configuration to variables
+network_interface_file_base64=`cat $this_vm_files_folder/etc_network_interfaces | base64 -w0`
 variables_for_template_rendering=$variables_for_template_rendering"
 network_interface_file_base64=$network_interface_file_base64"
 
 # Create a user data file
-echo $variables_for_template_rendering \
-|	./render_template $vm_folder/$user_data_cloud_config_file > $user_data_vm_config_file
+echo "$variables_for_template_rendering" \
+|	./render_template $vm_config_folder/$user_data_cloud_config_file > $user_data_vm_config_file \
+|| exit 3
 
 # Build the user-data image
 # Now we convert the $user_data_cloud_config_file file to an ISO file.
 ~/cloud-utils/bin/cloud-localds $user_data_vm_config_image $user_data_vm_config_file
 
 # Render the template from creation.xml
-echo $variables_for_template_rendering \
-|	./render_template $vm_config_folder/creation.xml > $this_vm_files_folder/creation.xml
+echo "$variables_for_template_rendering" \
+|	./render_template $vm_config_folder/creation.xml > $this_vm_files_folder/creation.xml \
+|| exit 4
 	
 # from https://wiki.ubuntuusers.de/virsh
 # create the virtual machine definition so it can be started
-virsh define $vm_config_folder/creation.xml
+virsh define $this_vm_files_folder/creation.xml || exit 5
 
 
 
