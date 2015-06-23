@@ -1,6 +1,6 @@
 
 [controller]
-	ubuntu@192.168.122.100
+	{{ default_login_name }}@{{ test_node_ip_address }}
 
 [network]
 

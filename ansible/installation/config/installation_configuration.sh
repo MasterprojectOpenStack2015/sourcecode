@@ -11,7 +11,7 @@
 downloads_directory='/tmp/openstack_installation/downloads'
 
 # vm_image_url is the url for the image in the vms.
-# When you change this also change vm_image_md5_hash.
+# When you change this also change vm_image_md5_hash and default_login_name.
 # I had a look at https://cloud-images.ubuntu.com/trusty/ for the url.
 # For the current release you can use https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
 vm_image_url='https://cloud-images.ubuntu.com/trusty/20150313/trusty-server-cloudimg-amd64-disk1.img'
@@ -60,6 +60,11 @@ authorized_password_for_access_to_the_vm=
 # test_node_ip_address is the ip address of the controller node in the 
 # default network.
 test_node_ip_address=192.168.122.100
+
+# default_login_name is the log in name of the ansible user for the vm.
+# If you change the image e.g. by changing vm_image_url, consider that this
+# variable needs to be changed, too.
+default_login_name=ubuntu
 
 ###############################################################################
 ###### setup to make variables valid
