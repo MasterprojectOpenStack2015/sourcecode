@@ -24,6 +24,22 @@
     service: 
       name: mysql
       state: restarted
+  -name: "mysql_secure_connection. see http://injustfiveminutes.com/2014/08/25/ansible-mysql_secure_installation-playbook/"
+    action: mysql_user user="192.168.100.11" host="" state="absent"
+  - action: mysql_user user="" state="absent"
+  - action: mysql_db db=test state=absent
+  - name: Change root user password on first run
+    mysql_user: login_user=root
+                login_password=''
+                name=root
+                password=TODO_MYSQL_PASSWORD_VARIABLE########################
+                priv=*.*:ALL,GRANT
+                host={{ item }}
+    with_items:
+      - 192.168.100.11
+      - 127.0.0.1
+      - ::1
+      - localhost
 
 
 
