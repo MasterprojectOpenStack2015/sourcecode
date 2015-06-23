@@ -1,5 +1,5 @@
 <domain type='kvm'>
-    <name>test1</name>
+    <name>{{ vm_name }}</name>
     <memory>1048576</memory>
     <os>
         <type>hvm</type>

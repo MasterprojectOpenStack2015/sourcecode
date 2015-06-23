@@ -39,8 +39,8 @@ vm_base_image_name='vm.img'
 # user_data_cloud_config_file is the configuration file used by could-init.
 # See "Create a user-data file" in http://serverascode.com/2014/03/17/trusty-libvirt.html
 # There we specify that the password and ssh key are set on the vm.
-user_data_cloud_config_file='/tmp/openstack_installation/images/user-data.cloud-config'
-user_data_cloud_config_image='/tmp/openstack_installation/images/user-data.cloud-config.img'
+user_data_cloud_config_file='user-data.cloud-config'
+user_data_cloud_config_image='user-data.cloud-config.img'
 
 # authorized_public_key_file_for_access_to_the_vm is the public key that allows
 # us to access the vm once it is started.
