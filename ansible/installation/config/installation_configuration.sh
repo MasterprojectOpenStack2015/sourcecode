@@ -5,6 +5,20 @@
 #
 
 ###############################################################################
+###### passwords
+
+# The default_password variable should never be used directly in a script.
+# default_password is the variable that can be changed to change all passwords 
+# at once if they are set to default_password.
+default_password=aXp7s50
+
+# mysql_password is the password used for the mysql installation and service.
+mysql_password=$default_password
+
+# rabbitmq_password is the password used for the rabbit message queue.
+rabbitmq_password=$default_password
+
+###############################################################################
 ###### configuration for download
 
 # downloads_directory is the directory where to download the image files to
@@ -52,7 +66,7 @@ authorized_private_key_file_for_access_to_the_vm=~/.ssh/id_rsa
 # authorized_password_for_access_to_the_vm is the password that allows us to 
 # access the vm once it is started. If the password is empty you can not log in
 # with a password.
-authorized_password_for_access_to_the_vm=
+authorized_password_for_access_to_the_vm=$default_password
 
 ###############################################################################
 ###### network configuration
@@ -60,6 +74,7 @@ authorized_password_for_access_to_the_vm=
 # test_node_ip_address is the ip address of the controller node in the 
 # default network.
 test_node_ip_address=192.168.122.100
+controller_node_ip_address=192.168.122.100
 
 # default_login_name is the log in name of the ansible user for the vm.
 # If you change the image e.g. by changing vm_image_url, consider that this

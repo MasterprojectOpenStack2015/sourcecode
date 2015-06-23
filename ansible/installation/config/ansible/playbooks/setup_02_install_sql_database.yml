@@ -1,6 +1,8 @@
 ---
 - hosts: controller
   sudo: yes
+  roles:
+  - config
   tasks:
   - name: "ERROR: perl: warning: Please check that your locale settings"
     shell: locale-gen de_DE.UTF-8; update-locale LANG=de_DE.UTF-8
@@ -17,26 +19,27 @@
       create: yes
 # using variables 
 #   https://docs.ansible.com/playbooks_variables.html#information-discovered-from-systems-facts
-#   use "ansible controller -m setup" to find all possible variable names like
-#   {{ansible_default_ipv4.address}}
-      line: "[mysqld]\nbind-address = {{ansible_default_ipv4.address}}\n\ndefault-storage-engine = innodb\ninnodb_file_per_table\ncollation-server = utf8_general_ci\ninit-connect = \'SET NAMES utf8\'\ncharacter-set-server = utf8"
+#   Use "ansible controller -m setup" to find all possible variable names.
+#   Other variable names are defined in the config role.
+#     {{ config.controller_node_ip_address }}
+      line: "[mysqld]\nbind-address = {{ config.controller_node_ip_address }}\n\ndefault-storage-engine = innodb\ninnodb_file_per_table\ncollation-server = utf8_general_ci\ninit-connect = \'SET NAMES utf8\'\ncharacter-set-server = utf8"
   - name: restart mysql
     service: 
       name: mysql
       state: restarted
   -name: "mysql_secure_connection. see http://injustfiveminutes.com/2014/08/25/ansible-mysql_secure_installation-playbook/"
-    action: mysql_user user="192.168.100.11" host="" state="absent"
+    action: mysql_user user="{{ config.controller_node_ip_address }}" host="" state="absent"
   - action: mysql_user user="" state="absent"
   - action: mysql_db db=test state=absent
   - name: Change root user password on first run
     mysql_user: login_user=root
                 login_password=''
                 name=root
-                password=TODO_MYSQL_PASSWORD_VARIABLE########################
+                password={{ config.mysql_password }}
                 priv=*.*:ALL,GRANT
                 host={{ item }}
     with_items:
-      - 192.168.100.11
+      - {{ config.controller_node_ip_address }}
       - 127.0.0.1
       - ::1
       - localhost

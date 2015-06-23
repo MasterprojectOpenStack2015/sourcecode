@@ -1,5 +1,6 @@
-# execute with ansible-playbook config/ansible/playbooks/test.yml
+# execute with ansible-playbook config/ansible/playbooks/variable_test.yml
 # for roles have a look at https://docs.ansible.com/playbooks_roles.html
+# you can access variables from installation_configuration.sh as config.variables
 - hosts: all
   roles: 
   -  config
