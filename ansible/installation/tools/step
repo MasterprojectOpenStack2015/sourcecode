@@ -8,6 +8,12 @@ then
 	echo running $@
 	$@
 	step_status=$?
+	if [ $step_status != 0 ]
+	then
+		echo
+		echo $@
+		echo exit status $step_status
+	fi
 else
 	echo skipping $@
 fi
