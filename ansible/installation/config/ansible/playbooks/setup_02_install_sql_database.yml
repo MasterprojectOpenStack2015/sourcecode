@@ -1,0 +1,30 @@
+---
+- hosts: controller
+  sudo: yes
+  tasks:
+  - name: "ERROR: perl: warning: Please check that your locale settings"
+    shell: locale-gen de_DE.UTF-8; update-locale LANG=de_DE.UTF-8
+  - name: install and configure the database server
+    apt: 
+      pkg: mariadb-server
+      state: installed 
+  - apt: 
+      pkg: python-mysqldb
+      state: installed 
+  - name: add sql server on controller to configuration
+    lineinfile: 
+      dest: /etc/mysql/conf.d/mysqld_openstack.cnf
+      create: yes
+# using variables 
+#   https://docs.ansible.com/playbooks_variables.html#information-discovered-from-systems-facts
+#   use "ansible controller -m setup" to find all possible variable names like
+#   {{ansible_default_ipv4.address}}
+      line: "[mysqld]\nbind-address = {{ansible_default_ipv4.address}}\n\ndefault-storage-engine = innodb\ninnodb_file_per_table\ncollation-server = utf8_general_ci\ninit-connect = \'SET NAMES utf8\'\ncharacter-set-server = utf8"
+  - name: restart mysql
+    service: 
+      name: mysql
+      state: restarted
+
+# this playbook was created according to
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
+

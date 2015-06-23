@@ -1,0 +1,16 @@
+---
+- hosts: all
+# see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
+# for sudo: yes
+  sudo: yes
+  tasks:
+  - name: install the message queue service
+    apt: 
+      pkg: rabbitmq-server
+      state: installed 
+  - name: configure the message queue service #1 setting password
+    - rabbitmqctl add_user openstack RABBIT_PASS
+    
+  
+# this playbook was created according to
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html

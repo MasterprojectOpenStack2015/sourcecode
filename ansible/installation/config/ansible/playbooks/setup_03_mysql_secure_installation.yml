@@ -1,0 +1,6 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+# todo? this is in the install.sh but not in the docs 
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
