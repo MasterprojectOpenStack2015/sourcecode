@@ -11,7 +11,7 @@
       pkg: rabbitmq-server
       state: installed 
   - name: configure the message queue service #1 setting password
-    - rabbitmqctl add_user openstack {{ config.rabbitmq_password }}
+    shell: "rabbitmqctl add_user openstack {{ config.rabbitmq_password }}"
     
   
 # this playbook was created according to
