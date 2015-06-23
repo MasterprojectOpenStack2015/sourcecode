@@ -1,0 +1,54 @@
+<domain type='kvm'>
+    <name>network</name>
+    <memory>1073741824</memory>
+    <vcpu>1</vcpu>
+
+    <features>
+        <acpi/>
+    </features>
+
+    <os>
+        <type>hvm</type>
+        <boot dev="hd" />
+    </os>
+
+    <devices>
+        <disk type='file' device='disk'>
+            <driver type='qcow2' cache='none'/>
+            <source file='/tmp/openstack_installation/images/network.img'/>
+            <target dev='vda' bus='virtio'/>
+        </disk>
+        <disk type='file' device='disk'>
+            <source file='/tmp/openstack_installation/images/network_user-data.cloud-config.img'/>
+            <target dev='vdb' bus='virtio'/>
+        </disk>
+
+        <interface type='network'>
+            <source network='management'/>
+            <model type='virtio'/>
+        </interface>
+        <interface type='network'>
+            <source network='neutron-tunnel'/>
+            <model type='virtio'/>
+        </interface>
+        <interface type='network'>
+            <source network='external'/>
+            <model type='virtio'/>
+        </interface>
+
+        <input type='mouse' bus='ps2'/>
+            <input type='keyboard' bus='ps2'/>
+            <graphics type='vnc' autoport='yes' listen='127.0.0.1'>
+                  <listen type='address' address='127.0.0.1'/>
+            </graphics>
+        <video>
+            <model type='cirrus' vram='9216' heads='1'/>
+            <alias name='video0'/>
+            <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+        </video>
+        <memballoon model='virtio'>
+            <alias name='balloon0'/>
+            <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+        </memballoon>
+    </devices>
+</domain>
