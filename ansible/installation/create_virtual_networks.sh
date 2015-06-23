@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # check if we have networks
-if [ "`ls config/network`" != "" ]
+if [ "`ls config/network 2>>/dev/null`" != "" ]
 then 
 	# create virtual networks
 	for virtual_network_xml in config/network/*.xml
