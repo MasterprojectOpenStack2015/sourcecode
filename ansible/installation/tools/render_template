@@ -1,0 +1,22 @@
+#!/usr/bin/python
+
+import sys
+import jinja2
+
+template_file = sys.argv[1]
+
+variables_for_template = dict()
+
+for line in sys.stdin:
+    variable_name, value = line.split("=", 1)
+    variables_for_template[variable_name] = value
+
+with open(template_file) as open_template_file:
+    content = open_template_file.read()
+
+# from http://jinja.pocoo.org/docs/dev/intro/#basic-api-usage
+template = Template(content)
+sys.stdout.write(template.render(name='John Doe')))
+
+
+
