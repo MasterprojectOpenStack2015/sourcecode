@@ -1,0 +1,8 @@
+# execute with ansible-playbook config/ansible/playbooks/test.yml
+# for roles have a look at https://docs.ansible.com/playbooks_roles.html
+- hosts: all
+  roles: 
+  -  config
+  tasks:
+  - name: echo variable
+    debug: msg="default_login_name {{ config.default_login_name }}"
