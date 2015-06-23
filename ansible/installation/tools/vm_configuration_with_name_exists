@@ -17,17 +17,21 @@ then
 	exit 2
 fi
 
-if [ ! -d $vm_folder/creation.xml ]
+if [ ! -f $vm_folder/creation.xml ]
 then
-	>&2 echo I need a creation.xml in $vm_folder
+	>&2 echo I need a $vm_folder/creation.xml file
 	exit 3
 fi
 
-if [ ! -d $vm_folder/$user_data_cloud_config_file ]
+if [ ! -f $vm_folder/$user_data_cloud_config_file ]
 then
-	>&2 echo I need a $user_data_cloud_config_file in $vm_folder
+	>&2 echo I need a $vm_folder/$user_data_cloud_config_file file
 	exit 4
 fi
 
-
+if [ ! -f $vm_folder/etc_network_interfaces ]
+then
+	>&2 echo I need a $vm_folder/etc_network_interfaces file
+	exit 4
+fi
 
