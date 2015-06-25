@@ -82,6 +82,16 @@ controller_node_ip_address=192.168.122.100
 default_login_name=ubuntu
 
 ###############################################################################
+###### ansible configuration
+
+# generated_ansible_roles_directory is the directory where we generate the 
+# config role. This role contains all variables defined in this configuration 
+# file. Variables can be used in ansible like this: 
+#   {{ config.generated_ansible_roles_directory }}
+# Do not use spaces in this variable. 
+generated_ansible_roles_directory=/etc/ansible/roles
+
+###############################################################################
 ###### setup to make variables valid
 
 # create the downloads directory

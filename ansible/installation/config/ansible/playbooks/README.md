@@ -1,6 +1,12 @@
 Ansible Playbooks
 =================
 
+Content
+-------
+
+We follow [this tutorial](http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html) and also number the steps according to the tutorial.
+
+
 Execution
 ---------
 

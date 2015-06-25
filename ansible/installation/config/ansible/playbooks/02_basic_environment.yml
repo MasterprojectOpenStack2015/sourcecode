@@ -1,0 +1,6 @@
+---
+- include: 02_basic_environment/01_install_openStack_packages.yml
+- include: 02_basic_environment/02_install_sql_database.yml
+- include: 02_basic_environment/03_mysql_secure_installation.yml
+- include: 02_basic_environment/04_message_queue.yml
+
