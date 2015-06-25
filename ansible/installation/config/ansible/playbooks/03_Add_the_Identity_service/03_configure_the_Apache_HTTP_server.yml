@@ -4,8 +4,52 @@
   roles:
     - config
   sudo: True
-  gather_facts: False
+  gather_facts: True
 
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
 
   tasks:
+
+  - name: 1. Edit the /etc/apache2/apache2.conf file and configure the ServerName option to reference the controller node
+    lineinfile: 
+      dest: /etc/apache2/apache2.conf
+      create: yes
+      line: ServerName {{ ansible_hostname }}
+
+  - name: 2. Create the /etc/apache2/sites-available/wsgi-keystone.conf file
+    copy:
+      src: wsgi-keystone.conf
+      dest: /etc/apache2/sites-available/wsgi-keystone.conf
+      owner: root
+      group: root
+      mode: 644
+
+  - name: 3. Enable the Identity service virtual hosts
+    shell: 'ln -s /etc/apache2/sites-available/wsgi-keystone.conf /etc/apache2/sites-enabled'
+  
+  - name: 4. Create the directory structure for the WSGI components
+    shell: 'mkdir -p /var/www/cgi-bin/keystone'
+
+  - name: 5. Copy the WSGI components from the upstream repository into this directory
+    copy: 
+      src: keystone.py?h=stable%2Fkilo
+      dest: "{{ item }}"
+      owner: root
+      group: root
+      mode: 644
+    with_items:
+    - /var/www/cgi-bin/keystone/main 
+    - /var/www/cgi-bin/keystone/admin
+
+  - name: 6. Adjust ownership and permissions on this directory and the files in it
+    shell: 'chown -R keystone:keystone /var/www/cgi-bin/keystone; chmod 755 /var/www/cgi-bin/keystone/*'
+     
+# To finalize installation
+
+  - name: restart apache2
+    service: 
+      name: apache2
+      state: restarted
+
+  - name: this configuration uses a SQL database server, you can remove the SQLite database file
+    shell: 'rm -f /var/lib/keystone/keystone.db'
