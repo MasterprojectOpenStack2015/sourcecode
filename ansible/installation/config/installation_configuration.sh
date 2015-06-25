@@ -5,6 +5,20 @@
 #
 
 ###############################################################################
+###### network configuration
+
+# test_node_ip_address is the ip address of the controller node in the 
+# default network.
+test_node_ip_address=192.168.122.100
+controller_node_ip_address=192.168.122.100
+controller_node_hostname=test1
+
+# default_login_name is the log in name of the ansible user for the vm.
+# If you change the image e.g. by changing vm_image_url, consider that this
+# variable needs to be changed, too.
+default_login_name=ubuntu
+
+###############################################################################
 ###### passwords
 
 # The default_password variable should never be used directly in a script.
@@ -39,6 +53,20 @@ keystone_admin_token=aec9d3a0ebc52d1fedc7
 # keystone_database_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
 keystone_database_password=$default_password
+
+# keystone_os_token
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
+# OS_TOKEN=ADMIN_TOKEN
+keystone_os_token=$keystone_admin_token
+
+###############################################################################
+###### configuration for keystone
+
+# keystone_os_url
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
+# OS_URL=http://controller:35357/v2.0
+# For the port 35357 see "wsgi-keystone.conf".
+keystone_os_url=http://${controller_node_hostname}:35357/v2.0
 
 ###############################################################################
 ###### configuration for download
@@ -89,19 +117,6 @@ authorized_private_key_file_for_access_to_the_vm=~/.ssh/id_rsa
 # access the vm once it is started. If the password is empty you can not log in
 # with a password.
 authorized_password_for_access_to_the_vm=$default_password
-
-###############################################################################
-###### network configuration
-
-# test_node_ip_address is the ip address of the controller node in the 
-# default network.
-test_node_ip_address=192.168.122.100
-controller_node_ip_address=192.168.122.100
-
-# default_login_name is the log in name of the ansible user for the vm.
-# If you change the image e.g. by changing vm_image_url, consider that this
-# variable needs to be changed, too.
-default_login_name=ubuntu
 
 ###############################################################################
 ###### ansible configuration

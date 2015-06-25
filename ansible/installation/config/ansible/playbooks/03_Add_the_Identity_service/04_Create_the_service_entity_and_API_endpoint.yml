@@ -1,0 +1,10 @@
+---
+- name: configure the Apache HTTP server
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: True
+
+  - name: TODO
+    debug: msg="morgen hier weiter bauen"
