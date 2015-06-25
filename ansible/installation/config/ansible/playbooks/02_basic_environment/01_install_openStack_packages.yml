@@ -3,6 +3,7 @@
 # see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
 # for sudo: yes
   sudo: yes
+  gather_facts: False
   tasks:
   - name: update the cache
     apt:       

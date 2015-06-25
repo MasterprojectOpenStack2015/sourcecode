@@ -1,0 +1,4 @@
+---
+- include: 01_configure_prerequisites.yml
+- include: 02_install_and_configure_the_Identity_service_components.yml
+- include: 03_configure_the_Apache_HTTP_server.yml

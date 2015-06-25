@@ -1,2 +1,3 @@
 ---
-- include: 02_basic_environment.yml
+- include: 02_basic_environment/main.yml
+- include: 03_Add_the_Identity_service/main.yml

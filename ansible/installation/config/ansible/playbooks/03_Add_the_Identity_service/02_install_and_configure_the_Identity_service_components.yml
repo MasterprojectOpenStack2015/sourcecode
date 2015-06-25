@@ -1,0 +1,97 @@
+---
+- name: install and configure the Identity service components
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+
+  tasks:
+  - name: Disable the keystone service from starting automatically after installation
+    shell: echo "manual" > /etc/init/keystone.override
+
+  - name: install the packages
+    apt: pkg={{item}} state=installed
+    with_items:
+    - keystone
+    - python-openstackclient
+    - apache2
+    - libapache2-mod-wsgi
+    - memcached
+    - python-memcache
+
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
+# Edit the /etc/keystone/keystone.conf
+
+  - name: (a) define the value of the initial administration token
+    ini_file: dest=/etc/keystone/keystone.conf
+              section=DEFAULT
+              option=admin_token
+              value={{ config.keystone_admin_token }}
+              backup=yes
+
+  - name: (b) configure database access
+    ini_file: dest=/etc/keystone/keystone.conf
+              section=database
+              option=connection
+              value=mysql://keystone:{{ config.keystone_database_password }}@{{ config.controller_node_ip_address }}/keystone
+              backup=yes
+
+  - name: (c) configure the Memcache service
+    ini_file: dest=/etc/keystone/keystone.conf
+              section=memcache
+              option=servers
+              value=localhost:11211
+              backup=yes
+
+  - name: (d.1) configure the UUID token provider
+    ini_file: dest=/etc/keystone/keystone.conf
+              section=token
+              option=provider
+              value=keystone.token.providers.uuid.Provider
+              backup=yes
+
+  - name: (d.2) configure the Memcached driver
+    ini_file: dest=/etc/keystone/keystone.conf
+              section=token
+              option=driver
+              value=keystone.token.persistence.backends.memcache.Token
+              backup=yes
+ 
+  - name: (e) configure the SQL revocation driver
+    ini_file: dest=/etc/keystone/keystone.conf
+              section=revoke
+              option=driver
+              value=keystone.contrib.revoke.backends.sql.Revoke
+              backup=yes
+  
+  - name: (f) To assist with troubleshooting, enable verbose logging
+    ini_file: dest=/etc/keystone/keystone.conf
+              section=DEFAULT
+              option=verbose
+              value=True
+              backup=yes
+
+  - name: Populate the Identity service database
+    shell: su -s /bin/sh -c "keystone-manage db_sync" keystone
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+---
+- name: configure the Apache HTTP server
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
+
+  tasks:

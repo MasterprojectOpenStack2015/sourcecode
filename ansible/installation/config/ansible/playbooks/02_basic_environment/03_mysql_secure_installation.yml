@@ -1,5 +1,6 @@
 ---
 - hosts: controller
+  gather_facts: True
   sudo: yes
   roles:
   - config
@@ -21,8 +22,8 @@
   - name: Change root user password on first run
     mysql_user: login_user=root
                 login_password=''
-                name=root
-                password={{ config.mysql_password }}
+                name={{ config.mysql_login_user }}
+                password={{ config.mysql_login_password }}
                 priv=*.*:ALL,GRANT
                 host={{ item }}
     with_items:
