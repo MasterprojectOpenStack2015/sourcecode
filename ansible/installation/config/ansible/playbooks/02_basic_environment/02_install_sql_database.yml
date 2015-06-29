@@ -1,5 +1,6 @@
 ---
-- hosts: controller
+- name: install SQL database
+  hosts: controller
   gather_facts: False
   sudo: yes
   roles:

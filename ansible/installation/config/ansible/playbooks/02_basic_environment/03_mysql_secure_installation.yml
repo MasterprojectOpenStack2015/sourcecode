@@ -1,5 +1,6 @@
 ---
-- hosts: controller
+- name: MySQL secure installation
+  hosts: controller
   gather_facts: True
   sudo: yes
   roles:

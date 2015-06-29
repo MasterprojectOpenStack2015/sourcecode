@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: install the OpenStack packages
+  hosts: all
 # see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
 # for sudo: yes
   sudo: yes

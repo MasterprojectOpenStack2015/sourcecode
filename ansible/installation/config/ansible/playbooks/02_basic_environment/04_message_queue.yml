@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: install message queue
+  hosts: all
   gather_facts: False
 # see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
 # for sudo: yes
