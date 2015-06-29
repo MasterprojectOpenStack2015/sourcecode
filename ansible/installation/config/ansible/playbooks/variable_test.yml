@@ -6,4 +6,5 @@
   -  config
   tasks:
   - name: echo variable
-    debug: msg="default_login_name {{ config.default_login_name }}"
+    debug: msg="default_password {{ config.default_password }}"
+

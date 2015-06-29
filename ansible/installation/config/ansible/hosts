@@ -1,6 +1,6 @@
 
 [controller]
-	{{ default_login_name }}@{{ test_node_ip_address }}
+	{{ test_node_ip_address }}
 
 [network]
 

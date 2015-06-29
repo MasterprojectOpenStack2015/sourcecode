@@ -13,11 +13,6 @@ test_node_ip_address=192.168.122.100
 controller_node_ip_address=192.168.122.100
 controller_node_hostname=test1
 
-# default_login_name is the log in name of the ansible user for the vm.
-# If you change the image e.g. by changing vm_image_url, consider that this
-# variable needs to be changed, too.
-default_login_name=ubuntu
-
 ###############################################################################
 ###### passwords
 
@@ -75,7 +70,8 @@ keystone_os_url=http://${controller_node_hostname}:35357/v2.0
 downloads_directory='/tmp/openstack_installation/downloads'
 
 # vm_image_url is the url for the image in the vms.
-# When you change this also change vm_image_md5_hash and default_login_name.
+# When you change this also change vm_image_md5_hash and 
+#   maybe also remote_user in ansible.cfg.
 # I had a look at https://cloud-images.ubuntu.com/trusty/ for the url.
 # For the current release you can use https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
 vm_image_url='https://cloud-images.ubuntu.com/trusty/20150313/trusty-server-cloudimg-amd64-disk1.img'
@@ -115,7 +111,8 @@ authorized_private_key_file_for_access_to_the_vm=~/.ssh/id_rsa
 
 # authorized_password_for_access_to_the_vm is the password that allows us to 
 # access the vm once it is started. If the password is empty you can not log in
-# with a password.
+# with a password. Also see the ansible.cfg file. It contains a "remote_user" 
+# variable that sets the ansible remote user.
 authorized_password_for_access_to_the_vm=
 
 ###############################################################################
