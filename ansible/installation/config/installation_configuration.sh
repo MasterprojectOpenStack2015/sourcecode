@@ -116,7 +116,7 @@ authorized_private_key_file_for_access_to_the_vm=~/.ssh/id_rsa
 # authorized_password_for_access_to_the_vm is the password that allows us to 
 # access the vm once it is started. If the password is empty you can not log in
 # with a password.
-authorized_password_for_access_to_the_vm=$default_password
+authorized_password_for_access_to_the_vm=
 
 ###############################################################################
 ###### ansible configuration
