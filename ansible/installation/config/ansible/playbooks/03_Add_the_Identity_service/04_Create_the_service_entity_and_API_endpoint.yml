@@ -5,6 +5,6 @@
     - config
   sudo: True
   gather_facts: True
-
+  tasks:
   - name: TODO
     debug: msg="morgen hier weiter bauen"
