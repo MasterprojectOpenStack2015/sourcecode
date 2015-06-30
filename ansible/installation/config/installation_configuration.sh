@@ -47,12 +47,12 @@ keystone_admin_token=aec9d3a0ebc52d1fedc7
 
 # keystone_database_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
-keystone_database_password=keystone_database_password_$default_password
+keystone_database_password=$keystone_mysql_password
 
 # keystone_os_token
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
 # OS_TOKEN=ADMIN_TOKEN
-keystone_os_token=keystone_os_token_$keystone_admin_token
+keystone_os_token=$keystone_admin_token
 
 # openstack_admin_user_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-users.html
