@@ -34,11 +34,11 @@ mysql_login_user=root
 
 # rabbitmq_password is the password used for the rabbit message queue.
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html#basics-message-queue
-rabbitmq_password=$default_password
+rabbitmq_password=rabbitmq_password_$default_password
 
 # keystone_mysql_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
-keystone_mysql_password=$default_password
+keystone_mysql_password=keystone_mysql_password_$default_password
 
 # keystone_admin_token 
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
@@ -47,12 +47,22 @@ keystone_admin_token=aec9d3a0ebc52d1fedc7
 
 # keystone_database_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
-keystone_database_password=$default_password
+keystone_database_password=keystone_database_password_$default_password
 
 # keystone_os_token
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
 # OS_TOKEN=ADMIN_TOKEN
-keystone_os_token=$keystone_admin_token
+keystone_os_token=keystone_os_token_$keystone_admin_token
+
+# openstack_admin_user_password
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-users.html
+# this is the password for the openstack user 'admin'
+openstack_admin_user_password=openstack_admin_user_password_$default_password
+
+# openstack_demo_user_password
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-users.html
+# this is the password for the openstack user 'demo'
+openstack_demo_user_password=openstack_demo_user_password_$default_password
 
 ###############################################################################
 ###### configuration for keystone
@@ -61,7 +71,15 @@ keystone_os_token=$keystone_admin_token
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
 # OS_URL=http://controller:35357/v2.0
 # For the port 35357 see "wsgi-keystone.conf".
+# This is the admin interface url for the identity service
 keystone_os_url=http://${controller_node_hostname}:35357/v2.0
+
+# In step 3.04 of http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
+# we create the identity service and configure the http ports for access
+# OpenStack uses three API endpoint variants for each service: admin, internal, and public. The admin API endpoint allows modifying users and tenants by default, while the public and internal APIs do not. In a production environment, the variants might reside on separate networks that service different types of users for security reasons. For instance, the public API network might be reachable from outside the cloud for management tools, the admin API network might be protected, while the internal API network is connected to each host. Also, OpenStack supports multiple regions for scalability. For simplicity, this guide uses the management network for all endpoint variations and the default RegionOne region.
+identity_admin_url=$keystone_os_url
+identity_public_url=http://${controller_node_hostname}:5000/v2.0
+identity_internal_url=$identity_public_url
 
 ###############################################################################
 ###### configuration for download
