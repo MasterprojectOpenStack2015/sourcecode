@@ -1,0 +1,3 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+- include: 01_configure_prerequisites.yml

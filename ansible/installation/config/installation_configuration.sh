@@ -54,6 +54,14 @@ keystone_database_password=$default_password
 # OS_TOKEN=ADMIN_TOKEN
 keystone_os_token=$keystone_admin_token
 
+# glance_mysql_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+glance_mysql_password=$default_password
+
+# glance_mysql_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+glance_user_password=$default_password
+
 ###############################################################################
 ###### configuration for keystone
 
@@ -62,6 +70,15 @@ keystone_os_token=$keystone_admin_token
 # OS_URL=http://controller:35357/v2.0
 # For the port 35357 see "wsgi-keystone.conf".
 keystone_os_url=http://${controller_node_hostname}:35357/v2.0
+
+
+###############################################################################
+###### configuration for glance
+
+# glance_os_url
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+glance_os_url=http://${controller_node_hostname}:9292
+
 
 ###############################################################################
 ###### configuration for download

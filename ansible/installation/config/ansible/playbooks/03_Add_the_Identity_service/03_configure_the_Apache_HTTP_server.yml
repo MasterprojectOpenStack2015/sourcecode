@@ -32,7 +32,7 @@
 
   - name: 5. Copy the WSGI components from the upstream repository into this directory
     copy: 
-      src: keystone.py?h=stable%2Fkilo
+      src: keystone.py
       dest: "{{ item }}"
       owner: root
       group: root
