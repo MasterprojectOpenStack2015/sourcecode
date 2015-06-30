@@ -1,0 +1,111 @@
+---
+- name:  "Install and configure the Image service components"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+  - name: Install glance
+    apt: pkg={{item}} state=installed
+    with_items:
+    - glance 
+    - python-glanceclient
+
+
+#/etc/glance/glance-api.conf file:
+  - name: "(a) In the [database] section, configure database access:"
+    ini_file: dest=/etc/glance/glance-api.conf
+              section=database
+              option=connection
+              value=mysql://glance:{{ config.glance_mysql_password }}@{{ config.controller_node_hostname }}/glance
+              backup=yes
+
+  - name: "Comment out or remove any other options in the [keystone_authtoken] section."
+    ini_file: dest=/etc/glance/glance-api.conf
+              section=keystone_authtoken
+              state=absent
+
+  - name: "(b) In the [keystone_authtoken] and [paste_deploy] sections, configure Identity service access:"
+    ini_file: dest=/etc/glance/glance-api.conf
+              section=keystone_authtoken
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=yes
+    with_items:
+    - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+    - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+    - { option: 'auth_plugin', value: 'password' }
+    - { option: 'project_domain_id', value: 'default' }
+    - { option: 'user_domain_id', value: 'default' }
+    - { option: 'project_name', value: 'service' }
+    - { option: 'username', value: 'glance' }
+    - { option: 'password', value: '{{ config.glance_user_password }}' }
+
+    ini_file: dest=/etc/glance/glance-api.conf
+              section=paste_deploy
+              option=flavor
+              value=keystone
+              backup=yes
+
+  - name: "(c) In the [glance_store] section, configure the local file system store and location of image files:"
+    ini_file: dest=/etc/glance/glance-api.conf
+              section=glance_store
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=yes
+    with_items:
+    - { option: 'default_store', value: 'file' }
+    - { option: 'filesystem_store_datadir', value: '/var/lib/glance/images/' }
+
+  - name: "(d,e) In the [DEFAULT] section, configure the noop notification driver to disable notifications because they only pertain to the optional Telemetry service and enable verbose debug output"
+    ini_file: dest=/etc/glance/glance-api.conf
+              section=DEFAULT
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=yes
+    with_items:
+    - { option: 'notification_driver', value: 'noop' }
+    - { option: 'verbose', value: 'True' }
+
+#/etc/glance/glance-registry.conf file:
+  - name: "(a) In the [database] section, configure database access:"
+    ini_file: dest=/etc/glance/glance-registry.conf
+              section=database
+              option=connection
+              value=mysql://glance:{{ config.glance_mysql_password }}@{{ config.controller_node_hostname }}/glance
+              backup=yes
+
+  - name: "(b) In the [keystone_authtoken] and [paste_deploy] sections, configure Identity service access:"
+    ini_file: dest=/etc/glance/glance-registry.conf
+              section=keystone_authtoken
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=yes
+    with_items:
+    - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+    - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+    - { option: 'auth_plugin', value: 'password' }
+    - { option: 'project_domain_id', value: 'default' }
+    - { option: 'user_domain_id', value: 'default' }
+    - { option: 'project_name', value: 'service' }
+    - { option: 'username', value: 'glance' }
+    - { option: 'password', value: '{{ config.glance_user_password }}' }
+    ini_file: dest=/etc/glance/glance-registry.conf
+              section=paste_deploy
+              option=flavor
+              value=keystone
+              backup=yes
+  - name: "(d,e) In the [DEFAULT] section, configure the noop notification driver to disable notifications because they only pertain to the optional Telemetry service and enable verbose debug output"
+    ini_file: dest=/etc/glance/glance-registry.conf
+              section=DEFAULT
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=yes
+    with_items:
+    - { option: 'notification_driver', value: 'noop' }
+    - { option: 'verbose', value: 'True' }
+
+  - name: Populate the Image service database
+    sudo: False
+    shell: "glance-manage db_sync"

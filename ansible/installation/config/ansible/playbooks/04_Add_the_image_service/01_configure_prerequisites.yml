@@ -1,5 +1,3 @@
-# copied from https://github.com/openstack-ansible/openstack-ansible
-# see their license file for license information GGPL
 ---
 - name:  "create glance database, service credentials and API endpoint"
   hosts: controller

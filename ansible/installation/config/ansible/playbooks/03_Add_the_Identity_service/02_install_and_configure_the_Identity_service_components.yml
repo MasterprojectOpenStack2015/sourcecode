@@ -57,14 +57,14 @@
               option=driver
               value=keystone.token.persistence.backends.memcache.Token
               backup=yes
- 
+
   - name: (e) configure the SQL revocation driver
     ini_file: dest=/etc/keystone/keystone.conf
               section=revoke
               option=driver
               value=keystone.contrib.revoke.backends.sql.Revoke
               backup=yes
-  
+
   - name: (f) To assist with troubleshooting, enable verbose logging
     ini_file: dest=/etc/keystone/keystone.conf
               section=DEFAULT

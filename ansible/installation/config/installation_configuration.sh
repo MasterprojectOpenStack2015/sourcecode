@@ -58,7 +58,7 @@ keystone_os_token=$keystone_admin_token
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
 glance_mysql_password=$default_password
 
-# glance_mysql_password
+# glance_user_password
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
 glance_user_password=$default_password
 
