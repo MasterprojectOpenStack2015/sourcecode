@@ -19,6 +19,12 @@ then
 	sudo apt-get -y install bzr
 fi
 
+if ! type virt-manager > /dev/null
+then
+	# for the virtual machine manager
+	sudo apt-get -y install virt-manager
+fi
+
 if ! python -c "import jinja2"
 then
 	# install Jinja2 for template instanciation

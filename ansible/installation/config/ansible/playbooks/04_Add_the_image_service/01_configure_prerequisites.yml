@@ -1,0 +1,37 @@
+---
+- name:  "create glance database, service credentials and API endpoint"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  environment:
+    OS_TOKEN: "{{ config.keystone_os_token }}"
+    OS_URL: "{{ config.keystone_os_url }}"
+  tasks:
+    - name: Create the glance database
+      mysql_db: 
+        login_user: "{{ config.mysql_login_user }}"
+        login_password: "{{ config.mysql_login_password }}"
+        name: glance
+        state: present
+
+    - name: ensure keystone database user is present
+      mysql_user: 
+        login_user: "{{ config.mysql_login_user }}"
+        login_password: "{{ config.mysql_login_password }}"
+        name: glance 
+        host: "{{ item }}" 
+        password: "{{ config.glance_mysql_password }}" 
+        priv: glance.*:ALL
+      with_items:
+        - "%"
+        - localhost
+    - name: Create the glance user
+      shell: "openstack user create --password {{ config.glance_user_password }} glance"
+    - name: Add the admin role to the glance user and service project
+      shell: "openstack role add --project service --user glance admin"
+    - name: Create the glance service entity
+      shell: "openstack service create --name glance --description 'OpenStack Image service' image"
+    - name: Create the Image service API endpoint
+      shell: "openstack endpoint create --publicurl {{ config.glance_os_url }} --internalurl {{ config.glance_os_url }} --adminurl {{ config.glance_os_url }} --region RegionOne image"

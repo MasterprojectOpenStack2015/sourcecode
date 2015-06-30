@@ -64,6 +64,15 @@ openstack_admin_user_password=openstack_admin_user_password_$default_password
 # this is the password for the openstack user 'demo'
 openstack_demo_user_password=openstack_demo_user_password_$default_password
 
+# glance_mysql_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+glance_mysql_password=$default_password
+
+# glance_user_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+glance_user_password=$default_password
+
+
 ###############################################################################
 ###### configuration for keystone
 
@@ -80,6 +89,15 @@ keystone_os_url=http://${controller_node_hostname}:35357/v2.0
 identity_admin_url=$keystone_os_url
 identity_public_url=http://${controller_node_hostname}:5000/v2.0
 identity_internal_url=$identity_public_url
+
+
+###############################################################################
+###### configuration for glance
+
+# glance_os_url
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+glance_os_url=http://${controller_node_hostname}:9292
+
 
 ###############################################################################
 ###### configuration for download
