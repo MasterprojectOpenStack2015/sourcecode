@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+  - name: TODO
+    debug: msg="TODO"
+
