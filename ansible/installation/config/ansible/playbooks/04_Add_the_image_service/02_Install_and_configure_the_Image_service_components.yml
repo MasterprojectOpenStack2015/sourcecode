@@ -107,5 +107,5 @@
     - { option: 'verbose', value: 'True' }
 
   - name: Populate the Image service database
-    sudo: False
-    shell: "glance-manage db_sync"
+    sudo: True
+    shell: 'su -s /bin/sh -c "glance-manage db_sync" glance'
