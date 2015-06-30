@@ -8,6 +8,7 @@ mkdir -p $downloaded_vm_image_folder
 
 # test if we need a download
 ## multiple arguments to if http://stackoverflow.com/a/16203126
+#TODO: shows error (but works) for case of empty vm_image_md5_hash variable. maybe supress that?
 if [ ! -f $downloaded_vm_image_folder/* ] || \
    [ `tools/hash_of_downloaded_vm_image` != $vm_image_md5_hash ]
 then

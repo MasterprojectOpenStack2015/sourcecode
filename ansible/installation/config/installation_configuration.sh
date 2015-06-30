@@ -98,6 +98,8 @@ vm_image_url='https://cloud-images.ubuntu.com/trusty/20150313/trusty-server-clou
 # It is used to avoid duplicate downloads.
 # If this hash does not fit, the image will be downloaded
 # every time the vms are set up.
+# If the hash is empty there will be no check. When you interrupt the download
+# you may need to delete $downloads_directory manually.
 vm_image_md5_hash=ba8c94999ca0d5052ccc0d4b12b9aca4
 
 # downloaded_vm_image_folder is the folder where the downloaded vm image is 
