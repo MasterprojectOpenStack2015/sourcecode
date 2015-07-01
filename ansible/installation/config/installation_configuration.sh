@@ -66,28 +66,34 @@ openstack_demo_user_password=openstack_demo_user_password_$default_password
 
 # glance_mysql_password
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
-glance_mysql_password=$default_password
+glance_mysql_password=glance_mysql_password_$default_password
 
 # glance_user_password
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
-glance_user_password=$default_password
+glance_user_password=glance_user_password_$default_password
 
 
 ###############################################################################
 ###### configuration for keystone
+
+# os_auth_..._url is the url that authentication goes towards
+# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-verify.html
+# openstack --os-auth-url "$os_auth_admin_url"
+os_auth_admin_url=http://${controller_node_hostname}:35357
+os_auth_user_url=http://${controller_node_hostname}:5000
 
 # keystone_os_url
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
 # OS_URL=http://controller:35357/v2.0
 # For the port 35357 see "wsgi-keystone.conf".
 # This is the admin interface url for the identity service
-keystone_os_url=http://${controller_node_hostname}:35357/v2.0
+keystone_os_url=${os_auth_admin_url}/v2.0
 
 # In step 3.04 of http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
 # we create the identity service and configure the http ports for access
 # OpenStack uses three API endpoint variants for each service: admin, internal, and public. The admin API endpoint allows modifying users and tenants by default, while the public and internal APIs do not. In a production environment, the variants might reside on separate networks that service different types of users for security reasons. For instance, the public API network might be reachable from outside the cloud for management tools, the admin API network might be protected, while the internal API network is connected to each host. Also, OpenStack supports multiple regions for scalability. For simplicity, this guide uses the management network for all endpoint variations and the default RegionOne region.
 identity_admin_url=$keystone_os_url
-identity_public_url=http://${controller_node_hostname}:5000/v2.0
+identity_public_url=${os_auth_user_url}/v2.0
 identity_internal_url=$identity_public_url
 
 
