@@ -66,6 +66,7 @@
       - user
 
   - name: 8. As the demo user, request an authentication token from the Identity version 3 API
+    # it works with the config.os_auth_admin_url
     shell: openstack --os-auth-url "{{ config.os_auth_user_url }}" \
                      --os-project-domain-id default --os-user-domain-id default \
                      --os-project-name demo --os-username demo \
