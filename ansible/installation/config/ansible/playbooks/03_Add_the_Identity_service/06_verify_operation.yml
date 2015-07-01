@@ -66,11 +66,11 @@
       - user
 
   - name: 8. As the demo user, request an authentication token from the Identity version 3 API
-    shell: openstack --os-auth-url "{{ config.os_auth_admin_url }}" \
+    shell: openstack --os-auth-url "{{ config.os_auth_user_url }}" \
                      --os-project-domain-id default --os-user-domain-id default \
                      --os-project-name demo --os-username demo \
                      --os-password "{{ config.openstack_demo_user_password }}" \
-                     --os-auth-type password \
+                     --os-auth-type password -vvv \
                      token issue
 
   - name: 9. As the demo user, attempt to list users to verify that it cannot execute admin-only CLI commands
