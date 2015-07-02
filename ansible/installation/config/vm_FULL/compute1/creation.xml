@@ -1,0 +1,56 @@
+<domain type='kvm'>
+    <name>{{ vm_name }}</name>
+    <memory>4097152</memory>
+    <vcpu>1</vcpu>
+    
+    <cpu>
+    <model>Westmere</model>
+        <feature policy='require' name='vmx' />
+    </cpu>
+
+    <features>
+        <acpi/>
+    </features>
+
+    <os>
+        <type>hvm</type>
+        <boot dev="hd" />
+    </os>
+
+    <devices>
+        <disk type='file' device='disk'>
+            <driver type='qcow2' cache='none'/>
+            <source file='{{ vm_image_file }}'/>
+            <target dev='vda' bus='virtio'/>
+        </disk>
+        <disk type='file' device='disk'>
+            <source file='{{ user_data_vm_config_image }}'/>
+            <target dev='vdb' bus='virtio'/>
+        </disk>
+
+        <interface type='network'>
+            <source network='management'/>
+            <model type='virtio'/>
+        </interface>
+        <interface type='network'>
+            <source network='neutron-tunnel'/>
+            <model type='virtio'/>
+        </interface>
+
+
+        <input type='mouse' bus='ps2'/>
+            <input type='keyboard' bus='ps2'/>
+            <graphics type='vnc' autoport='yes' listen='127.0.0.1'>
+                  <listen type='address' address='127.0.0.1'/>
+            </graphics>
+        <video>
+            <model type='cirrus' vram='9216' heads='1'/>
+            <alias name='video0'/>
+            <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+        </video>
+        <memballoon model='virtio'>
+            <alias name='balloon0'/>
+            <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+        </memballoon>
+    </devices>
+</domain>

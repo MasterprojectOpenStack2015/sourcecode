@@ -1,7 +1,8 @@
-
 [controller]
-	{{ test_node_ip_address }}
+{{ controller_node_ip_address }}
 
 [network]
+{{ network_node_ip_address }}
 
 [compute]
+{{ compute1_node_ip_address }}

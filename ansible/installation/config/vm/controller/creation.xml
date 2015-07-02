@@ -1,6 +1,6 @@
 <domain type='kvm'>
-    <name>controller</name>
-    <memory>1073741824</memory>
+    <name>{{ vm_name }}</name>
+    <memory>1024288</memory>
     <vcpu>1</vcpu>
 
     <features>
@@ -15,11 +15,11 @@
     <devices>
         <disk type='file' device='disk'>
             <driver type='qcow2' cache='none'/>
-            <source file='/tmp/openstack_installation/images/controller.img'/>
+            <source file='{{ vm_image_file }}'/>
             <target dev='vda' bus='virtio'/>
         </disk>
         <disk type='file' device='disk'>
-            <source file='/tmp/openstack_installation/images/controller_user-data.cloud-config.img'/>
+            <source file='{{ user_data_vm_config_image }}'/>
             <target dev='vdb' bus='virtio'/>
         </disk>
 

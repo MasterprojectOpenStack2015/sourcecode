@@ -9,9 +9,25 @@
 
 # test_node_ip_address is the ip address of the controller node in the 
 # default network.
-test_node_ip_address=192.168.122.100
-controller_node_ip_address=192.168.122.100
-controller_node_hostname=test1
+ip_management_prefix=192.168.100
+ip_tunnel_prefix=192.168.101
+
+ip_controller_suffix=11
+ip_network_suffix=21
+ip_compute1_suffix=31
+ip_compute2_suffix=32
+
+controller_node_ip_address=$ip_management_prefix.$ip_controller_suffix
+network_node_ip_address=$ip_management_prefix.$ip_network_suffix
+compute1_node_ip_address=$ip_management_prefix.$ip_compute1_suffix
+compute2_node_ip_address=$ip_management_prefix.$ip_compute2_suffix
+
+controller_node_hostname=controller
+network_node_hostname=network
+compute1_node_hostname=compute1
+compute2_node_hostname=compute2
+
+test_node_ip_address=$controller_node_ip_address
 
 ###############################################################################
 ###### passwords
@@ -71,6 +87,14 @@ glance_mysql_password=glance_mysql_password_$default_password
 # glance_user_password
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
 glance_user_password=glance_user_password_$default_password
+
+# nova_mysql_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html#compute-service
+nova_mysql_password=nova_mysql_password_$default_password
+
+# nova_user_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html#compute-service
+nova_user_password=nova_user_password_$default_password
 
 
 ###############################################################################

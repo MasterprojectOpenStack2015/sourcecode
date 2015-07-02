@@ -1,7 +1,12 @@
 <domain type='kvm'>
-    <name>network</name>
-    <memory>1073741824</memory>
+    <name>{{ vm_name }}</name>
+    <memory>2048576</memory>
     <vcpu>1</vcpu>
+    
+    <cpu>
+    <model>Westmere</model>
+        <feature policy='require' name='vmx' />
+    </cpu>
 
     <features>
         <acpi/>
@@ -15,11 +20,11 @@
     <devices>
         <disk type='file' device='disk'>
             <driver type='qcow2' cache='none'/>
-            <source file='/tmp/openstack_installation/images/network.img'/>
+            <source file='{{ vm_image_file }}'/>
             <target dev='vda' bus='virtio'/>
         </disk>
         <disk type='file' device='disk'>
-            <source file='/tmp/openstack_installation/images/network_user-data.cloud-config.img'/>
+            <source file='{{ user_data_vm_config_image }}'/>
             <target dev='vdb' bus='virtio'/>
         </disk>
 
@@ -31,10 +36,7 @@
             <source network='neutron-tunnel'/>
             <model type='virtio'/>
         </interface>
-        <interface type='network'>
-            <source network='external'/>
-            <model type='virtio'/>
-        </interface>
+
 
         <input type='mouse' bus='ps2'/>
             <input type='keyboard' bus='ps2'/>
