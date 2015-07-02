@@ -1,0 +1,28 @@
+---
+- name:  "Verify Operation"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  environment: 
+    OS_TOKEN: "{{ config.keystone_os_token }}"
+    OS_URL: "{{ config.keystone_os_url }}"
+    OS_IMAGE_API_VERSION: "2"
+    OS_USERNAME: admin
+    OS_PASSWORD: "{{ config.openstack_admin_user_password }}"
+  tasks:
+    - name: "Create a temporary local directory:"
+      file: path=/tmp/images state=directory
+
+    - name: "Download the source image into it:"
+      shell: "wget -P /tmp/images http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img"
+
+    - name: "Upload the image to the Image service using the QCOW2 disk format, bare container format, and public visibility so all projects can access it:"
+      shell: glance image-create --name cirros-0.3.4-x86_64 --file /tmp/images/cirros-0.3.4-x86_64-disk.img --disk-format qcow2 --container-format bare --is-public True
+
+    - name: "Confirm upload of the image and validate attributes:"
+      shell: "glance image-list"
+
+    - name: "Remove the temporary local directory and source image:"
+      file: path=/tmp/images state=absent
