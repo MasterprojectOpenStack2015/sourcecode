@@ -8,15 +8,15 @@
   tasks:
   - name: "Restart the Compute services:"
     service: 
-      name: {{ item }}
+      name: "{{ item }}"
       state: restarted
-    with_items:
-    - nova-api
-    - nova-cert
-    - nova-consoleauth
-    - nova-scheduler
-    - nova-conductor
-    - nova-novncproxy
+      with_items:
+      - nova-api
+      - nova-cert
+      - nova-consoleauth
+      - nova-scheduler
+      - nova-conductor
+      - nova-novncproxy
 
   - name: "Because this configuration uses a SQL database server, you can remove the SQLite database file"
     shell: "rm -f /var/lib/nova/nova.sqlite"
