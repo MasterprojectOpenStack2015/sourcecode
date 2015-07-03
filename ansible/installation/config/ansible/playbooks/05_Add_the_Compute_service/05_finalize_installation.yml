@@ -13,5 +13,6 @@
     service: 
       name: nova-compute
       state: restarted
+
   - name: "Because this configuration uses a SQL database server, you can remove the SQLite database file"
     shell: "rm -f /var/lib/nova/nova.sqlite"

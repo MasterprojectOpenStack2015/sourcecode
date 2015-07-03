@@ -52,6 +52,7 @@
       - { option: 'project_domain_id', value: 'default' }
       - { option: 'user_domain_id', value: 'default' }
       - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'nova' }
       - { option: 'password', value: '{{ config.nova_user_password }}' }
 
     - name: "(d) Edit /etc/nova/nova.conf [glance] section"
