@@ -1,0 +1,28 @@
+---
+- name:  "Enable the metadata proxy network node"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+# To configure the Networking common components
+    - name: "edit the /etc/nova/nova.conf file"
+      ini_file: dest=/etc/nova/nova.conf
+                section=neutron
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'service_metadata_proxy', value: 'True' }
+      - { option: 'metadata_proxy_shared_secret', value: '{{ config.metadata_proxy_shared_secret }}' }
+
+    - name: "Restart the Compute API service"
+      ini_file: dest=/etc/nova/nova.conf
+                section=neutron
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'service_metadata_proxy', value: 'True' }
+      - { option: 'metadata_proxy_shared_secret', value: '{{ config.metadata_proxy_shared_secret }}' }

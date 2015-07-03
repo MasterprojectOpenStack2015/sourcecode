@@ -1,0 +1,33 @@
+---
+- name:  "Network - configure prerequisites"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  environment:
+    OS_TOKEN: "{{ config.keystone_os_token }}"
+    OS_URL: "{{ config.keystone_os_url }}"
+  tasks:
+    - name: "Edit the /etc/sysctl.conf file to contain the following parameters"
+      lineinfile: 
+        dest: /etc/sysctl.conf
+        line: "{{ item }}"
+        state: present
+        create: yes
+        with_items:
+        - "net.ipv4.ip_forward=1"
+        - "net.ipv4.conf.all.rp_filter=0"
+        - "net.ipv4.conf.default.rp_filter=0"
+
+    - name: "Edit the /etc/sysctl.conf file to contain the following parameters"
+      shell: "sysctl -p"
+
+    - name: "install the Networking components"
+      apt: pkg={{item}} state=installed
+      with_items:
+      - neutron-plugin-ml2
+      - neutron-plugin-openvswitch-agent
+      - neutron-l3-agent
+      - neutron-dhcp-agent
+      - neutron-metadata-agent
