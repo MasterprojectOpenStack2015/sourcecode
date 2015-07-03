@@ -29,6 +29,8 @@ compute2_node_hostname=compute2
 
 test_node_ip_address=$controller_node_ip_address
 
+network_node_external_interface_name=eth2
+
 ###############################################################################
 ###### passwords
 
@@ -104,6 +106,10 @@ neutron_mysql_password=neutron_mysql_password_$default_password
 # neutron_user_password
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-controller-node.html
 neutron_user_password=neutron_user_password_$default_password
+
+# metadata_proxy_shared_secret
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+metadata_proxy_shared_secret=metadata_proxy_shared_secret_$default_password
 
 
 ###############################################################################

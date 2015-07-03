@@ -46,7 +46,7 @@
                 value={{ item.value }}
                 backup=yes
       with_items:
-      - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
+      - { option: 'rabbit_host', value: 'controller' }
       - { option: 'rabbit_userid', value: 'openstack' }
       - { option: 'rabbit_password', value: '{{ config.rabbitmq_password }}' }
 
