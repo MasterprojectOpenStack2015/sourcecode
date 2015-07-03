@@ -1,0 +1,86 @@
+---
+- name:  "Install and configure a compute node"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+    - name: "Install the packages"
+      apt: pkg={{item}} state=installed
+      with_items:
+      - nova-api
+      - nova-cert
+      - nova-conductor
+      - nova-consoleauth
+      - nova-novncproxy
+      - nova-scheduler
+      - python-novaclient
+
+    - name: "(a) Edit /etc/nova/nova.conf [DEFAULT] section"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=DEFAULT
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'rpc_backend', value: 'rabbit' }
+      - { option: 'auth_strategy', value: 'keystone' }
+      - { option: 'my_ip', value: '{{ inventory_hostname }}' }
+      - { option: 'vnc_enabled', value: 'True' }
+      - { option: 'vncserver_listen', value: '0.0.0.0' }
+      - { option: 'vncserver_proxyclient_address', value: '{{ inventory_hostname }}' }
+      - { option: 'novncproxy_base_url', value: 'http://{{ config.controller_node_ip_address }}:6080/vnc_auto.html' }
+      - { option: 'verbose', value: 'True' }
+
+    - name: "(b) Edit /etc/nova/nova.conf [database] section"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=database
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'connection', value: 'mysql://nova:{{ config.nova_mysql_password }}@{{ config.controller_node_hostname }}/nova' }
+
+
+    - name: "(b) Edit /etc/nova/nova.conf [oslo_messaging_rabbit] section"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=oslo_messaging_rabbit
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
+      - { option: 'rabbit_userid', value: 'openstack' }
+      - { option: 'rabbit_password', value: '{{ config.rabbitmq_password }}' }
+
+    - name: "(c) Edit /etc/nova/nova.conf [keystone_authtoken] section"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=keystone_authtoken
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+      - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+      - { option: 'auth_plugin', value: 'password' }
+      - { option: 'project_domain_id', value: 'default' }
+      - { option: 'user_domain_id', value: 'default' }
+      - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'nova' }
+      - { option: 'password', value: '{{ config.nova_user_password }}' }
+
+    - name: "(d) Edit /etc/nova/nova.conf [glance] section"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=glance
+                option="host"
+                value="controller"
+                backup=yes
+
+    - name: "(e) Edit /etc/nova/nova.conf [oslo_concurrency] section"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=oslo_concurrency
+                option="lock_path"
+                value="/var/lib/nova/tmp"
+                backup=yes
+

@@ -1,0 +1,144 @@
+---
+- name:  "Controller - Install and configure the Networking components"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+    - name: "Install the packages"
+      apt: pkg={{item}} state=installed
+      with_items:
+      - neutron-server 
+      - neutron-plugin-ml2
+      - python-neutronclient
+
+    - name: "Configure the Networking server component - (a) Edit /etc/neutron/neutron.conf [DEFAULT] section"
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=DEFAULT
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'rpc_backend', value: 'rabbit' }
+      - { option: 'auth_strategy', value: 'keystone' }
+      - { option: 'core_plugin', value: 'ml2' }
+      - { option: 'service_plugins', value: 'router' }
+      - { option: 'allow_overlapping_ips', value: 'True' }
+      - { option: 'notify_nova_on_port_status_changes', value: 'True' }
+      - { option: 'notify_nova_on_port_data_changes', value: 'True' }
+      - { option: 'nova_url', value: 'http://{{ config.controller_node_hostname }}:8774/v2' }
+      - { option: 'verbose', value: 'True' }
+
+    - name: "(b) Edit /etc/neutron/neutron.conf [database] section"
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=database
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'connection', value: 'mysql://neutron:{{ config.neutron_mysql_password }}@{{ config.controller_node_hostname }}/neutron' }
+
+    - name: "(c) Edit /etc/neutron/neutron.conf [oslo_messaging_rabbit] section"
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=oslo_messaging_rabbit
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'rabbit_host', value: 'controller' }
+      - { option: 'rabbit_userid', value: 'openstack' }
+      - { option: 'rabbit_password', value: '{{ config.rabbitmq_password }}' }
+
+    - name: "(d) Edit /etc/neutron/neutron.conf [keystone_authtoken] section"
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=keystone_authtoken
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+      - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+      - { option: 'auth_plugin', value: 'password' }
+      - { option: 'project_domain_id', value: 'default' }
+      - { option: 'user_domain_id', value: 'default' }
+      - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'neutron' }
+      - { option: 'password', value: '{{ config.neutron_user_password }}' }
+
+    - name: "(e) Edit /etc/neutron/neutron.conf [nova] section"
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=nova
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+      - { option: 'auth_plugin', value: 'password' }
+      - { option: 'project_domain_id', value: 'default' }
+      - { option: 'user_domain_id', value: 'default' }
+      - { option: 'region_name', value: 'RegionOne' }
+      - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'nova' }
+      - { option: 'password', value: '{{ config.nova_user_password }}' }
+
+
+    - name: "Configure the Modular Layer 2 (ML2) plug-in - (f) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=ml2
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'type_drivers', value: 'flat,vlan,gre,vxlan' }
+      - { option: 'tenant_network_types', value: 'gre' }
+      - { option: 'mechanism_drivers', value: 'openvswitch' }
+
+    - name: "(g) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2_type_gre] section"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=ml2_type_gre
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'tunnel_id_ranges', value: '1:1000' }
+
+    - name: "(h) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [securitygroup] section"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=securitygroup
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'enable_security_group', value: 'True' }
+      - { option: 'enable_ipset', value: 'True' }
+      - { option: 'firewall_driver', value: 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver' }
+
+
+
+    - name: "Configure Compute to use Networking - (i) Edit /etc/nova/nova.conf [DEFAULT] section"
+      ini_file: dest=/etc/nova/nova.conf
+                section=DEFAULT
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'network_api_class', value: 'nova.network.neutronv2.api.API' }
+      - { option: 'security_group_api', value: 'neutron' }
+      - { option: 'linuxnet_interface_driver', value: 'nova.network.linux_net.LinuxOVSInterfaceDriver' }
+      - { option: 'firewall_driver', value: 'nova.virt.firewall.NoopFirewallDriver' }
+
+
+    - name: "(j) Edit /etc/nova/nova.conf [neutron] section"
+      ini_file: dest=/etc/nova/nova.conf
+                section=neutron
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=yes
+      with_items:
+      - { option: 'url', value: 'http://{{ config.controller_node_hostname }}:9696' }
+      - { option: 'auth_strategy', value: 'keystone' }
+      - { option: 'admin_auth_url', value: 'http://{{ config.controller_node_hostname }}:35357/v2.0' }
+      - { option: 'admin_tenant_name', value: 'service' }
+      - { option: 'admin_username', value: 'neutron' }
+      - { option: 'admin_password', value: '{{  config.neutron_user_password }}' }

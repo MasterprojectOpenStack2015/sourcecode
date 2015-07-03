@@ -97,6 +97,15 @@ nova_mysql_password=nova_mysql_password_$default_password
 nova_user_password=nova_user_password_$default_password
 
 
+# neutron_mysql_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-controller-node.html
+neutron_mysql_password=neutron_mysql_password_$default_password
+
+# neutron_user_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-controller-node.html
+neutron_user_password=neutron_user_password_$default_password
+
+
 ###############################################################################
 ###### configuration for keystone
 
