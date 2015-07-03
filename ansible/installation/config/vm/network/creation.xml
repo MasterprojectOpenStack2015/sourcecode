@@ -1,6 +1,6 @@
 <domain type='kvm'>
     <name>{{ vm_name }}</name>
-    <memory>512144</memory>
+    <memory>1024288</memory>
     <vcpu>1</vcpu>
 
     <features>
