@@ -1,6 +1,6 @@
 ---
-- name:  "Controller - Install and configure controller node - configure prerequisites"
-  hosts: controller
+- name:  "Compute - configure prerequisites"
+  hosts: compute
   roles:
     - config
   sudo: True
@@ -9,39 +9,17 @@
     OS_TOKEN: "{{ config.keystone_os_token }}"
     OS_URL: "{{ config.keystone_os_url }}"
   tasks:
-    - name: Create the neutron database
-      mysql_db: 
-        login_user: "{{ config.mysql_login_user }}"
-        login_password: "{{ config.mysql_login_password }}"
-        name: neutron
+    - name: "Edit the /etc/sysctl.conf file to contain the following parameters"
+      lineinfile: 
+        dest: /etc/sysctl.conf
+        line: "{{ item }}"
         state: present
+        create: yes
+        with_items:
+        - "net.ipv4.conf.all.rp_filter=0"
+        - "net.ipv4.conf.default.rp_filter=0"
+        - "net.bridge.bridge-nf-call-iptables=1"
+        - "net.bridge.bridge-nf-call-ip6tables=1"
 
-    - name: Grant proper access to the neutron database
-      mysql_user: 
-        login_user: "{{ config.mysql_login_user }}"
-        login_password: "{{ config.mysql_login_password }}"
-        name: neutron 
-        host: "{{ item }}" 
-        password: "{{ config.neutron_mysql_password }}" 
-        priv: neutron.*:ALL
-      with_items:
-        - "%"
-        - localhost
-
-    - name: Delete the neutron user if existent
-      shell: openstack user delete neutron || echo -n
-
-    - name: Create the neutron user
-      shell: "openstack user create --password {{ config.neutron_user_password }} neutron"
-
-    - name: Add the admin role to the neutron user
-      shell: "openstack role add --project service --user neutron admin"
-
-    - name: Create the neutron service entity
-      shell: "openstack service create --name neutron --description 'OpenStack Networking' network"
-
-    - name: Delete the neutron service API endpoint if existent
-      shell: "openstack endpoint delete neutron || echo -n"
-
-    - name: Create the Networking service API endpoint
-      shell: 'openstack endpoint create --publicurl http://{{ config.controller_node_hostname }}:9696 --adminurl http://{{ config.controller_node_hostname }}:9696 --internalurl http://{{ config.controller_node_hostname }}:9696 --region RegionOne network'
+    - name: "Implement the changes"
+      shell: "sysctl -p"

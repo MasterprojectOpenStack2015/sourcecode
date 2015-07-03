@@ -1,20 +1,9 @@
 ---
-- name:  "Controller - Finalize Installation"
-  hosts: controller
+- name:  "Compute - Finalize Installation"
+  hosts: compute
   roles:
     - config
   sudo: True
   gather_facts: False
   tasks:
-  - name: "Populate the database"
-    shell: 'su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron'
-
-  - name: "Restart the Compute service:"
-    service: 
-      name: nova-api 
-      state: restarted
-
-  - name: "Restart the Networking service:"
-    service: 
-      name: neutron-server 
-      state: restarted
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<TODO>>>>>>>>>>>>>>>>>>>>>>>>>>
