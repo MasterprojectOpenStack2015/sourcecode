@@ -6,15 +6,12 @@
   sudo: True
   gather_facts: False
   tasks:
-  - name: "Populate the database"
-    shell: 'su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron'
-
-  - name: "Restart the Compute service:"
+  - name: "Restart the Networking services:"
     service: 
-      name: nova-api 
+      name: "{{ item }}"
       state: restarted
-
-  - name: "Restart the Networking service:"
-    service: 
-      name: neutron-server 
-      state: restarted
+    with_items:
+    - neutron-plugin-openvswitch-agent
+    - neutron-l3-agent
+    - neutron-dhcp-agent
+    - neutron-metadata-agent

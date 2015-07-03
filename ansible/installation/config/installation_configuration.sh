@@ -29,6 +29,8 @@ compute2_node_hostname=compute2
 
 test_node_ip_address=$controller_node_ip_address
 
+network_node_external_interface_name=eth2
+
 ###############################################################################
 ###### passwords
 
