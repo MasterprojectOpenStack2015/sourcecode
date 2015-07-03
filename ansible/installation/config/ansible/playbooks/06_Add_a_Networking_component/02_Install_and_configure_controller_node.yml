@@ -1,5 +1,5 @@
 ---
-- name:  "Controller - Install and configure the Networking components"
+- name:  "Install and configure controller node"
   hosts: controller
   roles:
     - config
