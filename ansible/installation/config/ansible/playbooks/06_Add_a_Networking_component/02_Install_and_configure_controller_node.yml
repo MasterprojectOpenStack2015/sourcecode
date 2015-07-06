@@ -18,7 +18,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rpc_backend', value: 'rabbit' }
       - { option: 'auth_strategy', value: 'keystone' }
@@ -35,7 +35,7 @@
                 section=database
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'connection', value: 'mysql://neutron:{{ config.neutron_mysql_password }}@{{ config.controller_node_hostname }}/neutron' }
 
@@ -44,7 +44,7 @@
                 section=oslo_messaging_rabbit
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
       - { option: 'rabbit_userid', value: 'openstack' }
@@ -55,7 +55,7 @@
                 section=keystone_authtoken
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
@@ -71,7 +71,7 @@
                 section=nova
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
       - { option: 'auth_plugin', value: 'password' }
@@ -88,7 +88,7 @@
                 section=ml2
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'type_drivers', value: 'flat,vlan,gre,vxlan' }
       - { option: 'tenant_network_types', value: 'gre' }
@@ -99,7 +99,7 @@
                 section=ml2_type_gre
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'tunnel_id_ranges', value: '1:1000' }
 
@@ -108,7 +108,7 @@
                 section=securitygroup
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'enable_security_group', value: 'True' }
       - { option: 'enable_ipset', value: 'True' }
@@ -121,7 +121,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'network_api_class', value: 'nova.network.neutronv2.api.API' }
       - { option: 'security_group_api', value: 'neutron' }
@@ -134,7 +134,7 @@
                 section=neutron
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'url', value: 'http://{{ config.controller_node_hostname }}:9696' }
       - { option: 'auth_strategy', value: 'keystone' }

@@ -1,6 +1,6 @@
 ---
 - name:  "Controller - Finalize Installation"
-  hosts: controller
+  hosts: network
   roles:
     - config
   sudo: True

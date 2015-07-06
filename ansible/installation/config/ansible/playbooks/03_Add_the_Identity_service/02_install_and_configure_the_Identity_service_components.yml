@@ -28,49 +28,49 @@
               section=DEFAULT
               option=admin_token
               value={{ config.keystone_admin_token }}
-              backup=yes
+              backup=no
 
   - name: (b) configure database access
     ini_file: dest=/etc/keystone/keystone.conf
               section=database
               option=connection
               value=mysql://keystone:{{ config.keystone_database_password }}@{{ config.controller_node_ip_address }}/keystone
-              backup=yes
+              backup=no
 
   - name: (c) configure the Memcache service
     ini_file: dest=/etc/keystone/keystone.conf
               section=memcache
               option=servers
               value=localhost:11211
-              backup=yes
+              backup=no
 
   - name: (d.1) configure the UUID token provider
     ini_file: dest=/etc/keystone/keystone.conf
               section=token
               option=provider
               value=keystone.token.providers.uuid.Provider
-              backup=yes
+              backup=no
 
   - name: (d.2) configure the Memcached driver
     ini_file: dest=/etc/keystone/keystone.conf
               section=token
               option=driver
               value=keystone.token.persistence.backends.memcache.Token
-              backup=yes
+              backup=no
 
   - name: (e) configure the SQL revocation driver
     ini_file: dest=/etc/keystone/keystone.conf
               section=revoke
               option=driver
               value=keystone.contrib.revoke.backends.sql.Revoke
-              backup=yes
+              backup=no
 
   - name: (f) To assist with troubleshooting, enable verbose logging
     ini_file: dest=/etc/keystone/keystone.conf
               section=DEFAULT
               option=verbose
               value=True
-              backup=yes
+              backup=no
 
   - name: Populate the Identity service database
     # access denied error

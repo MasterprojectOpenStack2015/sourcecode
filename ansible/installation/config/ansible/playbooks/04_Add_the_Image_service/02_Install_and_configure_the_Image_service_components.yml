@@ -19,7 +19,7 @@
               section=database
               option=connection
               value=mysql://glance:{{ config.glance_mysql_password }}@{{ config.controller_node_hostname }}/glance
-              backup=yes
+              backup=no
 
   - name: "Comment out or remove any other options in the [keystone_authtoken] section."
     ini_file: dest=/etc/glance/glance-api.conf
@@ -31,7 +31,7 @@
               section=keystone_authtoken
               option={{ item.option }}
               value={{ item.value }}
-              backup=yes
+              backup=no
     with_items:
     - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
     - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
@@ -46,14 +46,14 @@
               section=paste_deploy
               option=flavor
               value=keystone
-              backup=yes
+              backup=no
 
   - name: "(c) In the [glance_store] section, configure the local file system store and location of image files:"
     ini_file: dest=/etc/glance/glance-api.conf
               section=glance_store
               option={{ item.option }}
               value={{ item.value }}
-              backup=yes
+              backup=no
     with_items:
     - { option: 'default_store', value: 'file' }
     - { option: 'filesystem_store_datadir', value: '/var/lib/glance/images/' }
@@ -63,7 +63,7 @@
               section=DEFAULT
               option={{ item.option }}
               value={{ item.value }}
-              backup=yes
+              backup=no
     with_items:
     - { option: 'notification_driver', value: 'noop' }
     - { option: 'verbose', value: 'True' }
@@ -74,14 +74,14 @@
               section=database
               option=connection
               value=mysql://glance:{{ config.glance_mysql_password }}@{{ config.controller_node_hostname }}/glance
-              backup=yes
+              backup=no
 
   - name: "(b) In the [keystone_authtoken] and [paste_deploy] sections, configure Identity service access:"
     ini_file: dest=/etc/glance/glance-registry.conf
               section=keystone_authtoken
               option={{ item.option }}
               value={{ item.value }}
-              backup=yes
+              backup=no
     with_items:
     - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
     - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
@@ -95,13 +95,13 @@
               section=paste_deploy
               option=flavor
               value=keystone
-              backup=yes
+              backup=no
   - name: "(d,e) In the [DEFAULT] section, configure the noop notification driver to disable notifications because they only pertain to the optional Telemetry service and enable verbose debug output"
     ini_file: dest=/etc/glance/glance-registry.conf
               section=DEFAULT
               option={{ item.option }}
               value={{ item.value }}
-              backup=yes
+              backup=no
     with_items:
     - { option: 'notification_driver', value: 'noop' }
     - { option: 'verbose', value: 'True' }

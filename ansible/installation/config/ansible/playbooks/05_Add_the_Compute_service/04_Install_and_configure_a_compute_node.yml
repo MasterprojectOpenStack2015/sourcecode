@@ -4,7 +4,7 @@
   roles:
     - config
   sudo: True
-  gather_facts: False
+  gather_facts: True
   tasks:
     - name: "Install the packages"
       apt: pkg={{item}} state=installed
@@ -17,7 +17,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rpc_backend', value: 'rabbit' }
       - { option: 'auth_strategy', value: 'keystone' }
@@ -33,7 +33,7 @@
                 section=oslo_messaging_rabbit
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
       - { option: 'rabbit_userid', value: 'openstack' }
@@ -44,7 +44,7 @@
                 section=keystone_authtoken
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
@@ -60,12 +60,12 @@
                 section=glance
                 option="host"
                 value="controller"
-                backup=yes
+                backup=no
 
     - name: "(e) Edit /etc/nova/nova.conf [oslo_concurrency] section"
       ini_file: dest=/etc/nova/nova.conf 
                 section=oslo_concurrency
                 option="lock_path"
                 value="/var/lib/nova/tmp"
-                backup=yes
+                backup=no
 

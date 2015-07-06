@@ -18,7 +18,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rpc_backend', value: 'rabbit' }
       - { option: 'auth_strategy', value: 'keystone' }
@@ -32,7 +32,7 @@
                 section=oslo_messaging_rabbit
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
       - { option: 'rabbit_userid', value: 'openstack' }
@@ -49,7 +49,7 @@
                 state=present
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
@@ -66,7 +66,7 @@
                 section=ml2
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'type_drivers', value: 'flat,vlan,gre,vxlan' }
       - { option: 'tenant_network_types', value: 'gre' }
@@ -77,7 +77,7 @@
                 section=ml2_type_flat
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'flat_networks', value: 'external' }
 
@@ -86,7 +86,7 @@
                 section=ml2_type_gre
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'tunnel_id_ranges', value: '1:1000' }
 
@@ -95,7 +95,7 @@
                 section=securitygroup
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'enable_security_group', value: 'True' }
       - { option: 'enable_ipset', value: 'True' }
@@ -106,7 +106,7 @@
                 section=ovs
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'local_ip ', value: '{{ config.ip_tunnel_prefix }}.{{ config.ip_network_suffix }}' }
       - { option: 'bridge_mappings', value: 'external:br-ex' }
@@ -116,7 +116,7 @@
                 section=agent
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'tunnel_types', value: 'gre' }
 
@@ -126,7 +126,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'interface_driver', value: 'neutron.agent.linux.interface.OVSInterfaceDriver' }
       - { option: 'external_network_bridge', value: '' }
@@ -139,7 +139,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'interface_driver', value: 'neutron.agent.linux.interface.OVSInterfaceDriver' }
       - { option: 'dhcp_driver', value: 'neutron.agent.linux.dhcp.Dnsmasq' }
@@ -154,7 +154,7 @@
                   create=yes
 
     - name: "Kill any existing dnsmasq processes:"
-      shell: "pkill dnsmasq"
+      shell: "pkill dnsmasq || true" #Demo of pkill behaviour with Ansible: https://gist.github.com/willthames/ee40bd6d9b5eebb9b8eb
 
 # To configure the metadata agent
     - name: "Configure the metadata agent - (n) Edit /etc/neutron/metadata_agent.ini [DEFAULT] section"
@@ -162,7 +162,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
@@ -182,10 +182,10 @@
       shell: "service openvswitch-switch restart"
 
     - name: "Add the external bridge:"
-      shell: "ovs-vsctl add-br br-ex"
+      shell: "ovs-vsctl --may-exist add-br br-ex"
 
     - name: "Add a port to the external bridge that connects to the physical external network interface:"
-      shell: "ovs-vsctl add-port br-ex {{ config.network_node_external_interface_name }}"
+      shell: "ovs-vsctl --may-exist add-port br-ex {{ config.network_node_external_interface_name }}"
 
     - name: "Depending on your network interface driver, you may need to disable generic receive offload (GRO) to achieve suitable throughput between your instances and the external network. To temporarily disable GRO on the external network interface while testing your environment:"
-      shell: "echo: OPTIONAL TODO"
+      shell: "echo OPTIONAL TODO"

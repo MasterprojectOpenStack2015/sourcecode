@@ -24,7 +24,7 @@
                 section=DEFAULT
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rpc_backend', value: 'rabbit' }
       - { option: 'auth_strategy', value: 'keystone' }
@@ -38,7 +38,7 @@
                 section=oslo_messaging_rabbit
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
       - { option: 'rabbit_userid', value: 'openstack' }
@@ -55,7 +55,7 @@
                 state=present
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
@@ -73,7 +73,7 @@
                 section=ml2
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'type_drivers', value: 'flat,vlan,gre,vxlan' }
       - { option: 'tenant_network_types', value: 'gre' }
@@ -84,7 +84,7 @@
                 section=ml2_type_gre
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'tunnel_id_ranges', value: '1:1000' }
 
@@ -93,33 +93,64 @@
                 section=securitygroup
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'enable_security_group', value: 'True' }
       - { option: 'enable_ipset', value: 'True' }
       - { option: 'firewall_driver', value: 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver' }
+
+    - name: Get the host part of the IP 
+      shell: echo {{ inventory_hostname }}
+      register: host_ip
 
     - name: "(j) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ovs] section"
       ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
                 section=ovs
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
-      - { option: 'local_ip ', value: '{{ config.ip_tunnel_prefix }}.????????????'<<<<<<<<<<<<<TODO>>>>>>>>>>>>>>>
+      - { option: 'local_ip ', value: '{{ config.ip_tunnel_prefix }}.{{ host_ip.stdout.split(''.'')[3] }}' }
 
     - name: "(k) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [agent] section"
       ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
                 section=agent
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'tunnel_types', value: 'gre' }
 
 
 # To configure the Open vSwitch (OVS) service
-
+    - name: "Restart the OVS service:"
+      shell: "service openvswitch-switch restart"
 
 
 # To configure Compute to use Networking
+    - name: "(l) Edit /etc/nova/nova.conf [DEFAULT] section"
+      ini_file: dest=/etc/nova/nova.conf
+                section=DEFAULT
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'network_api_class', value: 'nova.network.neutronv2.api.API' }
+      - { option: 'security_group_api', value: 'neutron' }
+      - { option: 'linuxnet_interface_driver', value: 'nova.network.linux_net.LinuxOVSInterfaceDriver' }
+      - { option: 'firewall_driver', value: 'nova.virt.firewall.NoopFirewallDriver' }
+
+    - name: "(m) Edit /etc/nova/nova.conf [neutron] section"
+      ini_file: dest=/etc/nova/nova.conf
+                section=neutron
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'url', value: 'http://{{ config.controller_node_hostname }}:9696' }
+      - { option: 'auth_strategy', value: 'keystone' }
+      - { option: 'admin_auth_url', value: 'http://{{ config.controller_node_hostname }}:35357/v2.0' }
+      - { option: 'admin_tenant_name', value: 'service' }
+      - { option: 'admin_username', value: 'neutron' }
+      - { option: 'admin_password', value: '{{ config.neutron_user_password }}' }
+

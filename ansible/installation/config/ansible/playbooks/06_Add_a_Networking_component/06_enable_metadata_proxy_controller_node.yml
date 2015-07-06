@@ -12,7 +12,7 @@
                 section=neutron
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'service_metadata_proxy', value: 'True' }
       - { option: 'metadata_proxy_shared_secret', value: '{{ config.metadata_proxy_shared_secret }}' }
@@ -22,7 +22,7 @@
                 section=neutron
                 option={{ item.option }}
                 value={{ item.value }}
-                backup=yes
+                backup=no
       with_items:
       - { option: 'service_metadata_proxy', value: 'True' }
       - { option: 'metadata_proxy_shared_secret', value: '{{ config.metadata_proxy_shared_secret }}' }

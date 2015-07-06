@@ -6,4 +6,10 @@
   sudo: True
   gather_facts: False
   tasks:
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<TODO>>>>>>>>>>>>>>>>>>>>>>>>>>
+  - name: "Restart the Compute and Networking services:"
+    service: 
+      name: "{{ item }}"
+      state: restarted
+    with_items:
+    - nova-compute
+    - neutron-plugin-openvswitch-agent

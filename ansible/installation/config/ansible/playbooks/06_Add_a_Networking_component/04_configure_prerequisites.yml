@@ -15,10 +15,10 @@
         line: "{{ item }}"
         state: present
         create: yes
-        with_items:
-        - "net.ipv4.ip_forward=1"
-        - "net.ipv4.conf.all.rp_filter=0"
-        - "net.ipv4.conf.default.rp_filter=0"
+      with_items:
+      - "net.ipv4.ip_forward=1"
+      - "net.ipv4.conf.all.rp_filter=0"
+      - "net.ipv4.conf.default.rp_filter=0"
 
     - name: "Edit the /etc/sysctl.conf file to contain the following parameters"
       shell: "sysctl -p"
