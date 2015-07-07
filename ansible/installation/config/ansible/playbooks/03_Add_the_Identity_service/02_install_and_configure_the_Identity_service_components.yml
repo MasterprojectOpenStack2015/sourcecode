@@ -76,26 +76,5 @@
     # access denied error
     # see https://ask.openstack.org/en/question/27674/problem-with-keystone-authentication-1045-access-denied-error/
     shell: su -s /bin/sh -c "keystone-manage db_sync" keystone
-    # shell: keystone-manage db_sync
+    #shell: keystone-manage db_sync
     # sudo: False
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
