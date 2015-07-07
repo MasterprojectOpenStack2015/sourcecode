@@ -40,8 +40,5 @@
     - name: Create the glance service entity
       shell: "openstack service create --name glance --description 'OpenStack Image service' image"
 
-    - name: Delete the Image service API endpoint if existent
-      shell: "openstack endpoint delete image || echo -n"
-
     - name: Create the Image service API endpoint
       shell: "openstack endpoint create --publicurl {{ config.glance_os_url }} --internalurl {{ config.glance_os_url }} --adminurl {{ config.glance_os_url }} --region RegionOne image"

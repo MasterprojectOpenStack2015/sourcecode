@@ -25,7 +25,7 @@
       - { option: 'vnc_enabled', value: 'True' }
       - { option: 'vncserver_listen', value: '0.0.0.0' }
       - { option: 'vncserver_proxyclient_address', value: '{{ inventory_hostname }}' }
-      - { option: 'novncproxy_base_url', value: 'http://{{ config.controller_node_ip_address }}:6080/vnc_auto.html' }
+      - { option: 'novncproxy_base_url', value: 'http://{{ config.controller_node_hostname }}:6080/vnc_auto.html' }
       - { option: 'verbose', value: 'True' }
 
     - name: "(b) Edit /etc/nova/nova.conf [oslo_messaging_rabbit] section"

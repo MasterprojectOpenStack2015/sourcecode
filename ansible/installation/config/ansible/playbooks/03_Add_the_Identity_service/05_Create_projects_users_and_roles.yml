@@ -31,7 +31,7 @@
     #                              [--email <email-address>] [--enable | --disable]
     #                              [--or-show]
     #                              <name>
-    shell: openstack user create --password="{{ config.openstack_admin_user_password }}" admin
+    shell: "openstack user create --password={{ config.openstack_admin_user_password }} admin"
 
   - name: 1.c.0. Delete the admin role  if existent
     shell: openstack role delete admin || echo -n

@@ -40,8 +40,5 @@
     - name: Create the nova service entity
       shell: "openstack service create --name nova --description 'OpenStack Compute' compute"
 
-    - name: Delete the compute service API endpoint if existent
-      shell: "openstack endpoint delete compute || echo -n"
-
     - name: Create the Compute service API endpoint
       shell: 'openstack endpoint create --publicurl http://{{ config.controller_node_hostname }}:8774/v2/%\(tenant_id\)s --internalurl http://{{ config.controller_node_hostname }}:8774/v2/%\(tenant_id\)s --adminurl http://{{ config.controller_node_hostname }}:8774/v2/%\(tenant_id\)s --region RegionOne compute'

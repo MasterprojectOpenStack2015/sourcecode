@@ -154,8 +154,8 @@ downloads_directory='/tmp/openstack_installation/downloads'
 # When you change this also change vm_image_md5_hash and 
 #   maybe also remote_user in ansible.cfg.
 # I had a look at https://cloud-images.ubuntu.com/trusty/ for the url.
-# For the current release you can use https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
-vm_image_url='https://cloud-images.ubuntu.com/trusty/20150313/trusty-server-cloudimg-amd64-disk1.img'
+# For the current release you can use 'https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img'
+vm_image_url='https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img'
 
 # vm_image_md5_hash is the md5 hash of the vm image.
 # It is used to avoid duplicate downloads.
@@ -163,7 +163,8 @@ vm_image_url='https://cloud-images.ubuntu.com/trusty/20150313/trusty-server-clou
 # every time the vms are set up.
 # If the hash is empty there will be no check. When you interrupt the download
 # you may need to delete $downloads_directory manually.
-vm_image_md5_hash=ba8c94999ca0d5052ccc0d4b12b9aca4
+# is ba8c94999ca0d5052ccc0d4b12b9aca4 for 'https://cloud-images.ubuntu.com/trusty/20150313/trusty-server-cloudimg-amd64-disk1.img'
+vm_image_md5_hash=
 
 # downloaded_vm_image_folder is the folder where the downloaded vm image is 
 # saved.
