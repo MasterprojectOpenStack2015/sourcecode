@@ -40,8 +40,5 @@
     - name: Create the neutron service entity
       shell: "openstack service create --name neutron --description 'OpenStack Networking' network"
 
-    - name: Delete the neutron service API endpoint if existent
-      shell: "openstack endpoint delete neutron || echo -n"
-
     - name: Create the Networking service API endpoint
       shell: 'openstack endpoint create --publicurl http://{{ config.controller_node_hostname }}:9696 --adminurl http://{{ config.controller_node_hostname }}:9696 --internalurl http://{{ config.controller_node_hostname }}:9696 --region RegionOne network'
