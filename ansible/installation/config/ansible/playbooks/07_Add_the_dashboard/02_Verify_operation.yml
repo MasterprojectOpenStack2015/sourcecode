@@ -1,0 +1,16 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/dashboard-verify.html
+- name: "Install and configure"
+  hosts: localhost
+  roles:
+    - config
+  gather_facts: False
+  tasks:
+  - name: "1. Access the dashboard using a web browser: http://controller/horizon"
+    shell: cd /tmp ; wget http://controller/horizon
+
+  - name: 2. Authenticate using admin or demo user credentials
+    # one could use phantomjs and selenium to perform this operation
+    debug: msg="TODO"
+    
+

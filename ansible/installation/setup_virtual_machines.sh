@@ -7,5 +7,5 @@
 #	ansible-playbook $playbook || exit 1
 #done
 
-ansible-playbook config/ansible/playbooks/openstack_installation.yml
+ansible-playbook config/ansible/playbooks/openstack_installation.yml || exit 1
 
