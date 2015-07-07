@@ -10,3 +10,5 @@
 - include: 08_configure_prerequisites.yml
 - include: 09_Install_and_configure_compute_node.yml
 - include: 10_finalize_installation.yml
+- include: 11_Create_external_networks.yml
+- include: 12_Create_tenant_networks.yml
