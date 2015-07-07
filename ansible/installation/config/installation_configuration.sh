@@ -51,7 +51,7 @@ network_node_external_interface_name=eth2
 default_password=aXp7s50
 
 # mysql_login_password is the password used for the mysql installation and service.
-mysql_login_password=$default_password
+mysql_login_password=mysql_login_password_$default_password
 
 # mysql_login_user is the user with the password mysql_login_password who has
 # unlimited access to the database.
