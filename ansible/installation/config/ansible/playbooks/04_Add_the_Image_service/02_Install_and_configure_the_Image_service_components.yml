@@ -26,7 +26,7 @@
               section=keystone_authtoken
               state=absent
 
-  - name: "(b) In the [keystone_authtoken] and [paste_deploy] sections, configure Identity service access:"
+  - name: "(b) In the >>>>[keystone_authtoken]<<<< and [paste_deploy] sections, configure Identity service access:"
     ini_file: dest=/etc/glance/glance-api.conf
               section=keystone_authtoken
               option={{ item.option }}
@@ -42,6 +42,7 @@
     - { option: 'username', value: 'glance' }
     - { option: 'password', value: '{{ config.glance_user_password }}' }
 
+  - name: "(b) In the [keystone_authtoken] and >>>>[paste_deploy]<<<< sections, configure Identity service access:"
     ini_file: dest=/etc/glance/glance-api.conf
               section=paste_deploy
               option=flavor
@@ -76,7 +77,7 @@
               value=mysql://glance:{{ config.glance_mysql_password }}@{{ config.controller_node_hostname }}/glance
               backup=no
 
-  - name: "(b) In the [keystone_authtoken] and [paste_deploy] sections, configure Identity service access:"
+  - name: "(b) In the >>>>[keystone_authtoken]<<<< and [paste_deploy] sections, configure Identity service access:"
     ini_file: dest=/etc/glance/glance-registry.conf
               section=keystone_authtoken
               option={{ item.option }}
@@ -91,6 +92,8 @@
     - { option: 'project_name', value: 'service' }
     - { option: 'username', value: 'glance' }
     - { option: 'password', value: '{{ config.glance_user_password }}' }
+
+  - name: "(b) In the [keystone_authtoken] and >>>>[paste_deploy]<<<< sections, configure Identity service access:"
     ini_file: dest=/etc/glance/glance-registry.conf
               section=paste_deploy
               option=flavor
