@@ -27,7 +27,7 @@
   - name: d. Configure the dashboard to use OpenStack services on the controller node
     lineinfile: dest={{ settings_file }} regexp=^OPENSTACK_KEYSTONE_DEFAULT_ROLE= line="OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"user\""
 
-  - name: To finalize installation, Reload the web server configuration
+  - name: To finalize installation, reload the web server configuration
     service:
       name: apache2
       state: restarted
