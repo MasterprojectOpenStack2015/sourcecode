@@ -4,3 +4,4 @@
 - include: 04_Add_the_Image_service/main.yml
 - include: 05_Add_the_Compute_service/main.yml
 - include: 06_Add_a_Networking_component/main.yml
+- include: 07_Add_the_dashboard/main.yml

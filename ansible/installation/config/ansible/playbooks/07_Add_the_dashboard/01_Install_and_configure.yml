@@ -1,0 +1,34 @@
+---
+- name: "Install and configure"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  vars:
+    settings_file: /etc/openstack-dashboard/local_settings.py
+  tasks:
+  - name: install the dashboard components
+    apt: pkg=openstack-dashboard state=installed
+
+  - name: a. Configure the dashboard to use OpenStack services on the controller node
+    lineinfile: dest={{ settings_file }} regexp=^OPENSTACK_HOST= line="OPENSTACK_HOST = \"controller\""
+
+  - name: b. Allow all hosts to access the dashboard
+    lineinfile: dest={{ settings_file }} regexp=^ALLOWED_HOSTS= line="ALLOWED_HOSTS = \"*\""
+
+  - name: c. Configure the memcached session storage service
+    # Note: Comment out any other session storage configuration
+    # These lines are already present. We assure that they are present
+    # http://stackoverflow.com/a/4749368/1320237
+    sudo: True
+    shell: "python -c \"import sys;sys.path.extend(['/usr/share/openstack-dashboard', '/etc/openstack-dashboard']);import local_settings;assert local_settings.CACHES == {'default': {'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache', 'LOCATION': '127.0.0.1:11211'}}\""
+
+  - name: d. Configure the dashboard to use OpenStack services on the controller node
+    lineinfile: dest={{ settings_file }} regexp=^OPENSTACK_KEYSTONE_DEFAULT_ROLE= line="OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"user\""
+
+  - name: To finalize installation, reload the web server configuration
+    service:
+      name: apache2
+      state: restarted
+

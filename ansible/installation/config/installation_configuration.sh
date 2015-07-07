@@ -7,10 +7,11 @@
 ###############################################################################
 ###### network configuration
 
-# test_node_ip_address is the ip address of the controller node in the 
-# default network.
+# IP Addresses
 ip_management_prefix=192.168.100
-ip_tunnel_prefix=192.168.101
+ip_tunnel_prefix=192.168.101 # tunnel and tenant are the same thing.
+ip_external_prefix=192.168.102
+network_cidr_suffix="/24"
 
 ip_controller_suffix=11
 ip_network_suffix=21
@@ -22,13 +23,23 @@ network_node_ip_address=$ip_management_prefix.$ip_network_suffix
 compute1_node_ip_address=$ip_management_prefix.$ip_compute1_suffix
 compute2_node_ip_address=$ip_management_prefix.$ip_compute2_suffix
 
+external_network_cidr=$ip_external_prefix.0$network_cidr_suffix
+external_network_gateway=$ip_external_prefix.1
+floating_ip_start=$ip_external_prefix.101
+floating_ip_end=$ip_external_prefix.200
+
+tenant_network_cidr=$ip_tunnel_prefix.0$network_cidr_suffix
+tenant_network_gateway=$ip_tunnel_prefix.1
+
+test_node_ip_address=$controller_node_ip_address
+
+# hostnames (e.g. for adding more nodes)
 controller_node_hostname=controller
 network_node_hostname=network
 compute1_node_hostname=compute1
 compute2_node_hostname=compute2
 
-test_node_ip_address=$controller_node_ip_address
-
+# network interfaces:
 network_node_external_interface_name=eth2
 
 ###############################################################################
