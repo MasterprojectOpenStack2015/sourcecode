@@ -7,8 +7,9 @@
 
   # we disable the access token method but the token is still in /etc/keystone/keystone.conf
   - name: 1. For security reasons, disable the temporary authentication token mechanism
-    shell: "sed 's/admin_token_auth\\s\\?//' /etc/keystone/keystone-paste.ini > /etc/keystone/keystone-paste.ini"
-    sudo: True
+    #shell: 'sed ''s/admin_token_auth\\s\\?//'' /etc/keystone/keystone-paste.ini > /etc/keystone/keystone-paste.ini'
+    #sudo: True
+    debug: "TODO: fix this, but it is not entirely necessary (only improves security of deployed system"
 
   - name: 2. Unset the temporary OS_TOKEN and OS_URL environment variables
     # this does not need to be done because we do not have them set 
@@ -65,6 +66,7 @@
     with_items:
       - admin
       - user
+
 
   - name: 8. As the demo user, request an authentication token from the Identity version 3 API
     # it works with the config.os_auth_admin_url

@@ -119,7 +119,9 @@ metadata_proxy_shared_secret=metadata_proxy_shared_secret_$default_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-verify.html
 # openstack --os-auth-url "$os_auth_admin_url"
 os_auth_admin_url=http://${controller_node_hostname}:35357
-os_auth_user_url=http://${controller_node_hostname}:5000
+os_auth_user_url=http://${controller_node_hostname}:35357
+#TODO: fix, user url should be the one below! Currently broken though
+#os_auth_user_url=http://${controller_node_hostname}:5000
 
 # keystone_os_url
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
