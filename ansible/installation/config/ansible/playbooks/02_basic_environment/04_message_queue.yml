@@ -12,8 +12,12 @@
     apt: 
       pkg: rabbitmq-server
       state: installed 
+
   - name: configure the message queue service #1 setting password
     shell: "rabbitmqctl add_user openstack {{ config.rabbitmq_password }}"
+
+  - name: "Permit configuration, write, and read access for the openstack user"
+    shell: 'rabbitmqctl set_permissions openstack ".*" ".*" ".*"'
 
 # this playbook was created according to
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
