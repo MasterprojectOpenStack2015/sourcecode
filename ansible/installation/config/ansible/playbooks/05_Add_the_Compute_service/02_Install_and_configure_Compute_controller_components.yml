@@ -17,9 +17,16 @@
       - nova-scheduler
       - python-novaclient
 
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf 
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
     - name: "(a) Edit /etc/nova/nova.conf [DEFAULT] section"
       ini_file: dest=/etc/nova/nova.conf 
-                section=DEFAULT
+                section=DEFAULT_WORKAROUND
                 option={{ item.option }}
                 value={{ item.value }}
                 backup=no
@@ -80,6 +87,13 @@
                 section=oslo_concurrency
                 option="lock_path"
                 value="/var/lib/nova/tmp"
+                backup=no
+
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
                 backup=no
 
     - name: "Populate the Compute database"

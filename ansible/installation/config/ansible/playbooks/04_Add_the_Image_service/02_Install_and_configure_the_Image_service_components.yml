@@ -14,6 +14,14 @@
 
 
 #/etc/glance/glance-api.conf file:
+
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+    replace: dest=/etc/glance/glance-api.conf
+              regexp='\[DEFAULT\]'
+              replace="[DEFAULT_WORKAROUND]"
+              backup=no
+
   - name: "(a) In the [database] section, configure database access:"
     ini_file: dest=/etc/glance/glance-api.conf
               section=database
@@ -61,7 +69,7 @@
 
   - name: "(d,e) In the [DEFAULT] section, configure the noop notification driver to disable notifications because they only pertain to the optional Telemetry service and enable verbose debug output"
     ini_file: dest=/etc/glance/glance-api.conf
-              section=DEFAULT
+              section=DEFAULT_WORKAROUND
               option={{ item.option }}
               value={{ item.value }}
               backup=no
@@ -69,7 +77,21 @@
     - { option: 'notification_driver', value: 'noop' }
     - { option: 'verbose', value: 'True' }
 
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+    replace: dest=/etc/glance/glance-api.conf
+              regexp='\[DEFAULT_WORKAROUND\]'
+              replace="[DEFAULT]"
+              backup=no
+
 #/etc/glance/glance-registry.conf file:
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+    replace: dest=/etc/glance/glance-registry.conf
+              regexp='\[DEFAULT\]'
+              replace="[DEFAULT_WORKAROUND]"
+              backup=no
+
   - name: "(a) In the [database] section, configure database access:"
     ini_file: dest=/etc/glance/glance-registry.conf
               section=database
@@ -101,13 +123,20 @@
               backup=no
   - name: "(d,e) In the [DEFAULT] section, configure the noop notification driver to disable notifications because they only pertain to the optional Telemetry service and enable verbose debug output"
     ini_file: dest=/etc/glance/glance-registry.conf
-              section=DEFAULT
+              section=DEFAULT_WORKAROUND
               option={{ item.option }}
               value={{ item.value }}
               backup=no
     with_items:
     - { option: 'notification_driver', value: 'noop' }
     - { option: 'verbose', value: 'True' }
+
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+    replace: dest=/etc/glance/glance-registry.conf
+              regexp='\[DEFAULT_WORKAROUND\]'
+              replace="[DEFAULT]"
+              backup=no
 
   - name: Populate the Image service database
     shell: 'su -s /bin/sh -c "glance-manage db_sync" glance'

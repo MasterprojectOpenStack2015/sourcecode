@@ -23,54 +23,69 @@
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
 # Edit the /etc/keystone/keystone.conf
 
-  - name: (a) define the value of the initial administration token
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+    replace: dest=/etc/keystone/keystone.conf
+              regexp='\[DEFAULT\]'
+              replace="[DEFAULT_WORKAROUND]"
+              backup=no
+
+  - name: "(a) define the value of the initial administration token"
     ini_file: dest=/etc/keystone/keystone.conf
-              section=DEFAULT
+              section=DEFAULT_WORKAROUND
               option=admin_token
               value={{ config.keystone_admin_token }}
               backup=no
 
-  - name: (b) configure database access
+  - name: "(b) configure database access"
     ini_file: dest=/etc/keystone/keystone.conf
               section=database
               option=connection
               value=mysql://keystone:{{ config.keystone_database_password }}@{{ config.controller_node_ip_address }}/keystone
               backup=no
 
-  - name: (c) configure the Memcache service
+  - name: "(c) configure the Memcache service"
     ini_file: dest=/etc/keystone/keystone.conf
               section=memcache
               option=servers
               value=localhost:11211
               backup=no
 
-  - name: (d.1) configure the UUID token provider
+  - name: "(d.1) configure the UUID token provider"
     ini_file: dest=/etc/keystone/keystone.conf
               section=token
               option=provider
               value=keystone.token.providers.uuid.Provider
               backup=no
 
-  - name: (d.2) configure the Memcached driver
+  - name: "(d.2) configure the Memcached driver"
     ini_file: dest=/etc/keystone/keystone.conf
               section=token
               option=driver
               value=keystone.token.persistence.backends.memcache.Token
               backup=no
 
-  - name: (e) configure the SQL revocation driver
+  - name: "(e) configure the SQL revocation driver"
     ini_file: dest=/etc/keystone/keystone.conf
               section=revoke
               option=driver
               value=keystone.contrib.revoke.backends.sql.Revoke
               backup=no
 
-  - name: (f) To assist with troubleshooting, enable verbose logging
+  - name: "(f) To assist with troubleshooting, enable verbose logging"
     ini_file: dest=/etc/keystone/keystone.conf
-              section=DEFAULT
+              section=DEFAULT_WORKAROUND
               option=verbose
               value=True
               backup=no
+
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+    replace: dest=/etc/keystone/keystone.conf
+              regexp='\[DEFAULT_WORKAROUND\]'
+              replace="[DEFAULT]"
+              backup=no
+
 
   - name: Populate the Identity service database
     # access denied error

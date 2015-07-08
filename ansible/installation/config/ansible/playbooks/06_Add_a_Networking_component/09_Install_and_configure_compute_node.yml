@@ -13,6 +13,13 @@
       - neutron-plugin-openvswitch-agent
 
 # To configure the Networking common components
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
     - name: "Configure the Networking common components - (a) In the [database] section, comment out any connection options because network nodes do not directly access the database"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=database
@@ -21,7 +28,7 @@
 
     - name: "(b) Edit /etc/neutron/neutron.conf [DEFAULT] section"
       ini_file: dest=/etc/neutron/neutron.conf
-                section=DEFAULT
+                section=DEFAULT_WORKAROUND
                 option={{ item.option }}
                 value={{ item.value }}
                 backup=no
@@ -66,6 +73,12 @@
       - { option: 'username', value: 'neutron' }
       - { option: 'password', value: '{{ config.neutron_user_password }}' }
 
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no
 
 # To configure the Modular Layer 2 (ML2) plug-in
     - name: "Configure the Modular Layer 2 (ML2) plug-in - (f) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section"
@@ -128,9 +141,16 @@
 
 
 # To configure Compute to use Networking
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
     - name: "(l) Edit /etc/nova/nova.conf [DEFAULT] section"
       ini_file: dest=/etc/nova/nova.conf
-                section=DEFAULT
+                section=DEFAULT_WORKAROUND
                 option={{ item.option }}
                 value={{ item.value }}
                 backup=no
@@ -154,3 +174,9 @@
       - { option: 'admin_username', value: 'neutron' }
       - { option: 'admin_password', value: '{{ config.neutron_user_password }}' }
 
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no

@@ -7,6 +7,13 @@
   gather_facts: False
   tasks:
 # To configure the Networking common components
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
     - name: "Configure the Networking server component - (a) In the [database] section, comment out any connection options because network nodes do not directly access the database"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=database
@@ -15,7 +22,7 @@
 
     - name: "(b) Edit /etc/neutron/neutron.conf [DEFAULT] section"
       ini_file: dest=/etc/neutron/neutron.conf
-                section=DEFAULT
+                section=DEFAULT_WORKAROUND
                 option={{ item.option }}
                 value={{ item.value }}
                 backup=no
@@ -59,6 +66,13 @@
       - { option: 'project_name', value: 'service' }
       - { option: 'username', value: 'neutron' }
       - { option: 'password', value: '{{ config.neutron_user_password }}' }
+
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no
 
 # To configure the Modular Layer 2 (ML2) plug-in
     - name: "Configure the Modular Layer 2 (ML2) plug-in - (f) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section"

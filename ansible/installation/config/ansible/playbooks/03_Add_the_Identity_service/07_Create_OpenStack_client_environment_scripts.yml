@@ -6,13 +6,13 @@
   - config  
   tasks:
 
-  - name: 1. Edit the admin-openrc.sh file
+  - name: "1. Edit the admin-openrc.sh file"
     template: src=admin-openrc.sh.j2 dest={{ ansible_user_dir }}/admin-openrc.sh owner={{ ansible_user_id }}
 
-  - name: 2. Edit the demo-openrc.sh file
+  - name: "2. Edit the demo-openrc.sh file"
     template: src=demo-openrc.sh.j2 dest={{ ansible_user_dir }}/demo-openrc.sh owner={{ ansible_user_id }}
 
-  - name: Load the admin-openrc.sh file and request an authentication token
+  - name: "Load the admin-openrc.sh file and request an authentication token"
     # This step requires the host file to resolve the hostname of the controller 
     # on all host as well as localhost.
     shell: bash -c 'source {{ ansible_user_dir }}/admin-openrc.sh' #; openstack token issue' < we dont need this here, this will crash ansible as openstack command is not available on other nodes than controller

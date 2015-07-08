@@ -13,9 +13,17 @@
       - neutron-plugin-ml2
       - python-neutronclient
 
+#To configure the Networking server component:
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
     - name: "Configure the Networking server component - (a) Edit /etc/neutron/neutron.conf [DEFAULT] section"
       ini_file: dest=/etc/neutron/neutron.conf
-                section=DEFAULT
+                section=DEFAULT_WORKAROUND
                 option={{ item.option }}
                 value={{ item.value }}
                 backup=no
@@ -82,7 +90,14 @@
       - { option: 'username', value: 'nova' }
       - { option: 'password', value: '{{ config.nova_user_password }}' }
 
+      # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no
 
+#To configure the Modular Layer 2 (ML2) plug-in:
     - name: "Configure the Modular Layer 2 (ML2) plug-in - (f) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section"
       ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
                 section=ml2
@@ -115,10 +130,17 @@
       - { option: 'firewall_driver', value: 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver' }
 
 
+# To configure Compute to use Networking
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
 
     - name: "Configure Compute to use Networking - (i) Edit /etc/nova/nova.conf [DEFAULT] section"
       ini_file: dest=/etc/nova/nova.conf
-                section=DEFAULT
+                section=DEFAULT_WORKAROUND
                 option={{ item.option }}
                 value={{ item.value }}
                 backup=no
@@ -128,7 +150,6 @@
       - { option: 'linuxnet_interface_driver', value: 'nova.network.linux_net.LinuxOVSInterfaceDriver' }
       - { option: 'firewall_driver', value: 'nova.virt.firewall.NoopFirewallDriver' }
 
-
     - name: "(j) Edit /etc/nova/nova.conf [neutron] section"
       ini_file: dest=/etc/nova/nova.conf
                 section=neutron
@@ -137,8 +158,15 @@
                 backup=no
       with_items:
       - { option: 'url', value: 'http://{{ config.controller_node_hostname }}:9696' }
-      - { option: 'auth_strategy', value: 'keystone' }
       - { option: 'admin_auth_url', value: 'http://{{ config.controller_node_hostname }}:35357/v2.0' }
       - { option: 'admin_tenant_name', value: 'service' }
       - { option: 'admin_username', value: 'neutron' }
-      - { option: 'admin_password', value: '{{  config.neutron_user_password }}' }
+      - { option: 'admin_password', value: '{{ config.neutron_user_password }}' }
+      - { option: 'auth_strategy', value: 'keystone' }
+
+# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no
