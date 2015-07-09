@@ -45,14 +45,21 @@
       - { option: 'user', value: 'swift' }
       - { option: 'swift_dir', value: '/etc/swift' }
 
-    - name: "In the [pipeline:main] section, enable the appropriate modules:"
+    #TODO: fix this workaround maybe?
+    - name: "In the [pipeline:main] section, enable the appropriate modules (Using ansible replace as ini_file does not support spaces in value)"
       ini_file: dest=/etc/swift/proxy-server.conf
                 section='pipeline:main'
                 option={{ item.option }}
                 value={{ item.value }}
                 backup=no
       with_items:
-      - { option: 'pipeline', value: 'catch_errors gatekeeper healthcheck proxy-logging cache container_sync bulk ratelimit authtoken keystoneauth container-quotas account-quotas slo dlo proxy-logging proxy-server' }
+      - { option: 'pipeline', value: 'PIPELINE_REPLACEMENT_STRING' }
+
+    - name: "In the [pipeline:main] section, enable the appropriate modules (Using ansible replace as ini_file does not support spaces in value)"
+      replace: dest=/etc/swift/proxy-server.conf
+                regexp='PIPELINE_REPLACEMENT_STRING'
+                replace="catch_errors gatekeeper healthcheck proxy-logging cache container_sync bulk ratelimit authtoken keystoneauth container-quotas account-quotas slo dlo proxy-logging proxy-server"
+                backup=no
 
     - name: "In the [app:proxy-server] section, enable automatic account creation:"
       ini_file: dest=/etc/swift/proxy-server.conf
