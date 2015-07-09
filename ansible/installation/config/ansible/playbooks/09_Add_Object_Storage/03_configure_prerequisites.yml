@@ -25,7 +25,7 @@
     lineinfile:
       dest: /etc/fstab
       create: yes
-      line: {{ item }}
+      line: "{{ item }}"
     with_items:
     - "/dev/sdb1 /srv/node/sdb1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
     - "/dev/sdc1 /srv/node/sdc1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
@@ -37,13 +37,11 @@
     lineinfile:
       dest: /etc/rsyncd.conf
       create: yes
-      line: {{ item }}
+      line: "{{ item }}"
     with_items:
     - "/dev/sdb1 /srv/node/sdb1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
     - "/dev/sdc1 /srv/node/sdc1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
 
-  - name: ""
-    shell: ""
 
-  - name: ""
-    shell: ""
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>CONTINUE HERE WITH Edit the /etc/rsyncd.conf file and add the following to it

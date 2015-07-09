@@ -17,11 +17,15 @@ ip_controller_suffix=11
 ip_network_suffix=21
 ip_compute1_suffix=31
 ip_compute2_suffix=32
+ip_object1_suffix=51
+ip_object2_suffix=52
 
 controller_node_ip_address=$ip_management_prefix.$ip_controller_suffix
 network_node_ip_address=$ip_management_prefix.$ip_network_suffix
 compute1_node_ip_address=$ip_management_prefix.$ip_compute1_suffix
 compute2_node_ip_address=$ip_management_prefix.$ip_compute2_suffix
+object1_node_ip_address=$ip_management_prefix.$ip_object1_suffix
+object2_node_ip_address=$ip_management_prefix.$ip_object2_suffix
 
 external_network_cidr=$ip_external_prefix.0$network_cidr_suffix
 external_network_gateway=$ip_external_prefix.1
@@ -38,6 +42,8 @@ controller_node_hostname=controller
 network_node_hostname=network
 compute1_node_hostname=compute1
 compute2_node_hostname=compute2
+object1_node_hostname=object1
+object2_node_hostname=object2
 
 # network interfaces:
 network_node_external_interface_name=eth2
