@@ -2,4 +2,4 @@
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_swift.html
 - include: 01_configure_prerequisites.yml
 - include: 02_Install_and_configure_controller_node.yml
-- include: 03_configure_prerequisites.yml
+#- include: 03_configure_prerequisites.yml
