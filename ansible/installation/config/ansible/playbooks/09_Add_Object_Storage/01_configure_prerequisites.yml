@@ -1,0 +1,19 @@
+---
+- name:  "Controller - Install and configure the controller node - configure prerequisites"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+  - name: "Create the swift user"
+    shell: "openstack user create --password {{ config.swift_user_password }} swift"
+
+  - name: "Add the admin role to the swift user"
+    shell: "openstack role add --project service --user swift admin"
+
+  - name: "Create the swift service entity"
+    shell: 'openstack service create --name swift --description "OpenStack Object Storage" object-store'
+
+  - name: "Create the swift service entity"
+    shell: 'openstack endpoint create --publicurl 'http://{{ config.controller_node_hostname }}:8080/v1/AUTH_%(tenant_id)s' --internalurl 'http://{{ config.controller_node_hostname }}:8080/v1/AUTH_%(tenant_id)s' --adminurl http://{{ config.controller_node_hostname }}:8080 --region RegionOne object-store'

@@ -5,3 +5,5 @@
 - include: 05_Add_the_Compute_service/main.yml
 - include: 06_Add_a_Networking_component/main.yml
 - include: 07_Add_the_dashboard/main.yml
+# 08 missing on purpose: future work!
+- include: 09_Add_Object_Storage/main.yml

@@ -123,6 +123,10 @@ neutron_user_password=neutron_user_password_$default_password
 metadata_proxy_shared_secret=metadata_proxy_shared_secret_$default_password
 
 
+# swift_user_password
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/swift-install-controller-node.html
+swift_user_password=swift_user_password_$default_password
+
 ###############################################################################
 ###### configuration for keystone
 
