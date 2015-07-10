@@ -33,15 +33,71 @@
   - name: "Mount the devices"
     shell: "mount /srv/node/sdb1; mount /srv/node/sdc1"
 
-  - name: "Edit the /etc/rsyncd.conf file and add the following to it:"
+  - name: Get the host part of the IP 
+    shell: echo {{ inventory_hostname }}
+    register: host_ip
+
+  - name: "Edit the /etc/rsyncd.conf file"
     lineinfile:
       dest: /etc/rsyncd.conf
       create: yes
       line: "{{ item }}"
     with_items:
-    - "/dev/sdb1 /srv/node/sdb1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
-    - "/dev/sdc1 /srv/node/sdc1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
+    - "uid = swift"
+    - "gid = swift"
+    - "log file = /var/log/rsyncd.log"
+    - "pid file = /var/run/rsyncd.pid"
+    - "address = {{ config.ip_management_prefix }}.{{ host_ip.stdout.split(''.'')[3] }}"
 
+  - name: "Edit [account] section in the /etc/rsyncd.conf file"
+    ini_file: dest=/etc/rsyncd.conf
+              section=account
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=no
+    with_items:
+    - { option: 'max connections', value: '2' }
+    - { option: 'path', value: '/srv/node/' }
+    - { option: 'read only', value: 'false' }
+    - { option: 'lock file', value: '/var/lock/account.lock' }
 
+  - name: "Edit [container] section in the /etc/rsyncd.conf file"
+    ini_file: dest=/etc/rsyncd.conf
+              section=container
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=no
+    with_items:
+    - { option: 'max connections', value: '2' }
+    - { option: 'path', value: '/srv/node/' }
+    - { option: 'read only', value: 'false' }
+    - { option: 'lock file', value: '/var/lock/container.lock' }
 
-    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>CONTINUE HERE WITH Edit the /etc/rsyncd.conf file and add the following to it
+  - name: "Edit [object] section in the /etc/rsyncd.conf file"
+    ini_file: dest=/etc/rsyncd.conf
+              section=object
+              option={{ item.option }}
+              value={{ item.value }}
+              backup=no
+    with_items:
+    - { option: 'max connections' value: '2' }
+    - { option: 'path' value: '/srv/node/' }
+    - { option: 'read only' value: 'false' }
+    - { option: 'lock file' value: '/var/lock/object.lock' }
+
+  - name: "Edit the /etc/default/rsync file and enable the rsync service:"
+    lineinfile:
+      dest: /etc/default/rsync
+      create: yes
+      line: "{{ item }}"
+    with_items:
+    - "RSYNC_ENABLE=true"
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>MAKE SURE rsyncd.conf IS WRITTEN CORRECTLY
+
+  - name: "Start the rsync service:"
+    service: 
+      name: "{{ item }}"
+      state: restarted
+    with_items:
+    - rsync 
+

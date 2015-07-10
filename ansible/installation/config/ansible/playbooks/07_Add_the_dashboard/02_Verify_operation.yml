@@ -12,5 +12,5 @@
   - name: 2. Authenticate using admin or demo user credentials
     # one could use phantomjs and selenium to perform this operation
     debug: msg="TODO"
-    
+
 

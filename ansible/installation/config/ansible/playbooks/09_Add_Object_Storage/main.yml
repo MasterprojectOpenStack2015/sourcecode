@@ -3,3 +3,4 @@
 - include: 01_configure_prerequisites.yml
 - include: 02_Install_and_configure_controller_node.yml
 #- include: 03_configure_prerequisites.yml
+#- include: 04_Install_and_configure_storage_node.yml
