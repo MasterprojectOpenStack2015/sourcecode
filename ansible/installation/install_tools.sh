@@ -28,7 +28,7 @@ fi
 if ! type pip > /dev/null
 then
 	# for pip
-	sudo apt-get -y install pip
+	sudo apt-get -y install python-pip
 fi
 
 if ! python -c "import jinja2"
