@@ -17,10 +17,10 @@
     args:
       executable: /bin/bash
     with_items:
-      nova-consoleauth
-      nova-scheduler
-      nova-cert
-      nova-conductor
+    - nova-consoleauth
+    - nova-scheduler
+    - nova-cert
+    - nova-conductor
 
   - name: 2.2. List service components to verify successful launch and registration of each process
     shell: source admin-openrc.sh; nova service-list | grep -q 'nova-compute\s*|\s*{{ ansible_hostname }}\s*|\s*internal\s*|\s*enabled\s*|\s*up'
