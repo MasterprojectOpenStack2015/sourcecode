@@ -1,0 +1,9 @@
+- name:  "Verify operation of the Compute service"
+  hosts: controller
+  roles:
+    - config
+  sudo: False
+  gather_facts: False
+  tasks:
+  - name: TODO
+    debug: msg="TODO"
