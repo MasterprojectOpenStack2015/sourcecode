@@ -1,9 +1,36 @@
+# 
 - name:  "Verify operation of the Compute service"
-  hosts: controller
+  hosts: compute
   roles:
     - config
   sudo: False
-  gather_facts: False
   tasks:
-  - name: TODO
+
+  - name: 1. Source the admin credentials to gain access to admin-only CLI commands
+    # run with bash http://docs.ansible.com/shell_module.html
+    shell: source admin-openrc.sh
+    args:
+      executable: /bin/bash
+
+  - name: 2.1. List service components to verify successful launch and registration of each process
+    shell: source admin-openrc.sh; nova service-list | grep -q '{{ item }}\s*|\s*{{ config.controller_node_hostname }}\s*|\s*internal\s*|\s*enabled\s*|\s*up'
+    args:
+      executable: /bin/bash
+    with_items:
+      nova-consoleauth
+      nova-scheduler
+      nova-cert
+      nova-conductor
+
+  - name: 2.2. List service components to verify successful launch and registration of each process
+    shell: source admin-openrc.sh; nova service-list | grep -q 'nova-compute\s*|\s*{{ ansible_hostname }}\s*|\s*internal\s*|\s*enabled\s*|\s*up'
+    args:
+      executable: /bin/bash
+
+  - name: 3. List API endpoints in the Identity service to verify connectivity with the Identity service
     debug: msg="TODO"
+
+  - name: 4. List images in the Image service catalog to verify connectivity with the Image service
+    shell: source admin-openrc.sh; nova image-list | grep -q 'cirros'
+    args:
+      executable: /bin/bash
