@@ -1,39 +1,24 @@
 #!/bin/bash
 
-if ! type filename > /dev/null
-then
-	# for the filename command
-	sudo apt-get -y install wcstools
-fi
+# for the filename command
+tools/install_package wcstools
 
-if ! type realpath > /dev/null
-then
-	# for the filename command
-	sudo apt-get -y install realpath
-fi
+# for the realpath command
+tools/install_package realpath
 
-if ! type bzr  > /dev/null
-then
-	# for virtual machine creation
-	# see the tutorial http://serverascode.com/2014/03/17/trusty-libvirt.html
-	sudo apt-get -y install bzr
-fi
+# for virtual machine creation
+# see the tutorial http://serverascode.com/2014/03/17/trusty-libvirt.html
+tools/install_package bzr
 
-if ! type virt-manager > /dev/null
-then
-	# for the virtual machine manager
-	sudo apt-get -y install virt-manager
-fi
+# for the virtual machine manager
+tools/install_package virt-manager
 
-if ! type pip > /dev/null
-then
-	# for pip
-	sudo apt-get -y install python-pip
-fi
+# for pip
+tools/install_package python-pip
 
+# install Jinja2 for template instanciation
 if ! python -c "import jinja2"
 then
-	# install Jinja2 for template instanciation
 	sudo pip install --upgrade Jinja2
 fi
 

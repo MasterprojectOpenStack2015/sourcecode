@@ -68,6 +68,10 @@ echo "$variables_for_template_rendering" \
 # create the virtual machine definition so it can be started
 virsh define $this_vm_files_folder/creation.xml || exit 5
 
+# error: Failed to define domain from /tmp/openstack_installation/images/network/creation.xml
+# error: unknown OS type hvm
+
+
 
 
 

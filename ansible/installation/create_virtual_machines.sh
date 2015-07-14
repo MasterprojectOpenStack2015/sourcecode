@@ -11,11 +11,11 @@ if [ ! -f ~/cloud-utils/bin/cloud-localds ]
 then
 	( 	cd ~ ; \
 	  	bzr branch lp:cloud-utils
-	)
+	) || exit 1
 fi
 
 # create virtual machines
 for virtual_machine_name in `tools/vm_names`
 do 
-	tools/create_vm_named $virtual_machine_name
+	tools/create_vm_named $virtual_machine_name || exit 2
 done
