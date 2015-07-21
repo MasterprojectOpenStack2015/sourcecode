@@ -1,0 +1,10 @@
+---
+- name: "Create Initial Rings"
+  hosts: localhost
+  roles:
+    - config
+  gather_facts: False
+  tasks:
+
+  - name: "TODO"
+    debug: msg="TODO"
