@@ -2,6 +2,9 @@
 
 source config/installation_configuration.sh
 
+# There are a lot of tests in this file. 
+# They are used to remove unnecessary sudo commands.
+
 # configure the ansible hosts file
 tools/config_variables | tools/render_template config/ansible/hosts > $ansible_temp_directory/hosts
 
