@@ -1,0 +1,48 @@
+---
+- name:  "modify default security group"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  environment:
+    OS_PROJECT_DOMAIN_ID: default
+    OS_USER_DOMAIN_ID: default
+    OS_PROJECT_NAME: admin
+    OS_TENANT_NAME: admin
+    OS_USERNAME: admin
+    OS_PASSWORD: "{{ config.openstack_admin_user_password }}"
+    OS_AUTH_URL: "http://{{ config.controller_node_hostname }}:35357/v3"
+
+#to avoid stupid questions why instances are not reachable later, allow all traffic
+#there are multiple security groups with the same name, so we have to use the IDs
+#IDs are extracted from the output of "neutron security-group-list":
+#
+#skipping: [192.168.100.11] => (item=(0, '+--------------------------------------+---------+------------------------+'))
+#skipping: [192.168.100.11] => (item=(1, '| id                                   | name    | description            |'))
+#skipping: [192.168.100.11] => (item=(2, '+--------------------------------------+---------+------------------------+'))
+#changed: [192.168.100.11] => (item=(3, '| ad093edb-2384-4eb9-89a1-d994147b6f89 | default | Default security group |'))
+#changed: [192.168.100.11] => (item=(4, '| b2af4061-edbe-4f53-910b-2a2ad3913701 | default | Default security group |'))
+#skipping: [192.168.100.11] => (item=(5, '+--------------------------------------+---------+------------------------+'))
+
+
+
+  tasks:
+
+  - name: "request list of security groups (uncleaned)"
+    shell: "neutron security-group-list"
+    register: security_group_list_result
+
+  - name: "Allow all IPv4 ingress traffic"
+    shell: "neutron security-group-rule-create --ethertype ipv4 --direction ingress --remote-ip-prefix 0.0.0.0/0 {{item.1|regex_replace('^\\| ([^\\|]*)\\|.*$', '\\\\1')}}"
+#   remove first three lines (table header) and the last one
+    with_indexed_items: "{{security_group_list_result.stdout_lines}}"
+    when: item.0 > 2 and not item.0 == (security_group_list_result.stdout_lines|length - 1)
+
+
+
+
+#  - name: "Allow all IPv6 ingress traffic"
+#    shell: "neutron security-group-rule-create --ethertype ipv6 --direction ingress --remote-ip-prefix ::/0 default"
+
+

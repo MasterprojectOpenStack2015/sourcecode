@@ -7,3 +7,4 @@
 - include: 07_Add_the_dashboard/main.yml
 # 08 missing on purpose: future work!
 - include: 09_Add_Object_Storage/main.yml
+- include: 99_post_customization/main.yml
