@@ -5,4 +5,5 @@
 - include: 01_generate_host_files.yml
 - include: 02_add_hostnames_to_known_hosts.yml
 - include: 03_deactivate_cloud_config.yml
+- include: 04_update_german_locale.yml
 
