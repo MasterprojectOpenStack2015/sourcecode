@@ -1,9 +1,15 @@
-# 
+- hosts: compute
+  gather_facts: True
+  tasks:
+  - shell: echo "I just want to gather facts for 2.2.2"
+
 - name:  "Verify operation of the Compute service"
-  hosts: compute
+  # Note: Perform these commands on the controller node.
+  hosts: controller
   roles:
     - config
   sudo: False
+  gather_facts: True
   tasks:
 
   - name: 1. Source the admin credentials to gain access to admin-only CLI commands
@@ -12,25 +18,51 @@
     args:
       executable: /bin/bash
 
-  - name: 2.1. List service components to verify successful launch and registration of each process
-    shell: source admin-openrc.sh; nova service-list | grep -q '{{ item }}\s*|\s*{{ config.controller_node_hostname }}\s*|\s*internal\s*|\s*enabled\s*|\s*up'
+  - name: 2.1.1 List service components to verify successful launch and registration of each process
+    shell: source admin-openrc.sh; nova service-list
     args:
       executable: /bin/bash
+    register: nova_list
+
+  - name: 2.1.2 Check that nova-consoleauth, nova-scheduler, nova-cert, nova-conductor exist
+    assert:
+      that: 
+      - nova_list.stdout | search(item + "\s*\|\s*" + config.controller_node_hostname + "\s*\|\s*internal\s*\|\s*enabled\s*\|\s*up")
     with_items:
     - nova-consoleauth
     - nova-scheduler
     - nova-cert
     - nova-conductor
 
-  - name: 2.2. List service components to verify successful launch and registration of each process
-    shell: source admin-openrc.sh; nova service-list | grep -q 'nova-compute\s*|\s*{{ ansible_hostname }}\s*|\s*internal\s*|\s*enabled\s*|\s*up'
+  - name: 2.2.1 List service components to verify successful launch and registration of each process
+    shell: source admin-openrc.sh; nova service-list 
     args:
       executable: /bin/bash
+    register: nova_service_list
 
-  - name: 3. List API endpoints in the Identity service to verify connectivity with the Identity service
+  - name: 2.2.2 Check for nova-compute
+    assert:
+      that: 
+      - nova_service_list.stdout | search("nova-compute\s*\|\s*" + hostvars[item].ansible_hostname + "\s*\|\s*nova\s*\|\s*enabled\s*\|\s*up")
+    with_items: groups['compute']
+
+  - name: 3.1 List API endpoints in the Identity service to verify connectivity with the Identity service
     shell: source admin-openrc.sh; nova endpoints
     args:
       executable: /bin/bash
+    register: nova_endpoints
+
+  - name: 3.2 Check that keystone, glance and nova have a public, internal and admin interface
+    assert:
+      that: 
+      # check that there are exactly 3 plusses between item and admin
+      - nova_endpoints.stdout | search(item + "([^\+]*\+){3}[^\+]*admin")
+      - nova_endpoints.stdout | search(item + "([^\+]*\+){3}[^\+]*internal")
+      - nova_endpoints.stdout | search(item + "([^\+]*\+){3}[^\+]*public")
+    with_items:
+    - glance
+    - keystone
+    - nova
 
   - name: 4. List images in the Image service catalog to verify connectivity with the Image service
     shell: source admin-openrc.sh; nova image-list | grep -q 'cirros'

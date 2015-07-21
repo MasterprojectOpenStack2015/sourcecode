@@ -164,6 +164,13 @@ identity_internal_url=$identity_public_url
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
 glance_os_url=http://${controller_node_hostname}:9292
 
+# default_image_url is the url of the default image that is uploaded during 
+# the setup.
+default_image_url=http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+# default_image_name is the display name of the default image 
+# from default_image_url
+default_image_name=cirros-0.3.4-x86_64
 
 ###############################################################################
 ###### configuration for download
