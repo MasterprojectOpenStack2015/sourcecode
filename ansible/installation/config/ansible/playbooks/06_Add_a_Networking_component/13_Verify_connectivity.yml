@@ -1,0 +1,12 @@
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-networks-verify.html
+- name:  "Verify network connectivity"
+  hosts: localhost
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+  - name: From a host on the the external network, ping the tenant router gateway
+    ping: "{{ config.tenant_router_gateway_external_ip_address }}"
+

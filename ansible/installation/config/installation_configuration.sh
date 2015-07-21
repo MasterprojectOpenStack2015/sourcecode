@@ -32,6 +32,10 @@ external_network_cidr=$ip_external_prefix.0$network_cidr_suffix
 external_network_gateway=$ip_external_prefix.1
 floating_ip_start=$ip_external_prefix.101
 floating_ip_end=$ip_external_prefix.200
+# tenant_router_gateway_external_ip_address is the external ip address of the
+# tenant router that can be acccessed from localhost
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-networks-verify.html
+tenant_router_gateway_external_ip_address=$floating_ip_start
 
 tenant_network_cidr=$ip_demo_prefix.0$network_cidr_suffix
 tenant_network_gateway=$ip_demo_prefix.1
