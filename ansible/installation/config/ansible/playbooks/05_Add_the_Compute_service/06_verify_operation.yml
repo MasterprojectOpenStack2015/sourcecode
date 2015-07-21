@@ -28,7 +28,9 @@
       executable: /bin/bash
 
   - name: 3. List API endpoints in the Identity service to verify connectivity with the Identity service
-    debug: msg="TODO"
+    shell: source admin-openrc.sh; nova endpoints
+    args:
+      executable: /bin/bash
 
   - name: 4. List images in the Image service catalog to verify connectivity with the Image service
     shell: source admin-openrc.sh; nova image-list | grep -q 'cirros'
