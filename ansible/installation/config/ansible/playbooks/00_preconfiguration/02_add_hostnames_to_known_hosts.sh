@@ -15,8 +15,7 @@ do
 	
 	remote_user=`$tools/ansible_remote_user`
 	hostname=`ssh $remote_user@$ip_address hostname`
-	ssh-keygen -f ~/.ssh/known_hosts -R $hostname
-	ssh-keyscan -H $hostname | tools/append_once.py ~/.ssh/known_hosts "$ip_address" || exit 1
+	ssh-keyscan -H $hostname | $tools/append_once.py ~/.ssh/known_hosts "$hostname" || exit 1
 done
 
 
