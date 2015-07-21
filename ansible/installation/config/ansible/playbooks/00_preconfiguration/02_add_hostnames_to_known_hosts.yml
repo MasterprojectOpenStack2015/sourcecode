@@ -1,0 +1,19 @@
+# insert the ssh key of the host into ~/.ssh/known_hosts, 
+# so we do not need to type "yes" and do not get these messages:
+#   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#   @       WARNING: POSSIBLE DNS SPOOFING DETECTED!          @
+#   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#   @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+#   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
+# This is partly done by wait_for_virtual_machines_to_start.sh.
+- name: add ssh keys of hostnames to known hosts
+  hosts: localhost
+  roles:
+  - config
+  tasks:
+  
+  - name: gather all hostnames and add the keys to ~/.ssh/known_hosts
+    # http://docs.ansible.com/ansible/script_module.html
+    script: ./02_add_hostnames_to_known_hosts.sh "{{ config.tools }}"
