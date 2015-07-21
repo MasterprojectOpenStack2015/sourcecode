@@ -1,4 +1,7 @@
+# following the tutorial
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/
 ---
+- include: 00_preconfiguration/main.yml
 - include: 02_basic_environment/main.yml
 - include: 03_Add_the_Identity_service/main.yml
 - include: 04_Add_the_Image_service/main.yml
@@ -7,4 +10,4 @@
 - include: 07_Add_the_dashboard/main.yml
 # 08 missing on purpose: future work!
 - include: 09_Add_Object_Storage/main.yml
-- include: 99_post_customization/main.yml
+- include: 99_postconfiguration/main.yml

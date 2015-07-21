@@ -1,0 +1,7 @@
+# This file contains additional configuration which is perfomed before the virtual machines are set up with Openstack.
+# These files do not influence the tutorial in a way that changes the outcome.
+# They are useful for the programmer, including shortcuts.
+---
+- include: 01_generate_host_files.yml
+- include: 02_add_hostnames_to_known_hosts.yml
+

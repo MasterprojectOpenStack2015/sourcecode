@@ -5,3 +5,4 @@
 - include: 03_finalize_installation.yml
 - include: 04_Install_and_configure_a_compute_node.yml
 - include: 05_finalize_installation.yml
+- include: 06_verify_operation.yml

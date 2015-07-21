@@ -1,0 +1,30 @@
+# The host files are used to resolve computer names such as "controller" to the ips.
+# We chose not to use a dns server and a dhcp server because it was easier.
+# However this can be changed in the future.
+# If you add a dhcp and dns server and wonder why the host is not resolved to the right ip address, 
+# adjust or remove this script.
+---
+- name: generate host files
+  hosts: localhost:all
+  sudo: yes
+  # ansible should only ask for the sudo password of localhost
+  # https://github.com/ansible/ansible/issues/1227
+  # start this with --ask-sudo-pass
+  # http://stackoverflow.com/questions/21870083/specify-sudo-password-for-ansible
+  tasks:
+
+  - name: "remove old hostfile entries"
+    lineinfile: 
+     dest: /etc/hosts 
+     regexp: ".*#autogen_openstack_node" 
+     state: absent
+
+  - name: "create new /etc/hosts entries"
+    lineinfile: 
+     dest: /etc/hosts 
+     line: "{{ hostvars[item].ansible_default_ipv4.address }} {{hostvars[item].ansible_hostname}} {{hostvars[item].ansible_fqdn}} #autogen_openstack_node" 
+     state: present
+    when: hostvars[item].ansible_default_ipv4.address is defined
+    # TODO: we would like to exclude localhost here
+    with_items: groups['all']
+

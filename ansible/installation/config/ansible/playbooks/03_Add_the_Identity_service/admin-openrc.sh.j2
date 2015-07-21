@@ -6,3 +6,6 @@ export OS_USERNAME=admin
 export OS_PASSWORD={{ config.openstack_admin_user_password }}
 # this should be {{ config.os_auth_admin_url }}/v3
 export OS_AUTH_URL={{ config.os_auth_admin_url }}/v3
+
+# from http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
+export OS_IMAGE_API_VERSION=2

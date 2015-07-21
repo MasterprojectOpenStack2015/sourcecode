@@ -1,0 +1,5 @@
+#!/usr/bin/python
+import ConfigParser
+p = ConfigParser.ConfigParser()
+p.read("/etc/ansible/ansible.cfg")
+print(p.get("defaults", "remote_user"))

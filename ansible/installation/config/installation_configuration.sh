@@ -165,6 +165,13 @@ identity_internal_url=$identity_public_url
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
 glance_os_url=http://${controller_node_hostname}:9292
 
+# default_image_url is the url of the default image that is uploaded during 
+# the setup.
+default_image_url=http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+# default_image_name is the display name of the default image 
+# from default_image_url
+default_image_name=cirros-0.3.4-x86_64
 
 ###############################################################################
 ###### configuration for download
@@ -230,6 +237,17 @@ authorized_password_for_access_to_the_vm=
 #   {{ config.generated_ansible_roles_directory }}
 # Do not use spaces in this variable. 
 generated_ansible_roles_directory=/etc/ansible/roles
+
+# configuration_directory is the directory of the config files
+# from http://stackoverflow.com/a/246128
+configuration_directory=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+configuration_directory=`realpath $configuration_directory`
+
+# installation_directory is the directory in which install.sh is placed
+installation_directory=`realpath "$configuration_directory"/..`
+
+# tools is the directory of the tools files.
+tools=$installation_directory/tools
 
 ###############################################################################
 ###### setup to make variables valid
