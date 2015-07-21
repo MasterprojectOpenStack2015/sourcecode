@@ -9,8 +9,9 @@
 
 # IP Addresses
 ip_management_prefix=192.168.100
-ip_tunnel_prefix=192.168.101 # tunnel and tenant are the same thing.
+ip_tunnel_prefix=192.168.101 
 ip_external_prefix=192.168.102
+ip_demo_prefix=192.168.200
 network_cidr_suffix="/24"
 
 ip_controller_suffix=11
@@ -32,8 +33,8 @@ external_network_gateway=$ip_external_prefix.1
 floating_ip_start=$ip_external_prefix.101
 floating_ip_end=$ip_external_prefix.200
 
-tenant_network_cidr=$ip_tunnel_prefix.0$network_cidr_suffix
-tenant_network_gateway=$ip_tunnel_prefix.1
+tenant_network_cidr=$ip_demo_prefix.0$network_cidr_suffix
+tenant_network_gateway=$ip_demo_prefix.1
 
 test_node_ip_address=$controller_node_ip_address
 
