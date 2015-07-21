@@ -235,6 +235,10 @@ authorized_password_for_access_to_the_vm=
 ###############################################################################
 ###### ansible configuration
 
+# ansible_temp_directory is the directory where we store temporary ansible 
+# files.
+ansible_temp_directory='/tmp/openstack_installation/ansible'
+
 # generated_ansible_roles_directory is the directory where we generate the 
 # config role. This role contains all variables defined in this configuration 
 # file. Variables can be used in ansible like this: 
@@ -259,5 +263,6 @@ tools=$installation_directory/tools
 # create the downloads directory
 mkdir -p $downloads_directory
 mkdir -p $vm_images_directory
+mkdir -p $ansible_temp_directory
 vm_base_image_file=$vm_images_directory/$vm_base_image_name
 
