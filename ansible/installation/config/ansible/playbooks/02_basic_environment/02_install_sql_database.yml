@@ -7,9 +7,6 @@
   - config
   tasks:
 
-  - name: "ERROR: perl: warning: Please check that your locale settings"
-    shell: locale-gen de_DE.UTF-8; update-locale LANG=de_DE.UTF-8
-
   - name: install and configure the database server
     apt: 
       pkg: mariadb-server
