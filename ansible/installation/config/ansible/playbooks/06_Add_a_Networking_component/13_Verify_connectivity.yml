@@ -8,5 +8,5 @@
   tasks:
 
   - name: From a host on the the external network, ping the tenant router gateway
-    ping: "{{ config.tenant_router_gateway_external_ip_address }}"
+    shell: ping -c 4 "{{ config.tenant_router_gateway_external_ip_address }}"
 
