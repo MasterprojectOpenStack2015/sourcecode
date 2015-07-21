@@ -230,6 +230,17 @@ authorized_password_for_access_to_the_vm=
 # Do not use spaces in this variable. 
 generated_ansible_roles_directory=/etc/ansible/roles
 
+# configuration_directory is the directory of the config files
+# from http://stackoverflow.com/a/246128
+configuration_directory=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+configuration_directory=`realpath $configuration_directory`
+
+# installation_directory is the directory in which install.sh is placed
+installation_directory=`realpath "$configuration_directory"/..`
+
+# tools is the directory of the tools files.
+tools=$installation_directory/tools
+
 ###############################################################################
 ###### setup to make variables valid
 
