@@ -1,0 +1,11 @@
+#clear cloud-init script to prevent cloud-init from running again on reboot and clobbering /etc/hosts
+---
+- name: deactivate cloud-init
+  hosts: all
+  sudo: yes
+  tasks:
+
+  - name: "clear /etc/cloud/cloud.cfg"
+    copy: 
+     dest: /etc/cloud/cloud.cfg
+     content: ""
