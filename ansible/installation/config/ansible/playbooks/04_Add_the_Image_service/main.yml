@@ -1,6 +1,4 @@
 ---
-# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
-- include: 01_configure_prerequisites.yml
-- include: 02_Install_and_configure_the_Image_service_components.yml
-- include: 03_finalize_installation.yml
-- include: 04_verify_operation.yml
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_glance.html
+- include: 02_Install_and_configure/main.yml
+- include: 03_verify_operation.yml

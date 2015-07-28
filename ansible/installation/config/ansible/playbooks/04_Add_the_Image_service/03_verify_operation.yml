@@ -1,5 +1,6 @@
 ---
-- name:  "Verify Operation"
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
+- name: Verify Operation
   hosts: controller
   roles:
     - config
@@ -7,10 +8,9 @@
   gather_facts: False
   tasks:
 
-  #       1. In each client environment script, configure the Image service client to use API version
-    # we already put "export OS_IMAGE_API_VERSION=2" into the admin-openrc.sh and demo-openrc.sh
-    # now we need to verify that
-
+  # 1. In each client environment script, configure the Image service client to use API version
+  # we already put "export OS_IMAGE_API_VERSION=2" into the admin-openrc.sh and demo-openrc.sh
+  # now we need to verify that
   - name: 2.1 Source the admin credentials to gain access to admin-only CLI commands 2.0
     shell: source {{ item }} && test "$OS_IMAGE_API_VERSION" == "2"
     args:
@@ -28,6 +28,8 @@
     environment: config.environment.demo
 
   - name: 3.1 Remove the temporary local directory and source image
+    # If a command in this file files this is necessairy to restart the file.
+    # It will be done in 7. either way.
     file: path=/tmp/images state=absent
 
   - name: 3.2 Create a temporary local directory

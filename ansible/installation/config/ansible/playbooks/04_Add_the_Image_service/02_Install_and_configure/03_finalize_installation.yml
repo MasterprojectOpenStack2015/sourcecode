@@ -1,0 +1,22 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
+- name:  "finalize installation"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+  - name: "1.1 Restart the Image service services"
+    service: 
+      name: glance-registry
+      state: restarted
+
+  - name: "1.2 Restart the Image service services"
+    service: 
+      name: glance-api
+      state: restarted
+
+  - name: "2. Because this configuration uses a SQL database server, you can remove the SQLite database file"
+    shell: "rm -f /var/lib/glance/glance.sqlite"
