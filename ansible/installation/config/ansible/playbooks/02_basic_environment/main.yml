@@ -1,7 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
-- include: 01_install_openStack_packages.yml
-- include: 02_install_sql_database.yml
-- include: 03_mysql_secure_installation.yml
-- include: 04_message_queue.yml
+- include: 01_OpenStack_packages/main.yml
+- include: 02_SQL_database/main.yml
+- include: 03_Message_queue/main.yml
 

@@ -1,0 +1,38 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
+- name: install and configure the database server
+  hosts: controller
+  gather_facts: False
+  sudo: yes
+  roles:
+  - config
+  tasks:
+
+  - name: 1. Install the packages
+    apt: 
+      pkg: {{ item }}
+      state: installed
+    with_items:
+    - mariadb-server
+    - python-mysqldb
+
+  # 2. Choose a suitable password for the database root account
+  # This is done in config/installation_configuration.sh
+
+  - name: 3. Create and edit the /etc/mysql/conf.d/mysqld_openstack.cnf file and complete the following actions
+        # 3.a In the [mysqld] section, set the bind-address key to the management IP address of the controller node to enable access by other nodes via the management network
+        # 3.b In the [mysqld] section, set the following keys to enable useful options and the UTF-8 character set
+    lineinfile: 
+      dest: /etc/mysql/conf.d/mysqld_openstack.cnf
+      create: yes
+      # using variables 
+      #   https://docs.ansible.com/playbooks_variables.html#information-discovered-from-systems-facts
+      #   Use "ansible controller -m setup" to find all possible variable names.
+      #   Other variable names are defined in the config role.
+      #     {{ config.controller_node_ip_address }}
+      line: "[mysqld]\nbind-address = {{ config.controller_node_ip_address }}\n\ndefault-storage-engine = innodb\ninnodb_file_per_table\ncollation-server = utf8_general_ci\ninit-connect = \'SET NAMES utf8\'\ncharacter-set-server = utf8"
+
+
+
+
+

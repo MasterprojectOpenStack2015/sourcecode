@@ -1,0 +1,14 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
+- name: configure the message queue service
+  hosts: all
+  gather_facts: False
+  sudo: yes
+  tasks:
+
+  - name: 1. Add the openstack user
+    shell: "rabbitmqctl add_user openstack {{ config.rabbitmq_password }}"
+
+  - name: 2. Permit configuration, write, and read access for the openstack user
+    shell: 'rabbitmqctl set_permissions openstack ".*" ".*" ".*"'
+

@@ -1,0 +1,18 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
+- name: OpenStack packages
+  hosts: all
+  sudo: yes
+  gather_facts: False
+  tasks:
+
+  - name: 1.1 Upgrade the packages on your system
+    apt:
+      update_cache: yes
+
+  - name: 1.2 Upgrade the packages on your system
+    apt: 
+      upgrade: dist
+  
+  # TODO: Note: If the upgrade process includes a new kernel, reboot your system to activate it.
+

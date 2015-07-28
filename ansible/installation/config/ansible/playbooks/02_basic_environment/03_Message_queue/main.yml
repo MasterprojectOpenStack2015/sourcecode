@@ -1,0 +1,4 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
+- include: 01_install_the_message_queue_service.yml
+- include: 01_configure_the_message_queue_service.yml

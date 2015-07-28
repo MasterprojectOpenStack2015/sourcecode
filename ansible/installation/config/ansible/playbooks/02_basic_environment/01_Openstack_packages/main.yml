@@ -1,0 +1,4 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
+- include: 01_enable_the_OpenStack_repository.yml
+- include: 02_finalize_installation.yml

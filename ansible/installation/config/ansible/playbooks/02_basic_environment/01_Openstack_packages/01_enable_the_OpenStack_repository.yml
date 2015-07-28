@@ -1,27 +1,25 @@
 ---
-- name: install the OpenStack packages
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
+- name: OpenStack packages
   hosts: all
-# see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
-# for sudo: yes
+  # see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
+  # for sudo: yes
   sudo: yes
   gather_facts: False
   tasks:
-  - name: update the cache
+
+  - name: 1. update the cache
     apt:       
       update_cache: yes
-  - name: install cloud keyring
+
+  - name: 2. install cloud keyring
     apt: 
       pkg: ubuntu-cloud-keyring 
       state: installed 
-  - name: add repository
+
+  - name: 3. add repository
     lineinfile:
       dest: /etc/apt/sources.list.d/cloudarchive-kilo.list
       create: yes
       line: "deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/kilo main"
-  - name: finalize installation
-    apt:
-      update_cache: yes
-  - name: upgrade the distribution
-    apt: 
-      upgrade: dist
 
