@@ -4,5 +4,5 @@
   sudo: yes
   tasks:
 
-  - name: "build german locale to avoid problems with dev machines"
+  - name: "Build German locale to avoid problems with dev machines"
     shell: locale-gen de_DE.UTF-8; update-locale LANG=de_DE.UTF-8
