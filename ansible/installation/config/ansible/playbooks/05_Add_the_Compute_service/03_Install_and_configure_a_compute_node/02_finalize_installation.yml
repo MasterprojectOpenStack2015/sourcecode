@@ -1,19 +1,21 @@
 ---
-- name:  "Finalize Installation"
+- name:  "finalize installation"
   hosts: compute
   roles:
     - config
   sudo: True
   gather_facts: False
   tasks:
-  - name: "Determine whether your compute node supports hardware acceleration for virtual machines"
+
+  - name: "1. Determine whether your compute node supports hardware acceleration for virtual machines"
     # this is done in the check_nested_support.sh before libvirt is installed.
     shell: 'echo ok, nested support was checked before in check_nested_support.sh'
 
-  - name: "Restart the Compute service:"
+  - name: "2. Restart the Compute service:"
     service: 
       name: nova-compute
       state: restarted
 
-  - name: "Because this configuration uses a SQL database server, you can remove the SQLite database file"
+  - name: "3. Because this configuration uses a SQL database server, you can remove the SQLite database file"
+    # By default, the Ubuntu packages create an SQLite database.
     shell: "rm -f /var/lib/nova/nova.sqlite"

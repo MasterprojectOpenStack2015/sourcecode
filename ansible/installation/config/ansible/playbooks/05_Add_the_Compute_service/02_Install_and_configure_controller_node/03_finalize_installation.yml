@@ -1,12 +1,14 @@
 ---
-- name:  "Finalize Installation"
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html
+- name:  "finalize installation"
   hosts: controller
   roles:
     - config
   sudo: True
   gather_facts: False
   tasks:
-  - name: "Restart the Compute services:"
+
+  - name: "1. Restart the Compute services"
     service: 
       name: "{{ item }}"
       state: restarted
@@ -19,4 +21,5 @@
     - nova-novncproxy
 
   - name: "Because this configuration uses a SQL database server, you can remove the SQLite database file"
+    # By default, the Ubuntu packages create an SQLite database
     shell: "rm -f /var/lib/nova/nova.sqlite"

@@ -3,7 +3,7 @@
   tasks:
   - shell: echo "I just want to gather facts for 2.2.2"
 
-- name:  "Verify operation of the Compute service"
+- name:  "Verify operation"
   # Note: Perform these commands on the controller node.
   hosts: controller
   roles:

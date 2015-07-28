@@ -1,0 +1,138 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html
+- name:  "install and configure Compute controller components"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: True
+  tasks:
+
+    - name: "1. Install the packages"
+      apt: pkg={{item}} state=installed
+      with_items:
+      - nova-api
+      - nova-cert
+      - nova-conductor
+      - nova-consoleauth
+      - nova-novncproxy
+      - nova-scheduler
+      - python-novaclient
+
+    # 2. Edit the /etc/nova/nova.conf file
+
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf 
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
+    - name: "2.a Add a [database] section, and configure database access"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=database
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'connection', value: 'mysql://nova:{{ config.nova_mysql_password }}@{{ config.controller_node_hostname }}/nova' }
+
+    - name: "2.b.1 In the [DEFAULT] section, configure RabbitMQ message queue access"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=DEFAULT_WORKAROUND
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'rpc_backend', value: 'rabbit' }
+
+    - name: "2.b.2 In the [oslo_messaging_rabbit] section, configure RabbitMQ message queue access"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=oslo_messaging_rabbit
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
+      - { option: 'rabbit_userid', value: 'openstack' }
+      - { option: 'rabbit_password', value: '{{ config.rabbitmq_password }}' }
+
+    - name: "2.c.1 In the [DEFAULT] section, configure Identity service access"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=DEFAULT_WORKAROUND
+                option=auth_strategy
+                value=keystone
+                backup=no
+
+    - name: "2.c.2 Comment out or remove any other options in the [keystone_authtoken] section"  
+      ini_file: dest=/etc/nova/nova.conf 
+                section=keystone_authtoken
+                state=absent
+
+    - name: "2.c.3 In the [keystone_authtoken] section, configure Identity service access"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=keystone_authtoken
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      # TODO: replace 'http://{{ config.controller_node_hostname }}:5000' and 'http://{{ config.controller_node_hostname }}:35357' with variable everywhere
+      - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+      - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+      - { option: 'auth_plugin', value: 'password' }
+      - { option: 'project_domain_id', value: 'default' }
+      - { option: 'user_domain_id', value: 'default' }
+      - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'nova' }
+      - { option: 'password', value: '{{ config.nova_user_password }}' }
+
+    - name: "2.d In the [DEFAULT] section, configure the my_ip option to use the management interface IP address of the controller node"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=DEFAULT_WORKAROUND
+                option=my_ip
+                value={{ inventory_hostname }}
+                backup=no
+
+    - name: "2.e In the [DEFAULT] section, configure the VNC proxy to use the management interface IP address of the controller node"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=DEFAULT_WORKAROUND
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'vncserver_listen', value: '{{ inventory_hostname }}' }
+      - { option: 'vncserver_proxyclient_address', value: '{{ inventory_hostname }}' }
+
+
+    - name: "2.f In the [glance] section, configure the location of the Image service"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=glance
+                option="host"
+                value="controller"
+                backup=no
+
+    - name: "2.g In the [oslo_concurrency] section, configure the lock path"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=oslo_concurrency
+                option="lock_path"
+                value="/var/lib/nova/tmp"
+                backup=no
+
+    - name: "2.h (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section"
+      ini_file: dest=/etc/nova/nova.conf 
+                section=DEFAULT_WORKAROUND
+                option=verbose
+                value=True
+                backup=no
+
+
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no
+
+    - name: "3. Populate the Compute database"
+      shell: 'su -s /bin/sh -c "nova-manage db sync" nova'
+

@@ -1,0 +1,4 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html
+- include: 01_install_and_configure_the_Compute_hypervisor_components.yml
+- include: 02_finalize_installation.yml
