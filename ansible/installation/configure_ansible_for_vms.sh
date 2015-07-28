@@ -35,6 +35,35 @@ config:' > $temp_variables_file
 # for a valid variable example read http://stackoverflow.com/a/26640550/1320237
 tools/config_variables | sed 's/^\([^=]*\)=/  \1: /g' >> $temp_variables_file
 
+# create token, admin and, demo environment
+echo "
+  environment:
+    token:
+      OS_TOKEN: \"$keystone_os_token\"
+      OS_URL:   \"$keystone_os_url\"
+    admin:
+      # see ~/admin-openrc.sh or $configuration_directory/ansible/playbooks/03_Add_the_Identity_service/admin-openrc.sh.j2
+      OS_PROJECT_DOMAIN_ID: default
+      OS_USER_DOMAIN_ID:    default
+      OS_PROJECT_NAME:      admin
+      OS_TENANT_NAME:       admin
+      OS_USERNAME:          admin
+      OS_PASSWORD:          \"$openstack_admin_user_password\"
+      OS_AUTH_URL:          \"${os_auth_admin_url}/v3
+      # from http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
+      OS_IMAGE_API_VERSION: 2
+    demo:
+      # see ~/demo-openrc.sh or $configuration_directory/ansible/playbooks/03_Add_the_Identity_service/demo-openrc.sh.j2
+      OS_PROJECT_DOMAIN_ID: default
+      OS_USER_DOMAIN_ID:    default
+      OS_PROJECT_NAME:      demo
+      OS_TENANT_NAME:       demo
+      OS_USERNAME:          demo
+      OS_PASSWORD:          \"$openstack_demo_user_password\"
+      OS_AUTH_URL:          \"${os_auth_user_url}/v3
+      # from http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
+      OS_IMAGE_API_VERSION: 2" >> $temp_variables_file
+
 if [[ ! -f $variables_file ]] || ! cmp --silent $temp_variables_file $variables_file
 then
 	sudo mkdir -p $roles_variables_directory
