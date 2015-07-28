@@ -49,7 +49,7 @@ echo "
       OS_TENANT_NAME:       admin
       OS_USERNAME:          admin
       OS_PASSWORD:          \"$openstack_admin_user_password\"
-      OS_AUTH_URL:          \"${os_auth_admin_url}/v3
+      OS_AUTH_URL:          \"${os_auth_admin_url}/v3\"
       # from http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
       OS_IMAGE_API_VERSION: 2
     demo:
@@ -60,7 +60,7 @@ echo "
       OS_TENANT_NAME:       demo
       OS_USERNAME:          demo
       OS_PASSWORD:          \"$openstack_demo_user_password\"
-      OS_AUTH_URL:          \"${os_auth_user_url}/v3
+      OS_AUTH_URL:          \"${os_auth_user_url}/v3\"
       # from http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
       OS_IMAGE_API_VERSION: 2" >> $temp_variables_file
 
