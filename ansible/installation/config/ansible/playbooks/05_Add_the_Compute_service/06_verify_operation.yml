@@ -19,9 +19,8 @@
       executable: /bin/bash
 
   - name: 2.1.1 List service components to verify successful launch and registration of each process
-    shell: source admin-openrc.sh; nova service-list
-    args:
-      executable: /bin/bash
+    shell: nova service-list
+    environment: config.environment.admin
     register: nova_list
 
   - name: 2.1.2 Check that nova-consoleauth, nova-scheduler, nova-cert, nova-conductor exist
@@ -36,9 +35,8 @@
     - nova-conductor
 
   - name: 2.2.1 List service components to verify successful launch and registration of each process
-    shell: source admin-openrc.sh; nova service-list 
-    args:
-      executable: /bin/bash
+    shell: nova service-list 
+    environment: config.environment.admin
     register: nova_service_list
 
   - name: 2.2.2 Check for nova-compute
@@ -48,9 +46,8 @@
     with_items: groups['compute']
 
   - name: 3.1 List API endpoints in the Identity service to verify connectivity with the Identity service
-    shell: source admin-openrc.sh; nova endpoints
-    args:
-      executable: /bin/bash
+    shell: nova endpoints
+    environment: config.environment.admin
     register: nova_endpoints
 
   - name: 3.2 Check that keystone, glance and nova have a public, internal and admin interface
@@ -66,9 +63,8 @@
     - nova
 
   - name: 4.1 List images in the Image service catalog to verify connectivity with the Image service
-    shell: source admin-openrc.sh; nova image-list
-    args:
-      executable: /bin/bash
+    shell: nova image-list
+    environment: config.environment.admin
     register: nova_image_list
 
   - name: 4.2 Check that cirros image is present
