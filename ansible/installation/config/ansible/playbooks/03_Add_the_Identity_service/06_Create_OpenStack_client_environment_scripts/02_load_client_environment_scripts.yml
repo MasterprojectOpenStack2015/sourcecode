@@ -1,0 +1,15 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-client-environment-scripts.html
+- name: create the scripts
+  hosts: controller
+  sudo: False
+  roles: 
+  - config  
+  tasks:
+
+  - name: "Load the admin-openrc.sh file and request an authentication token"
+    # This step requires the host file to resolve the hostname of the controller 
+    # on all host as well as localhost.
+    shell: source ~/admin-openrc.sh; \
+           openstack token issue
+    # we dont need this here, this will crash ansible as openstack command is not available on other nodes than controller

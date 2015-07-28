@@ -1,4 +1,5 @@
 ---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
 - name: install and configure the Identity service components
   hosts: controller
   roles:
@@ -7,10 +8,11 @@
   gather_facts: False
 
   tasks:
-  - name: Disable the keystone service from starting automatically after installation
+
+  - name: 1. Disable the keystone service from starting automatically after installation
     shell: echo "manual" > /etc/init/keystone.override
 
-  - name: install the packages
+  - name: 2. install the packages
     apt: pkg={{item}} state=installed
     with_items:
     - keystone
@@ -20,66 +22,65 @@
     - memcached
     - python-memcache
 
-# see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
-# Edit the /etc/keystone/keystone.conf
+  # 3. Edit the /etc/keystone/keystone.conf
 
-# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
   - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
     replace: dest=/etc/keystone/keystone.conf
               regexp='\[DEFAULT\]'
               replace="[DEFAULT_WORKAROUND]"
               backup=no
 
-  - name: "(a) define the value of the initial administration token"
+  - name: "3.a define the value of the initial administration token"
     ini_file: dest=/etc/keystone/keystone.conf
               section=DEFAULT_WORKAROUND
               option=admin_token
               value={{ config.keystone_admin_token }}
               backup=no
 
-  - name: "(b) configure database access"
+  - name: "3.b configure database access"
     ini_file: dest=/etc/keystone/keystone.conf
               section=database
               option=connection
               value=mysql://keystone:{{ config.keystone_database_password }}@{{ config.controller_node_ip_address }}/keystone
               backup=no
 
-  - name: "(c) configure the Memcache service"
+  - name: "3.c configure the Memcache service"
     ini_file: dest=/etc/keystone/keystone.conf
               section=memcache
               option=servers
               value=localhost:11211
               backup=no
 
-  - name: "(d.1) configure the UUID token provider"
+  - name: "3.d.1 configure the UUID token provider"
     ini_file: dest=/etc/keystone/keystone.conf
               section=token
               option=provider
               value=keystone.token.providers.uuid.Provider
               backup=no
 
-  - name: "(d.2) configure the Memcached driver"
+  - name: "3.d.2 configure the Memcached driver"
     ini_file: dest=/etc/keystone/keystone.conf
               section=token
               option=driver
               value=keystone.token.persistence.backends.memcache.Token
               backup=no
 
-  - name: "(e) configure the SQL revocation driver"
+  - name: "3.e configure the SQL revocation driver"
     ini_file: dest=/etc/keystone/keystone.conf
               section=revoke
               option=driver
               value=keystone.contrib.revoke.backends.sql.Revoke
               backup=no
 
-  - name: "(f) To assist with troubleshooting, enable verbose logging"
+  - name: "3.f To assist with troubleshooting, enable verbose logging"
     ini_file: dest=/etc/keystone/keystone.conf
               section=DEFAULT_WORKAROUND
               option=verbose
               value=True
               backup=no
 
-# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+  # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
   - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
     replace: dest=/etc/keystone/keystone.conf
               regexp='\[DEFAULT_WORKAROUND\]'
@@ -87,9 +88,8 @@
               backup=no
 
 
-  - name: Populate the Identity service database
+  - name: 4. Populate the Identity service database
     # access denied error
     # see https://ask.openstack.org/en/question/27674/problem-with-keystone-authentication-1045-access-denied-error/
     shell: su -s /bin/sh -c "keystone-manage db_sync" keystone
-    #shell: keystone-manage db_sync
-    # sudo: False
+

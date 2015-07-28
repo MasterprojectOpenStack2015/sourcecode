@@ -9,17 +9,16 @@
   gather_facts: False
   tasks:
 
-#    - name: debug
-#      debug: msg="config.mysql_login_user {{ config.mysql_login_user }} config.mysql_login_password {{ config.mysql_login_password }}"
+    # 1. To create the database, complete these steps
 
-    - name: ensure keystone database is present
+    - name: 1.b Create the keystone database
       mysql_db: 
         login_user: "{{ config.mysql_login_user }}"
         login_password: "{{ config.mysql_login_password }}"
         name: keystone
         state: present
 
-    - name: ensure keystone database user is present
+    - name: 1.c Grant proper access to the keystone database
       mysql_user: 
         login_user: "{{ config.mysql_login_user }}"
         login_password: "{{ config.mysql_login_password }}"
@@ -30,3 +29,6 @@
       with_items:
         - "%"
         - localhost
+
+     # 2. Generate a random value to use as the administration token during initial configuration
+     # This is done in config/installation_configuration.sh

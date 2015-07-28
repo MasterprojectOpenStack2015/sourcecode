@@ -1,0 +1,16 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
+- name: configure the Apache HTTP server
+  hosts: controller
+  sudo: True
+  gather_facts: false
+
+  tasks:
+
+  - name: 1. Restart the Apache HTTP server
+    service: 
+      name: apache2
+      state: restarted
+
+  - name: 2. Because this configuration uses a SQL database server, you can remove the SQLite database file
+    shell: rm -f /var/lib/keystone/keystone.db

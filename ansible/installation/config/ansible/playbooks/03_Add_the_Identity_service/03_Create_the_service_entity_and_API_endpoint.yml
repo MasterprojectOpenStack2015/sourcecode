@@ -1,6 +1,6 @@
 ---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
 - name: create the service entity and API endpoint
-  # http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
   hosts: controller
   roles:
     - config

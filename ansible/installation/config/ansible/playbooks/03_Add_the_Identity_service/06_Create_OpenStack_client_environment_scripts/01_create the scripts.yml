@@ -1,0 +1,15 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-client-environment-scripts.html
+- name: create the scripts
+  hosts: localhost:all
+  sudo: False
+  roles: 
+  - config  
+  tasks:
+
+  - name: "1. Edit the admin-openrc.sh file"
+    template: src=admin-openrc.sh.j2 dest={{ ansible_user_dir }}/admin-openrc.sh owner={{ ansible_user_id }}
+
+  - name: "2. Edit the demo-openrc.sh file"
+    template: src=demo-openrc.sh.j2 dest={{ ansible_user_dir }}/demo-openrc.sh owner={{ ansible_user_id }}
+

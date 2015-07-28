@@ -1,9 +1,7 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_keystone.html
-- include: 01_configure_prerequisites.yml
-- include: 02_install_and_configure_the_Identity_service_components.yml
-- include: 03_configure_the_Apache_HTTP_server.yml
-- include: 04_Create_the_service_entity_and_API_endpoint.yml
-- include: 05_Create_projects_users_and_roles.yml
-- include: 06_verify_operation.yml
-- include: 07_Create_OpenStack_client_environment_scripts.yml
+- include: 02_Install_and_configure/main.yml
+- include: 03_Create_the_service_entity_and_API_endpoint.yml
+- include: 04_Create_projects_users_and_roles.yml
+- include: 05_verify_operation.yml
+- include: 06_Create_OpenStack_client_environment_scripts/main.yml
