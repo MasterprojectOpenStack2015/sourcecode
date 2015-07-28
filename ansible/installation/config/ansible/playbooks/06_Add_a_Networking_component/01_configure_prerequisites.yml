@@ -29,7 +29,7 @@
         - localhost
 
     - name: Delete the neutron user if existent
-      shell: openstack user delete neutron || echo -n
+      shell: openstack user delete neutron || true
 
     - name: Create the neutron user
       shell: "openstack user create --password {{ config.neutron_user_password }} neutron"

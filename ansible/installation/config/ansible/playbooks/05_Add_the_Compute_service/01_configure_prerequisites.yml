@@ -29,7 +29,7 @@
         - localhost
 
     - name: Delete the nova user if existent
-      shell: openstack user delete nova || echo -n
+      shell: openstack user delete nova || true
 
     - name: Create the nova user
       shell: "openstack user create --password {{ config.nova_user_password }} nova"

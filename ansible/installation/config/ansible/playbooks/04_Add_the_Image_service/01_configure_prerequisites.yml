@@ -29,7 +29,7 @@
         - localhost
 
     - name: Delete the glance user if existent
-      shell: openstack user delete glance || echo -n
+      shell: openstack user delete glance || true
 
     - name: Create the glance user
       shell: "openstack user create --password {{ config.glance_user_password }} glance"
