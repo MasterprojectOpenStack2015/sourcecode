@@ -5,14 +5,8 @@
     - config
   sudo: True
   gather_facts: False
-  environment:
-    OS_PROJECT_DOMAIN_ID: default
-    OS_USER_DOMAIN_ID: default
-    OS_PROJECT_NAME: demo
-    OS_TENANT_NAME: demo
-    OS_USERNAME: demo
-    OS_PASSWORD: "{{ config.openstack_demo_user_password }}"
-    OS_AUTH_URL: "http://{{ config.controller_node_hostname }}:5000/v3"
+  environment: config.environment.demo
+
   tasks:
   - name: "Create the tenant network"
     shell: "neutron net-create demo-net"

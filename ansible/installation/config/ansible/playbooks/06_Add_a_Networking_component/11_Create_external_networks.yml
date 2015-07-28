@@ -5,14 +5,8 @@
     - config
   sudo: True
   gather_facts: False
-  environment:
-    OS_PROJECT_DOMAIN_ID: default
-    OS_USER_DOMAIN_ID: default
-    OS_PROJECT_NAME: admin
-    OS_TENANT_NAME: admin
-    OS_USERNAME: admin
-    OS_PASSWORD: "{{ config.openstack_admin_user_password }}"
-    OS_AUTH_URL: "http://{{ config.controller_node_hostname }}:35357/v3"
+  environment: config.environment.admin
+
   tasks:
   - name: "Create the external network"
     shell: "neutron net-create ext-net --router:external --provider:physical_network external --provider:network_type flat"

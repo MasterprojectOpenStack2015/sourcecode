@@ -7,12 +7,9 @@
   sudo: True
   gather_facts: False
   # set the environment variables according to
-  #  http://stackoverflow.com/a/27736434/1320237
-  # and 
-  #  https://github.com/ansible/ansible/pull/8651
-  environment: 
-    OS_TOKEN: "{{ config.keystone_os_token }}"
-    OS_URL: "{{ config.keystone_os_url }}"
+  #  http://docs.ansible.com/ansible/playbooks_environment.html
+  environment: config.environment.token
+
   tasks:
   - name: "Create the service entity for the Identity service"
     shell: 'openstack service create --name keystone --description "OpenStack Identity" identity'
