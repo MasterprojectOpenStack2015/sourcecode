@@ -8,7 +8,7 @@
   environment: config.environment.token
 
   tasks:
-    - name: "Edit the /etc/sysctl.conf file to contain the following parameters"
+    - name: "1. Edit the /etc/sysctl.conf file to contain the following parameters"
       lineinfile: 
         dest: /etc/sysctl.conf
         line: "{{ item }}"
@@ -19,10 +19,10 @@
       - "net.ipv4.conf.all.rp_filter=0"
       - "net.ipv4.conf.default.rp_filter=0"
 
-    - name: "Edit the /etc/sysctl.conf file to contain the following parameters"
+    - name: "2. Implement the changes"
       shell: "sysctl -p"
 
-    - name: "install the Networking components"
+    - name: "3. install the Networking components"
       apt: pkg={{item}} state=installed
       with_items:
       - neutron-plugin-ml2
