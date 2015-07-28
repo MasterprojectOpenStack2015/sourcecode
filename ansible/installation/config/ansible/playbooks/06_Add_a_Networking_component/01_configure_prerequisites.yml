@@ -5,17 +5,22 @@
     - config
   sudo: True
   gather_facts: False
-  environment: config.environment.token
+  # 2. Source the admin credentials to gain access to admin-only CLI commands
+  environment: config.environment.admin
 
   tasks:
-    - name: Create the neutron database
+
+    # 1. To create the database, complete these steps
+    # -----------------------------------------------
+
+    - name: 1.b Create the neutron database
       mysql_db: 
         login_user: "{{ config.mysql_login_user }}"
         login_password: "{{ config.mysql_login_password }}"
         name: neutron
         state: present
 
-    - name: Grant proper access to the neutron database
+    - name: 1.c Grant proper access to the neutron database
       mysql_user: 
         login_user: "{{ config.mysql_login_user }}"
         login_password: "{{ config.mysql_login_password }}"
@@ -27,17 +32,33 @@
         - "%"
         - localhost
 
-    - name: Delete the neutron user if existent
+    # 2. Source the admin credentials to gain access to admin-only CLI commands
+    # -------------------------------------------------------------------------
+    #
+    # this is done by `environment: config.environment.admin`
+
+    # 3. To create the service credentials, complete these steps
+    # ----------------------------------------------------------
+
+    - name: 3.a.1 Delete the neutron user if existent
       shell: openstack user delete neutron || true
 
-    - name: Create the neutron user
-      shell: "openstack user create --password {{ config.neutron_user_password }} neutron"
+    - name: 3.a.2 Create the neutron user
+      shell: "openstack user create --password '{{ config.neutron_user_password }}' neutron"
 
-    - name: Add the admin role to the neutron user
+    - name: 3.b Add the admin role to the neutron user
       shell: "openstack role add --project service --user neutron admin"
 
-    - name: Create the neutron service entity
+    - name: 3.c Create the neutron service entity
       shell: "openstack service create --name neutron --description 'OpenStack Networking' network"
 
-    - name: Create the Networking service API endpoint
-      shell: 'openstack endpoint create --publicurl http://{{ config.controller_node_hostname }}:9696 --adminurl http://{{ config.controller_node_hostname }}:9696 --internalurl http://{{ config.controller_node_hostname }}:9696 --region RegionOne network'
+    # 4. Create the Networking service API endpoint
+    # ---------------------------------------------
+
+    - name: 4. Create the Networking service API endpoint
+      shell: 'openstack endpoint create 
+                        --publicurl http://{{ config.controller_node_hostname }}:9696 
+                        --adminurl http://{{ config.controller_node_hostname }}:9696 
+                        --internalurl http://{{ config.controller_node_hostname }}:9696 
+                        --region RegionOne network'
+
