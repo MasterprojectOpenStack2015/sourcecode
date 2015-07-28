@@ -25,6 +25,7 @@
     register: nova_list
 
   - name: 2.1.2 Check that nova-consoleauth, nova-scheduler, nova-cert, nova-conductor exist
+    # using assertions: http://docs.ansible.com/ansible/assert_module.html
     assert:
       that: 
       - nova_list.stdout | search(item + "\s*\|\s*" + config.controller_node_hostname + "\s*\|\s*internal\s*\|\s*enabled\s*\|\s*up")
@@ -64,7 +65,16 @@
     - keystone
     - nova
 
-  - name: 4. List images in the Image service catalog to verify connectivity with the Image service
-    shell: source admin-openrc.sh; nova image-list | grep -q 'cirros'
+  - name: 4.1 List images in the Image service catalog to verify connectivity with the Image service
+    shell: source admin-openrc.sh; nova image-list
     args:
       executable: /bin/bash
+    register: nova_image_list
+
+  - name: 4.2 Check that cirros image is present
+    assert:
+      that:
+      - config.default_image_name in nova_image_list.stdout
+
+
+
