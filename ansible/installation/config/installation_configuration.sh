@@ -32,6 +32,10 @@ external_network_cidr=$ip_external_prefix.0$network_cidr_suffix
 external_network_gateway=$ip_external_prefix.1
 floating_ip_start=$ip_external_prefix.101
 floating_ip_end=$ip_external_prefix.200
+# tenant_router_gateway_external_ip_address is the external ip address of the
+# tenant router that can be acccessed from localhost
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-networks-verify.html
+tenant_router_gateway_external_ip_address=$floating_ip_start
 
 tenant_network_cidr=$ip_demo_prefix.0$network_cidr_suffix
 tenant_network_gateway=$ip_demo_prefix.1
@@ -231,6 +235,10 @@ authorized_password_for_access_to_the_vm=
 ###############################################################################
 ###### ansible configuration
 
+# ansible_temp_directory is the directory where we store temporary ansible 
+# files.
+ansible_temp_directory='/tmp/openstack_installation/ansible'
+
 # generated_ansible_roles_directory is the directory where we generate the 
 # config role. This role contains all variables defined in this configuration 
 # file. Variables can be used in ansible like this: 
@@ -255,5 +263,6 @@ tools=$installation_directory/tools
 # create the downloads directory
 mkdir -p $downloads_directory
 mkdir -p $vm_images_directory
+mkdir -p $ansible_temp_directory
 vm_base_image_file=$vm_images_directory/$vm_base_image_name
 

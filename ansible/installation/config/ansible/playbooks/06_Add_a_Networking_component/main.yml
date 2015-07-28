@@ -12,3 +12,4 @@
 - include: 10_finalize_installation.yml
 - include: 11_Create_external_networks.yml
 - include: 12_Create_tenant_networks.yml
+- include: 13_Verify_connectivity.yml
