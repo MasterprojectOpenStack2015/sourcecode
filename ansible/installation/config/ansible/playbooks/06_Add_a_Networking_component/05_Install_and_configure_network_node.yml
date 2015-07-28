@@ -10,13 +10,16 @@
 
     # To configure the Networking common components
     # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
-    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+    - name: "0. WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
       replace: dest=/etc/neutron/neutron.conf
                 regexp='\[DEFAULT\]'
                 replace="[DEFAULT_WORKAROUND]"
                 backup=no
 
-    - name: "Configure the Networking server component - (a) In the [database] section, comment out any connection options because network nodes do not directly access the database"
+    # 1. Configure the Networking server component
+    # --------------------------------------------
+
+    - name: "(a) In the [database] section, comment out any connection options because network nodes do not directly access the database"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=database
                 option="connection"
@@ -76,7 +79,9 @@
                 replace="[DEFAULT]"
                 backup=no
 
-# To configure the Modular Layer 2 (ML2) plug-in
+    # 2. To configure the Modular Layer 2 (ML2) plug-in
+    # -------------------------------------------------
+
     - name: "Configure the Modular Layer 2 (ML2) plug-in - (f) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section"
       ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
                 section=ml2
@@ -136,7 +141,9 @@
       with_items:
       - { option: 'tunnel_types', value: 'gre' }
 
-# To configure the Layer-3 (L3) agent
+    # 3. To configure the Layer-3 (L3) agent
+    # --------------------------------------
+
     - name: "Configure the Layer-3 (L3) agent - (m) Edit /etc/neutron/l3_agent.ini [DEFAULT] section"
       ini_file: dest=/etc/neutron/l3_agent.ini
                 section=DEFAULT
@@ -149,7 +156,9 @@
       - { option: 'router_delete_namespaces', value: 'True' }
       - { option: 'verbose', value: 'True' }
 
-# To configure the DHCP agent
+    # 4. To configure the DHCP agent
+    # ------------------------------
+
     - name: "Configure the DHCP agent - (n) Edit /etc/neutron/dhcp_agent.ini [DEFAULT] section"
       ini_file: dest=/etc/neutron/dhcp_agent.ini
                 section=DEFAULT
@@ -172,7 +181,9 @@
     - name: "Kill any existing dnsmasq processes"
       shell: "pkill dnsmasq || true" #Demo of pkill behaviour with Ansible: https://gist.github.com/willthames/ee40bd6d9b5eebb9b8eb
 
-# To configure the metadata agent
+    # 5. To configure the metadata agent
+    # ----------------------------------
+
     - name: "Configure the metadata agent - (n) Edit /etc/neutron/metadata_agent.ini [DEFAULT] section"
       ini_file: dest=/etc/neutron/metadata_agent.ini
                 section=DEFAULT
@@ -193,7 +204,9 @@
       - { option: 'metadata_proxy_shared_secret', value: '{{ config.metadata_proxy_shared_secret }}' }
       - { option: 'verbose', value: 'True' }
 
-# To configure the Open vSwitch (OVS) service
+    # 6. To configure the Open vSwitch (OVS) service
+    # ----------------------------------------------
+
     - name: "Restart the OVS service"
       shell: "service openvswitch-switch restart"
 
@@ -205,3 +218,8 @@
 
     - name: "Depending on your network interface driver, you may need to disable generic receive offload (GRO) to achieve suitable throughput between your instances and the external network. To temporarily disable GRO on the external network interface while testing your environment"
       shell: "echo OPTIONAL TODO"
+
+    # 7. To finalize the installation
+    # -------------------------------
+    #
+    # see 07_finalize_installation.yml
