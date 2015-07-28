@@ -1,4 +1,5 @@
 ---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-controller-node.html
 - name:  "Install and configure controller node"
   hosts: controller
   roles:
@@ -6,6 +7,7 @@
   sudo: True
   gather_facts: False
   tasks:
+
     - name: "Install the packages"
       apt: pkg={{item}} state=installed
       with_items:
@@ -13,7 +15,9 @@
       - neutron-plugin-ml2
       - python-neutronclient
 
-#To configure the Networking server component:
+    # 1. To configure the Networking server component
+    # -----------------------------------------------
+
     # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
     - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
       replace: dest=/etc/neutron/neutron.conf
@@ -21,7 +25,7 @@
                 replace="[DEFAULT_WORKAROUND]"
                 backup=no
 
-    - name: "Configure the Networking server component - (a) Edit /etc/neutron/neutron.conf [DEFAULT] section"
+    - name: "1.a Edit /etc/neutron/neutron.conf [DEFAULT] section"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=DEFAULT_WORKAROUND
                 option={{ item.option }}
@@ -38,7 +42,7 @@
       - { option: 'nova_url', value: 'http://{{ config.controller_node_hostname }}:8774/v2' }
       - { option: 'verbose', value: 'True' }
 
-    - name: "(b) Edit /etc/neutron/neutron.conf [database] section"
+    - name: "1.b Edit /etc/neutron/neutron.conf [database] section"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=database
                 option={{ item.option }}
@@ -47,7 +51,7 @@
       with_items:
       - { option: 'connection', value: 'mysql://neutron:{{ config.neutron_mysql_password }}@{{ config.controller_node_hostname }}/neutron' }
 
-    - name: "(c) Edit /etc/neutron/neutron.conf [oslo_messaging_rabbit] section"
+    - name: "1.c Edit /etc/neutron/neutron.conf [oslo_messaging_rabbit] section"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=oslo_messaging_rabbit
                 option={{ item.option }}
@@ -58,7 +62,7 @@
       - { option: 'rabbit_userid', value: 'openstack' }
       - { option: 'rabbit_password', value: '{{ config.rabbitmq_password }}' }
 
-    - name: "(d) Edit /etc/neutron/neutron.conf [keystone_authtoken] section"
+    - name: "1.d Edit /etc/neutron/neutron.conf [keystone_authtoken] section"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=keystone_authtoken
                 option={{ item.option }}
@@ -74,7 +78,7 @@
       - { option: 'username', value: 'neutron' }
       - { option: 'password', value: '{{ config.neutron_user_password }}' }
 
-    - name: "(e) Edit /etc/neutron/neutron.conf [nova] section"
+    - name: "1.e Edit /etc/neutron/neutron.conf [nova] section"
       ini_file: dest=/etc/neutron/neutron.conf
                 section=nova
                 option={{ item.option }}
@@ -97,8 +101,10 @@
                 replace="[DEFAULT]"
                 backup=no
 
-#To configure the Modular Layer 2 (ML2) plug-in:
-    - name: "Configure the Modular Layer 2 (ML2) plug-in - (f) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section"
+    # 2. To configure the Modular Layer 2 (ML2) plug-in
+    # -------------------------------------------------
+
+    - name: "2.a  Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section"
       ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
                 section=ml2
                 option={{ item.option }}
@@ -109,7 +115,7 @@
       - { option: 'tenant_network_types', value: 'gre' }
       - { option: 'mechanism_drivers', value: 'openvswitch' }
 
-    - name: "(g) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2_type_gre] section"
+    - name: "2.b  Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2_type_gre] section"
       ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
                 section=ml2_type_gre
                 option={{ item.option }}
@@ -118,7 +124,7 @@
       with_items:
       - { option: 'tunnel_id_ranges', value: '1:1000' }
 
-    - name: "(h) Edit /etc/neutron/plugins/ml2/ml2_conf.ini [securitygroup] section"
+    - name: "2.c Edit /etc/neutron/plugins/ml2/ml2_conf.ini [securitygroup] section"
       ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
                 section=securitygroup
                 option={{ item.option }}
@@ -130,15 +136,17 @@
       - { option: 'firewall_driver', value: 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver' }
 
 
-# To configure Compute to use Networking
-# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+     # 3. To configure Compute to use Networking
+     # -----------------------------------------
+
+     # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
     - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
       replace: dest=/etc/nova/nova.conf
                 regexp='\[DEFAULT\]'
                 replace="[DEFAULT_WORKAROUND]"
                 backup=no
 
-    - name: "Configure Compute to use Networking - (i) Edit /etc/nova/nova.conf [DEFAULT] section"
+    - name: "3.a Edit /etc/nova/nova.conf [DEFAULT] section"
       ini_file: dest=/etc/nova/nova.conf
                 section=DEFAULT_WORKAROUND
                 option={{ item.option }}
@@ -150,7 +158,7 @@
       - { option: 'linuxnet_interface_driver', value: 'nova.network.linux_net.LinuxOVSInterfaceDriver' }
       - { option: 'firewall_driver', value: 'nova.virt.firewall.NoopFirewallDriver' }
 
-    - name: "(j) Edit /etc/nova/nova.conf [neutron] section"
+    - name: "3.b Edit /etc/nova/nova.conf [neutron] section"
       ini_file: dest=/etc/nova/nova.conf
                 section=neutron
                 option={{ item.option }}
@@ -164,7 +172,7 @@
       - { option: 'admin_password', value: '{{ config.neutron_user_password }}' }
       - { option: 'auth_strategy', value: 'keystone' }
 
-# WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
     - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
       replace: dest=/etc/nova/nova.conf
                 regexp='\[DEFAULT_WORKAROUND\]'

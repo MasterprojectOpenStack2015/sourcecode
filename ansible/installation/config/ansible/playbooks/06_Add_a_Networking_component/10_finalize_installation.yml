@@ -13,3 +13,6 @@
     with_items:
     - nova-compute
     - neutron-plugin-openvswitch-agent
+
+# TODO: add verification section
+

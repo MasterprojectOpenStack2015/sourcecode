@@ -1,4 +1,5 @@
 ---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-controller-node.html
 - name:  "Controller - Install and configure controller node - configure prerequisites"
   hosts: controller
   roles:
