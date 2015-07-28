@@ -10,6 +10,7 @@
   tasks:
 
     # 1. To create the database, complete these steps
+    # -----------------------------------------------
 
     - name: 1.b Create the keystone database
       mysql_db: 
@@ -30,5 +31,7 @@
         - "%"
         - localhost
 
-     # 2. Generate a random value to use as the administration token during initial configuration
-     # This is done in config/installation_configuration.sh
+    # 2. Generate a random value to use as the administration token during initial configuration
+    # ------------------------------------------------------------------------------------------
+    #
+    # This is done in config/installation_configuration.sh

@@ -9,8 +9,14 @@
 
   tasks:
 
+  # 1. Disable the keystone service from starting automatically after installation
+  # ------------------------------------------------------------------------------
+
   - name: 1. Disable the keystone service from starting automatically after installation
     shell: echo "manual" > /etc/init/keystone.override
+
+  # 2. install the packages
+  # -----------------------
 
   - name: 2. install the packages
     apt: pkg={{item}} state=installed
@@ -23,6 +29,7 @@
     - python-memcache
 
   # 3. Edit the /etc/keystone/keystone.conf
+  # ---------------------------------------
 
   # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
   - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
@@ -87,6 +94,8 @@
               replace="[DEFAULT]"
               backup=no
 
+  # 4. Populate the Identity service database
+  # -----------------------------------------
 
   - name: 4. Populate the Identity service database
     # access denied error

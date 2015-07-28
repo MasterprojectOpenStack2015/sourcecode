@@ -11,6 +11,7 @@
   tasks:
 
     # 1. create the database
+    # ----------------------
 
     - name: 1.b Create the nova database
       mysql_db: 
@@ -32,10 +33,12 @@
         - localhost
 
     # 2. Source the admin credentials to gain access to admin-only CLI commands
+    # -------------------------------------------------------------------------
     #
     # This is done by `environment: config.environment.admin`
 
     # 3. create the service credentials
+    # ---------------------------------
 
     - name: 3.a.1 Delete the nova user if existent
       shell: openstack user delete nova || true
@@ -49,5 +52,10 @@
     - name: 3.c Create the nova service entity
       shell: "openstack service create --name nova --description 'OpenStack Compute' compute"
 
+    # 4. Create the Compute service API endpoint
+    # ------------------------------------------
+  
     - name: 4. Create the Compute service API endpoint
       shell: 'openstack endpoint create --publicurl http://{{ config.controller_node_hostname }}:8774/v2/%\(tenant_id\)s --internalurl http://{{ config.controller_node_hostname }}:8774/v2/%\(tenant_id\)s --adminurl http://{{ config.controller_node_hostname }}:8774/v2/%\(tenant_id\)s --region RegionOne compute'
+
+

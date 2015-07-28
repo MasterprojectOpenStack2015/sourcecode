@@ -20,6 +20,6 @@
     - nova-conductor
     - nova-novncproxy
 
-  - name: "Because this configuration uses a SQL database server, you can remove the SQLite database file"
+  - name: "2. Because this configuration uses a SQL database server, you can remove the SQLite database file"
     # By default, the Ubuntu packages create an SQLite database
     shell: "rm -f /var/lib/nova/nova.sqlite"

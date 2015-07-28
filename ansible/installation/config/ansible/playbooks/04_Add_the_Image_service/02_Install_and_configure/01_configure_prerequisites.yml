@@ -11,6 +11,7 @@
   tasks:
 
   # 1. create the database
+  # ----------------------
 
   - name: 1.b Create the glance database
     mysql_db: 
@@ -32,8 +33,12 @@
       - localhost
 
   # 2. Source the admin credentials to gain access to admin-only CLI commands
+  # -------------------------------------------------------------------------
   #
   # This is done by environment: config.environment.admin
+
+  # 3. create the service credentials
+  # ---------------------------------
 
   - name: 3.a.1 Delete the glance user if existent
     shell: openstack user delete glance
@@ -47,6 +52,9 @@
 
   - name: 3.c Create the glance service entity
     shell: "openstack service create --name glance --description 'OpenStack Image service' image"
+
+  # 4. Create the Image service API endpoint
+  # ----------------------------------------
 
   - name: 4. Create the Image service API endpoint
     shell: "openstack endpoint create --publicurl {{ config.glance_os_url }} --internalurl {{ config.glance_os_url }} --adminurl {{ config.glance_os_url }} --region RegionOne image"

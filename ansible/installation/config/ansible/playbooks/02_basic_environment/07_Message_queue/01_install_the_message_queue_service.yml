@@ -5,6 +5,7 @@
   gather_facts: False
   sudo: yes
   tasks:
+
   - name: Install the package
     apt: 
       pkg: rabbitmq-server

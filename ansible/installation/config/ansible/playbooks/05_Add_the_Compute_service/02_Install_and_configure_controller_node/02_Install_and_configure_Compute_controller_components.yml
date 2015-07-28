@@ -8,6 +8,9 @@
   gather_facts: True
   tasks:
 
+    # 1. Install the packages
+    # -----------------------
+
     - name: "1. Install the packages"
       apt: pkg={{item}} state=installed
       with_items:
@@ -20,6 +23,7 @@
       - python-novaclient
 
     # 2. Edit the /etc/nova/nova.conf file
+    # ------------------------------------
 
     # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
     - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
@@ -132,6 +136,9 @@
                 regexp='\[DEFAULT_WORKAROUND\]'
                 replace="[DEFAULT]"
                 backup=no
+
+    # 3. Populate the Compute database
+    # --------------------------------
 
     - name: "3. Populate the Compute database"
       shell: 'su -s /bin/sh -c "nova-manage db sync" nova'
