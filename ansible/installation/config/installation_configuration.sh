@@ -55,6 +55,10 @@ network_node_external_interface_name=eth2
 
 ###############################################################################
 ###### passwords
+#
+# For which passwords are required, see 
+#   http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html#basics-networking
+#
 
 # The default_password variable should never be used directly in a script.
 # default_password is the variable that can be changed to change all passwords 
