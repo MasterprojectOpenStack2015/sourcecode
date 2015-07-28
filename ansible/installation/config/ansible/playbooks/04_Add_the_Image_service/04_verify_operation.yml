@@ -11,13 +11,21 @@
     # we already put "export OS_IMAGE_API_VERSION=2" into the admin-openrc.sh and demo-openrc.sh
     # now we need to verify that
 
-  - name: 2. Source the admin credentials to gain access to admin-only CLI commands 2.0
+  - name: 2.1 Source the admin credentials to gain access to admin-only CLI commands 2.0
     shell: source {{ item }} && test "$OS_IMAGE_API_VERSION" == "2"
     args:
       executable: /bin/bash
     with_items:
     - admin-openrc.sh
     - demo-openrc.sh
+
+  - name: 2.2 Check ansible environment admin credentials to gain access to admin-only CLI commands 2.0
+    shell: test "$OS_IMAGE_API_VERSION" == "2"
+    environment: config.environment.admin
+
+  - name: 2.3 Check ansible environment demo credentials to gain access to admin-only CLI commands 2.0
+    shell: test "$OS_IMAGE_API_VERSION" == "2"
+    environment: config.environment.demo
 
   - name: 3.1 Remove the temporary local directory and source image
     file: path=/tmp/images state=absent
@@ -30,15 +38,13 @@
 
   - name: 5.1. Upload the image to the Image service using the QCOW2 disk format, bare container format, and public visibility so all projects can access it
     # note that --is-public True was changed to --visibility public
-    shell: source admin-openrc.sh; \
-           glance image-create \
+    shell: glance image-create \
                   --name "{{ config.default_image_name }}" \
                   --file /tmp/images/default/* \
                   --disk-format qcow2 \
                   --container-format bare \
                   --visibility public
-    args:
-      executable: /bin/bash
+    environment: config.environment.admin
     register: glance_image_create
 
   - name: 5.2. Check the output for name and visibility
@@ -47,10 +53,18 @@
       - glance_image_create.stdout | search("name\s*\|\s*" + config.default_image_name)
       - glance_image_create.stdout | search("visibility\s*\|\s*public")
 
-  - name: 6. Confirm upload of the image and validate attributes
-    shell: source admin-openrc.sh; glance image-list | grep -q "{{ config.default_image_name }}"
-    args:
-      executable: /bin/bash
+  - name: 6.1 Confirm upload of the image and validate attributes
+    shell: glance image-list
+    environment: config.environment.admin
+    register glance_image_list
+
+  - name: 6.2. Check the output for {{ config.default_image_name }}
+    assert:
+      that:
+      - config.default_image_name in glance_image_list.stdout
 
   - name: 7. Remove the temporary local directory and source image
     file: path=/tmp/images state=absent
+
+
+
