@@ -24,7 +24,10 @@
      dest: /etc/hosts 
      line: "{{ hostvars[item].ansible_default_ipv4.address }} {{hostvars[item].ansible_hostname}} {{hostvars[item].ansible_fqdn}} #autogen_openstack_node" 
      state: present
-    when: hostvars[item].ansible_default_ipv4.address is defined
-    # TODO: we would like to exclude localhost here
+    # To exclude localhost we can use `"ansible_virtualization_role": "host"`.
+    # Used `ansible localhost:all -m setup` to find that out.
+    # Using and coditional http://docs.ansible.com/ansible/playbooks_conditionals.html
+    when: hostvars[item].ansible_default_ipv4.address is defined and
+          hostvars[item].ansible_virtualization_role != "host"
     with_items: groups['all']
 
