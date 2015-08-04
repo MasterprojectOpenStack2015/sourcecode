@@ -261,6 +261,12 @@ installation_directory=`realpath "$configuration_directory"/..`
 # tools is the directory of the tools files.
 tools=$installation_directory/tools
 
+# ansible_configuration_directory is the directory of the ansible configuration
+ansible_configuration_directory=$configuration_directory/ansible
+
+# ansible_playbooks_directory is the directory of all the playbook files 
+ansible_playbooks_directory=$installation_directory/playbooks
+
 ###############################################################################
 ###### setup to make variables valid
 

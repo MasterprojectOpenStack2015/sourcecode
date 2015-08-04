@@ -6,7 +6,7 @@ source config/installation_configuration.sh
 # They are used to remove unnecessary sudo commands.
 
 # configure the ansible hosts file
-tools/config_variables | tools/render_template config/ansible/hosts > $ansible_temp_directory/hosts
+tools/config_variables | tools/render_template $ansible_configuration_directory/hosts > $ansible_temp_directory/hosts
 
      # cmp - compare files
      #   http://stackoverflow.com/questions/12900538/unix-fastest-way-to-tell-if-two-files-are-the-same
@@ -19,10 +19,10 @@ then
 fi
 
 # copy ansible config file to /etc/ansible/
-if ! cmp --silent /etc/ansible/ansible.cfg config/ansible/ansible.cfg
+if ! cmp --silent /etc/ansible/ansible.cfg $ansible_configuration_directory/ansible.cfg
 then
 	sudo rm -f /etc/ansible/ansible.cfg 
-	sudo ln -s `realpath config/ansible/ansible.cfg` /etc/ansible/ansible.cfg
+	sudo ln -s `realpath $ansible_configuration_directory/ansible.cfg` /etc/ansible/ansible.cfg
 fi
 
 # create an .yml file for the configuration
@@ -42,7 +42,7 @@ echo "
       OS_TOKEN: \"$keystone_os_token\"
       OS_URL:   \"$keystone_os_url\"
     admin:
-      # see ~/admin-openrc.sh or $configuration_directory/ansible/playbooks/03_Add_the_Identity_service/admin-openrc.sh.j2
+      # see ~/admin-openrc.sh or $ansible_playbooks_directory/03_Add_the_Identity_service/admin-openrc.sh.j2
       OS_PROJECT_DOMAIN_ID: default
       OS_USER_DOMAIN_ID:    default
       OS_PROJECT_NAME:      admin
@@ -53,7 +53,7 @@ echo "
       # from http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
       OS_IMAGE_API_VERSION: 2
     demo:
-      # see ~/demo-openrc.sh or $configuration_directory/ansible/playbooks/03_Add_the_Identity_service/demo-openrc.sh.j2
+      # see ~/demo-openrc.sh or $ansible_playbooks_directory/03_Add_the_Identity_service/demo-openrc.sh.j2
       OS_PROJECT_DOMAIN_ID: default
       OS_USER_DOMAIN_ID:    default
       OS_PROJECT_NAME:      demo
