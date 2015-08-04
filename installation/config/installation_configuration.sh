@@ -182,6 +182,14 @@ default_image_url=http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-dis
 default_image_name=cirros-0.3.4-x86_64
 
 ###############################################################################
+###### configuration for swift and object storage nodes
+
+# partition names that occus in /dev/
+object_partition_1_name=vdc
+object_partition_2_name=vdd
+
+
+###############################################################################
 ###### configuration for download
 
 # downloads_directory is the directory where to download the image files to

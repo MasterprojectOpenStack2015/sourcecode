@@ -7,6 +7,11 @@
   # gather_facts: False is important for 4.0 Get the host part of the IP 
   gather_facts: False
   environment: config.environment.admin
+  vars: 
+    # Use this instead of /dev/sdb1
+    partition1: "/dev/{{ config.object_partition_1_name }}"
+    # Use this instead of /dev/sdc1
+    partition2: "/dev/{{ config.object_partition_1_name }}"
 
   tasks:
 
@@ -25,6 +30,10 @@
   # This is not done because we are on the same machine. 
   # If you want to do it in the basic environment, you are welcome.
 
+  # The images are created in the creation.sh file in the vm directory.
+  # Use partition1 and partition2 variables to reference the correct pertitions
+  # Neither use /dev/sdb1 nor /dev/sdc1.
+
   - name: "3.c Install the supporting utility packages:"
     apt: pkg={{item}} state=installed
     with_items:
@@ -32,7 +41,9 @@
     - rsync
 
   - name: "3.d Format the /dev/sdb1 and /dev/sdc1 partitions as XFS:"
-    shell: "mkfs.xfs /dev/sdb1; mkfs.xfs /dev/sdc1"
+    shell: "mkfs.xfs {{ partition1 }}; mkfs.xfs {{ partition2 }}"
+
+  # TODO: do more from here on
 
   - name: "3.e Create the mount point directory structure:"
     shell: "mkdir -p /srv/node/sdb1; mkdir -p /srv/node/sdc1"
