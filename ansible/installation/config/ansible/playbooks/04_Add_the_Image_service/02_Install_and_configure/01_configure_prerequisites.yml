@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
-- name: configure prerequisites
+- name: Add the Image service > Install and configure > configure prerequisites
   hosts: controller
   roles:
     - config

@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
-- name: install and configure the Identity service components
+- name: Add the Identity service > Install and configure > install and configure the Identity service components
   hosts: controller
   roles:
     - config

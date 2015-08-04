@@ -1,5 +1,5 @@
 ---
-- name:  "finalize installation"
+- name:  "Add a networking component > Install and configure controller node > finalize installation"
   hosts: controller
   roles:
     - config

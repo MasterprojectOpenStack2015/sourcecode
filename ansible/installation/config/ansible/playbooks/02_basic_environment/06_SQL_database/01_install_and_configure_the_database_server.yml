@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
-- name: install and configure the database server
+- name: Basic environment > SQL database > install and configure the database server
   hosts: controller
   gather_facts: False
   sudo: yes
@@ -8,7 +8,10 @@
   - config
   tasks:
 
-  - name: 1. Install the packages
+  - name: "1.1 ERROR: perl: please check that your locale settings"
+    shell: locale-gen de_DE.UTF-8; update-locale LANG=de_DE.UTF-8
+
+  - name: 1.2 Install the packages
     apt: pkg={{item}} state=installed
     with_items:
     - mariadb-server

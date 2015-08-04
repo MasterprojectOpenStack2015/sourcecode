@@ -1,5 +1,5 @@
 ---
-- name:  "finalize installation"
+- name:  "Add the Compute service > Install and configure a compute node > finalize installation"
   hosts: compute
   roles:
     - config

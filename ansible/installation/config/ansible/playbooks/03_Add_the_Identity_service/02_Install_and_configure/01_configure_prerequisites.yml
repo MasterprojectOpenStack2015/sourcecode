@@ -1,7 +1,7 @@
 # copied from https://github.com/openstack-ansible/openstack-ansible
 # see their license file for license information GGPL
 ---
-- name: Install or verify Keystone database
+- name: Add the Identity service > Install and configure > Install or verify Keystone database
   hosts: controller
   roles:
     - config

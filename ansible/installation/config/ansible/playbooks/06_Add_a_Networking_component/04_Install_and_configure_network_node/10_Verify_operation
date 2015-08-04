@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
-- name:  "Verify operation"
+- name:  "Add a networking component > Install and configure network node > Verify operation"
   hosts: network
   roles:
     - config

@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-external-network.html
-- name:  "Create external networks"
+- name:  "Add a networking component > Create initial networks > Create external networks"
   hosts: controller
   roles:
     - config

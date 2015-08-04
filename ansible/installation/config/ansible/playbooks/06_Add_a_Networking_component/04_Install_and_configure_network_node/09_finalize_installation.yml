@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
-- name:  "inalize the installation"
+- name:  "Add a networking component > Install and configure network node > inalize the installation"
   hosts: network
   roles:
     - config

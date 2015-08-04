@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-verify.html
-- name: Verify Operation
+- name: Add the Image service > Verify Operation
   hosts: controller
   roles:
     - config
@@ -27,11 +27,11 @@
     - demo-openrc.sh
 
   - name: 2.2 Check ansible environment admin credentials to gain access to admin-only CLI commands 2.0
-    shell: test "$OS_IMAGE_API_VERSION" == "2"
+    shell: test "$OS_IMAGE_API_VERSION" = "2"
     environment: config.environment.admin
 
   - name: 2.3 Check ansible environment demo credentials to gain access to admin-only CLI commands 2.0
-    shell: test "$OS_IMAGE_API_VERSION" == "2"
+    shell: test "$OS_IMAGE_API_VERSION" = "2"
     environment: config.environment.demo
 
   # 3. Create a temporary local directory

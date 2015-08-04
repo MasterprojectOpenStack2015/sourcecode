@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html
-- name:  "install and configure Compute controller components"
+- name:  "Add the Compute service > Install and configure controller node > install and configure Compute controller components"
   hosts: controller
   roles:
     - config

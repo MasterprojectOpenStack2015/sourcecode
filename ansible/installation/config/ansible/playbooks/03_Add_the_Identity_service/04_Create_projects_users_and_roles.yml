@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-users.html
-- name: Create projects, users, and roles
+- name: Add the Identity service > Create projects, users, and roles
   hosts: controller
   roles:
     - config

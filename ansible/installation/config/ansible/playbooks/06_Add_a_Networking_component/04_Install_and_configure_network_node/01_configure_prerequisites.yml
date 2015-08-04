@@ -1,5 +1,5 @@
 ---
-- name:  "configure prerequisites"
+- name:  "Add a networking component > Install and configure network node > configure prerequisites"
   hosts: network
   sudo: True
   gather_facts: False

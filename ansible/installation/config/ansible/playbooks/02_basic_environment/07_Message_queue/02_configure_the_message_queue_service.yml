@@ -1,9 +1,11 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
-- name: configure the message queue service
+- name: Basic environment > Message queue > configure the message queue service
   hosts: all
   gather_facts: False
   sudo: yes
+  roles:
+  - config
   tasks:
 
   - name: 1. Add the openstack user

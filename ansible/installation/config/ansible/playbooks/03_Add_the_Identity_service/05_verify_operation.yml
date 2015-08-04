@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-verify.html
-- name: Verify operation
+- name: Add the Identity service > Verify operation
   hosts: controller
   roles:
   - config

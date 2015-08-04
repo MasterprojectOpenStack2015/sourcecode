@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
-- name:  "Install and configure the Image service components"
+- name:  Add the Image service > Install and configure > Install and configure the Image service components
   hosts: controller
   roles:
     - config

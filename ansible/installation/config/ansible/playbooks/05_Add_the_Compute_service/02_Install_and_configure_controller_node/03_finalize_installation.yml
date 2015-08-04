@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html
-- name:  "finalize installation"
+- name:  "Add the Compute service > Install and configure controller node > finalize installation"
   hosts: controller
   roles:
     - config

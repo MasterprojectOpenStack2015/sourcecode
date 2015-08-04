@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
-- name:  "configure the DHCP agent"
+- name:  "Add a networking component > Install and configure network node > configure the DHCP agent"
   hosts: network
   roles:
     - config

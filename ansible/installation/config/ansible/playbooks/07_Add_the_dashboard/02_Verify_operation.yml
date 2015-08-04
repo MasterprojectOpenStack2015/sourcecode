@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/dashboard-verify.html
-- name: "Verify operation"
+- name: "Add the dashboard > Verify operation"
   hosts: localhost
   roles:
     - config

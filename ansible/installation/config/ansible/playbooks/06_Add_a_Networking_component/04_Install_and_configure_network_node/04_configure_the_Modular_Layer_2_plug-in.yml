@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
-- name:  "Configure the Modular Layer 2 (ML2) plug-in"
+- name:  "Add a networking component > Install and configure network node > Configure the Modular Layer 2 (ML2) plug-in"
   hosts: network
   roles:
     - config

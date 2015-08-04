@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-services.html
-- name: create the service entity and API endpoint
+- name: Add the Identity service > Create the service entity and API endpoint
   hosts: controller
   roles:
     - config

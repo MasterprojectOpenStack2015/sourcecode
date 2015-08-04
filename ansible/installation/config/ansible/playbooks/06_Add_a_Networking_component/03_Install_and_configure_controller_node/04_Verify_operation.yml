@@ -1,5 +1,5 @@
 ---
-- name:  "Verify operation"
+- name:  "Add a networking component > Install and configure controller node > Verify operation"
   hosts: controller
   roles:
     - config

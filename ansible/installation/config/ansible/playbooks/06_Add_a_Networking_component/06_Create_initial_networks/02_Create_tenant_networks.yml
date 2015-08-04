@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-tenant-network.html
-- name:  "Create tenant networks"
+- name:  "Add a networking component > Create initial networks > Create tenant networks"
   hosts: controller
   roles:
     - config

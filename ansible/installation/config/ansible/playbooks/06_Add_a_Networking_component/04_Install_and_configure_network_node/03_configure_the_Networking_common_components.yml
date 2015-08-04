@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
-- name:  "configure the Networking common components"
+- name:  "Add a networking component > Install and configure network node > configure the Networking common components"
   hosts: network
   roles:
     - config

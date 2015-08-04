@@ -1,5 +1,5 @@
 ---
-- name:  "install the Networking components"
+- name:  "Add a networking component > Install and configure network node > install the Networking components"
   hosts: network
   sudo: True
   gather_facts: False

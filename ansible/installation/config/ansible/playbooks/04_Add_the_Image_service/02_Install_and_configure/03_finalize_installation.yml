@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
-- name:  "finalize installation"
+- name:  "Add the Image service > Install and configure > finalize installation"
   hosts: controller
   roles:
     - config

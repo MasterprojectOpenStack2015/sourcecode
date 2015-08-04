@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
-- name:  "configure the Open vSwitch (OVS) service"
+- name:  "Add a networking component > Install and configure compute node > configure the Open vSwitch (OVS) service"
   hosts: compute
   roles:
     - config

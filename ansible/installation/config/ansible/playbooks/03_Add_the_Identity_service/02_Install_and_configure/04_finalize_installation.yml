@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-install.html
-- name: configure the Apache HTTP server
+- name: Add the Identity service > Install and configure > configure the Apache HTTP server
   hosts: controller
   sudo: True
   gather_facts: false
