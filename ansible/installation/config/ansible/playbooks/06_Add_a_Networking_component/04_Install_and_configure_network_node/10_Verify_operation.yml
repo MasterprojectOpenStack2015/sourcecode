@@ -26,9 +26,6 @@
     shell: neutron agent-list
     register: neutrol_agent_list
 
-  - name: debug
-    debug: msg="{{neutrol_agent_list}}"
-
   - name: 2.3 Check that "Metadata agent", "Open vSwitch agent", "L3 agent" and, "DHCP agent" are alive
     assert:
       that:
