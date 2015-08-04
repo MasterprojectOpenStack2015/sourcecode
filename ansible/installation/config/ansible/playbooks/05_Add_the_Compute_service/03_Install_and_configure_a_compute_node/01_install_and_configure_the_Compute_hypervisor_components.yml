@@ -53,7 +53,7 @@
                 backup=no
 
     - name: "2.b.2 Comment out or remove any other options in the [keystone_authtoken] section"  
-      ini_file: dest=/etc/glance/glance-api.conf
+      ini_file: dest=/etc/nova/nova.conf 
                 section=keystone_authtoken
                 state=absent
 
