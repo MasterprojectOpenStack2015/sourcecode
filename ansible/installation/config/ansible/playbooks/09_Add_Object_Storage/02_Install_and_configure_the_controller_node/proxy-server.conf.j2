@@ -3,8 +3,8 @@
 bind_port = 8080
 # bind_timeout = 30
 # backlog = 4096
-# swift_dir = /etc/swift
-# user = swift
+swift_dir = /etc/swift
+user = swift
 
 # Enables exposing configuration settings via HTTP GET /info.
 # expose_info = true
@@ -77,7 +77,7 @@ bind_port = 8080
 # eventlet_debug = false
 
 [pipeline:main]
-pipeline = catch_errors gatekeeper healthcheck proxy-logging cache container_sync bulk tempurl ratelimit tempauth container-quotas account-quotas slo dlo proxy-logging proxy-server
+pipeline = catch_errors gatekeeper healthcheck proxy-logging cache container_sync bulk ratelimit authtoken keystoneauth container-quotas account-quotas slo dlo proxy-logging proxy-server
 
 [app:proxy-server]
 use = egg:swift#proxy
@@ -130,7 +130,7 @@ use = egg:swift#proxy
 #
 # If set to 'true' authorized accounts that do not yet exist within the Swift
 # cluster will be automatically created.
-# account_autocreate = false
+account_autocreate = true
 #
 # If set to a positive value, trying to create a container when the account
 # already has at least this maximum containers will result in a 403 Forbidden.
@@ -281,8 +281,18 @@ user_test5_tester5 = testing5 service
 # and have it in your main pipeline so instead of having tempauth in
 # there you can change it to: authtoken keystoneauth
 #
-# [filter:authtoken]
-# paste.filter_factory = keystonemiddleware.auth_token:filter_factory
+[filter:authtoken]
+paste.filter_factory = keystonemiddleware.auth_token:filter_factory
+# TODO: replace urls with variables
+auth_uri = http://{{ config.controller_node_hostname }}:5000
+auth_url = http://{{ config.controller_node_hostname }}:35357
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = swift
+password = {{ config.swift_user_password }}
+delay_auth_decision = true
 # identity_uri = http://keystonehost:35357/
 # auth_uri = http://keystonehost:5000/
 # admin_tenant_name = service
@@ -297,8 +307,8 @@ user_test5_tester5 = testing5 service
 # cache = swift.cache
 # include_service_catalog = False
 #
-# [filter:keystoneauth]
-# use = egg:swift#keystoneauth
+[filter:keystoneauth]
+use = egg:swift#keystoneauth
 # The reseller_prefix option lists account namespaces that this middleware is
 # responsible for. The prefix is placed before the Keystone project id.
 # For example, for project 12345678, and prefix AUTH, the account is
@@ -320,7 +330,7 @@ user_test5_tester5 = testing5 service
 # path). If you omit the prefix, the option applies to all reseller
 # prefix items. For the blank/empty prefix, prefix with '' (do not put
 # underscore after the two single quote characters).
-# operator_roles = admin, swiftoperator
+operator_roles = admin,user
 #
 # The reseller admin role has the ability to create and delete accounts
 # reseller_admin_role = ResellerAdmin
@@ -383,7 +393,7 @@ use = egg:swift#memcache
 # memcache.conf (see memcache.conf-sample) or lacking that file, it will
 # default to the value below. You can specify multiple servers separated with
 # commas, as in: 10.1.2.3:11211,10.1.2.4:11211
-# memcache_servers = 127.0.0.1:11211
+memcache_servers = 127.0.0.1:11211
 #
 # Sets how memcache values are serialized and deserialized:
 # 0 = older, insecure pickle serialization

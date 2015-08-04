@@ -1,0 +1,4 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/swift-install-controller-node.html
+- include: 01_configure_prerequisites.yml
+- include: 02_install_and_configure_the_controller_node_components.yml

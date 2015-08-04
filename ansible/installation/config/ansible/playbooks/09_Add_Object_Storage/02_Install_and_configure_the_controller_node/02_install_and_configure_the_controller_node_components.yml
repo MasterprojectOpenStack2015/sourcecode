@@ -1,0 +1,30 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/swift-install-controller-node.html
+- name:  "Add Object Storage > Install and configure the controller node > install and configure the controller node components"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    - name: "1. Install the packages"
+      apt: pkg={{item}} state=installed
+      with_items:
+      - swift
+      - swift-proxy
+      - python-swiftclient
+      - python-keystoneclient
+      - python-keystonemiddleware
+      - memcached
+
+    - name: "2. Create the /etc/swift directory"
+      file: path=/etc/swift state=directory mode=0755
+
+    # 3. Obtain the proxy service configuration file from the Object Storage source repository
+ 
+    - name: "4. Edit the /etc/swift/proxy-server.conf file and complete the following actions"
+      # this was done in the file
+      template: src=proxy-server.conf.j2 dest=/etc/swift/proxy-server.conf owner={{ ansible_user_id }}
+
+    
