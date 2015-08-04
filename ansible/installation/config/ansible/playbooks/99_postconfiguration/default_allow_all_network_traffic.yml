@@ -1,5 +1,5 @@
 ---
-- name:  "modify default security group"
+- name:  "Postconfiguration > modify default security group"
   hosts: controller
   roles:
     - config

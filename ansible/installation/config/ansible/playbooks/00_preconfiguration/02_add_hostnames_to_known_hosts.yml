@@ -8,7 +8,7 @@
 #   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # This is partly done by wait_for_virtual_machines_to_start.sh.
-- name: add ssh keys of hostnames to known hosts
+- name: Preconfiguration > add ssh keys of hostnames to known hosts
   hosts: localhost
   roles:
   - config

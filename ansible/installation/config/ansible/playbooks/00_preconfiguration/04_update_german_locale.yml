@@ -1,5 +1,5 @@
 ---
-- name: update german locale
+- name: Preconfiguration > update german locale
   hosts: all
   sudo: yes
   tasks:
