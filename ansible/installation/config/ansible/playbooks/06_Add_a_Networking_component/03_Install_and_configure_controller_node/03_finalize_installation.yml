@@ -9,12 +9,12 @@
   - name: "1. Populate the database"
     shell: 'su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron'
 
-  - name: "2. Restart the Compute service:"
+  - name: "2. Restart the Compute service"
     service: 
       name: nova-api 
       state: restarted
 
-  - name: "3. Restart the Networking service:"
+  - name: "3. Restart the Networking service"
     service: 
       name: neutron-server 
       state: restarted

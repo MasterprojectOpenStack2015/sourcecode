@@ -4,7 +4,7 @@
 # If you add a dhcp and dns server and wonder why the host is not resolved to the right ip address, 
 # adjust or remove this script.
 ---
-- name: generate host files
+- name: Preconfiguration > generate host files
   hosts: localhost:all
   sudo: yes
   # ansible should only ask for the sudo password of localhost

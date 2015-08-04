@@ -1,6 +1,6 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/install_dashboard.html
-- name: "Install and configure"
+- name: "Add the dashboard > Install and configure"
   hosts: controller
   roles:
     - config
