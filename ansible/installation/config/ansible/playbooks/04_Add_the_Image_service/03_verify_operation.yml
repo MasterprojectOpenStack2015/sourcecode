@@ -77,9 +77,9 @@
   - name: 6.1 Confirm upload of the image and validate attributes
     shell: glance image-list
     environment: config.environment.admin
-    register glance_image_list
+    register: glance_image_list
 
-  - name: 6.2. Check the output for {{ config.default_image_name }}
+  - name: 6.2 Check the output for {{ config.default_image_name }}
     assert:
       that:
       - config.default_image_name in glance_image_list.stdout

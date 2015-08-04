@@ -1,4 +1,4 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-client-environment-scripts.html
-- include: 01_create the scripts.yml
+- include: 01_create_the_scripts.yml
 - include: 02_load_client_environment_scripts.yml

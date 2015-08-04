@@ -9,9 +9,7 @@
   tasks:
 
   - name: 1. Install the packages
-    apt: 
-      pkg: {{ item }}
-      state: installed
+    apt: pkg={{item}} state=installed
     with_items:
     - mariadb-server
     - python-mysqldb
