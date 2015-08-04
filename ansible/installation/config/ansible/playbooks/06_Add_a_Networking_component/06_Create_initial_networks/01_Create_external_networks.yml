@@ -1,4 +1,5 @@
 ---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-external-network.html
 - name:  "Create external networks"
   hosts: controller
   roles:
@@ -8,8 +9,8 @@
   environment: config.environment.admin
 
   tasks:
-  - name: "Create the external network"
+  - name: "1. Create the external network"
     shell: "neutron net-create ext-net --router:external --provider:physical_network external --provider:network_type flat"
 
-  - name: "Create a subnet on the external network"
+  - name: "2. Create a subnet on the external network"
     shell: "neutron subnet-create ext-net {{ config.external_network_cidr }} --name ext-subnet --allocation-pool start={{ config.floating_ip_start }},end={{ config.floating_ip_end }} --disable-dhcp --gateway {{ config.external_network_gateway }}"

@@ -1,4 +1,5 @@
 ---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-tenant-network.html
 - name:  "Create tenant networks"
   hosts: controller
   roles:
@@ -8,17 +9,17 @@
   environment: config.environment.demo
 
   tasks:
-  - name: "Create the tenant network"
+  - name: "1.2 Create the tenant network"
     shell: "neutron net-create demo-net"
 
-  - name: "Create a subnet on the tenant network"
+  - name: "2. Create a subnet on the tenant network"
     shell: "neutron subnet-create demo-net {{ config.tenant_network_cidr }} --name demo-subnet --gateway {{ config.tenant_network_gateway }}"
 
-  - name: "Create a router on the tenant network and attach the external and tenant networks to it"
+  - name: "3.1 Create a router on the tenant network and attach the external and tenant networks to it"
     shell: "neutron router-create demo-router"
 
-  - name: "Attach the router to the demo tenant subnet"
+  - name: "3.2 Attach the router to the demo tenant subnet"
     shell: "neutron router-interface-add demo-router demo-subnet"
 
-  - name: "Attach the router to the external network by setting it as the gateway"
+  - name: "3.3 Attach the router to the external network by setting it as the gateway"
     shell: "neutron router-gateway-set demo-router ext-net"

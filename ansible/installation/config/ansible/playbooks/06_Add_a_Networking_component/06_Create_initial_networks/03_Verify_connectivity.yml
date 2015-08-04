@@ -1,3 +1,4 @@
+---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron_initial-networks-verify.html
 - name:  "Verify network connectivity"
   hosts: localhost

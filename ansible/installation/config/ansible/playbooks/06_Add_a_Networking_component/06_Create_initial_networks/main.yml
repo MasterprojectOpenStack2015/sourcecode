@@ -1,0 +1,6 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-initial-networks.html
+- include: 01_Create_external_networks.yml
+- include: 02_Create_tenant_networks.yml
+- include: 03_Verify_connectivity.yml
+
