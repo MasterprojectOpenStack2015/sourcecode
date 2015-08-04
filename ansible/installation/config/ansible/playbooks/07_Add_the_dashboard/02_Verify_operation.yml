@@ -1,11 +1,12 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/dashboard-verify.html
-- name: "Install and configure"
+- name: "Verify operation"
   hosts: localhost
   roles:
     - config
   gather_facts: False
   tasks:
+
   - name: "1. Access the dashboard using a web browser: http://controller/horizon"
     shell: cd /tmp ; wget http://controller/horizon
 
