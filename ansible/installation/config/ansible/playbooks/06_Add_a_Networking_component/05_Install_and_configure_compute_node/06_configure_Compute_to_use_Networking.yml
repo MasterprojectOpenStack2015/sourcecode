@@ -1,0 +1,52 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
+- name:  "configure Compute to use Networking"
+  hosts: compute
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    # To configure Compute to use Networking
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
+    # 1. Edit the /etc/nova/nova.conf file
+    
+    - name: "1.a In the [DEFAULT] section, configure the APIs and drivers"
+      ini_file: dest=/etc/nova/nova.conf
+                section=DEFAULT_WORKAROUND
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'network_api_class', value: 'nova.network.neutronv2.api.API' }
+      - { option: 'security_group_api', value: 'neutron' }
+      - { option: 'linuxnet_interface_driver', value: 'nova.network.linux_net.LinuxOVSInterfaceDriver' }
+      - { option: 'firewall_driver', value: 'nova.virt.firewall.NoopFirewallDriver' }
+
+    - name: "1.b In the [neutron] section, configure access parameters"
+      ini_file: dest=/etc/nova/nova.conf
+                section=neutron
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'url', value: 'http://{{ config.controller_node_hostname }}:9696' }
+      - { option: 'auth_strategy', value: 'keystone' }
+      - { option: 'admin_auth_url', value: 'http://{{ config.controller_node_hostname }}:35357/v2.0' }
+      - { option: 'admin_tenant_name', value: 'service' }
+      - { option: 'admin_username', value: 'neutron' }
+      - { option: 'admin_password', value: '{{ config.neutron_user_password }}' }
+
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/nova/nova.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no

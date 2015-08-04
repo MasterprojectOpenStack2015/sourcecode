@@ -1,0 +1,10 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
+- include: 01_configure_prerequisites.yml
+- include: 02_install_the_Networking_components.yml
+- include: 03_configure_the_Networking_common_components.yml
+- include: 04_configure_the_Modular_Layer_2_plug-in.yml
+- include: 05_configure_the_Open_vSwitch_service.yml
+- include: 06_configure_Compute_to_use_Networking.yml
+- include: 07_finalize_installation.yml
+- include: 08_Verify_operation.yml

@@ -1,0 +1,15 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
+- name:  "install the Networking components"
+  hosts: compute
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    - name: "1. Install the packages"
+      apt: pkg={{item}} state=installed
+      with_items:
+      - neutron-plugin-ml2
+      - neutron-plugin-openvswitch-agent
+
+

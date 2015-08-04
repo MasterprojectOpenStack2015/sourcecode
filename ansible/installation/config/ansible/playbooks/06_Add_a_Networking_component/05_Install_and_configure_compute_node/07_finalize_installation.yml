@@ -1,11 +1,13 @@
 ---
-- name:  "Compute - Finalize Installation"
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
+- name:  "finalize the installation"
   hosts: compute
   roles:
     - config
   sudo: True
   gather_facts: False
   tasks:
+
   - name: "Restart the Compute and Networking services:"
     service: 
       name: "{{ item }}"
@@ -13,6 +15,4 @@
     with_items:
     - nova-compute
     - neutron-plugin-openvswitch-agent
-
-# TODO: add verification section
 

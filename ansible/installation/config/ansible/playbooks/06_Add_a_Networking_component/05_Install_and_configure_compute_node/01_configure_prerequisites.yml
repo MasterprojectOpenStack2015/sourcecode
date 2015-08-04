@@ -1,12 +1,13 @@
 ---
-- name:  "Compute - configure prerequisites"
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
+- name:  "configure prerequisites"
   hosts: compute
   roles:
     - config
   sudo: True
   gather_facts: False
   tasks:
-    - name: "Edit the /etc/sysctl.conf file to contain the following parameters"
+    - name: "1. Edit the /etc/sysctl.conf file to contain the following parameters"
       lineinfile: 
         dest: /etc/sysctl.conf
         line: "{{ item }}"
@@ -18,5 +19,5 @@
       - "net.bridge.bridge-nf-call-iptables=1"
       - "net.bridge.bridge-nf-call-ip6tables=1"
 
-    - name: "Implement the changes"
+    - name: "2. Implement the changes"
       shell: "sysctl -p"

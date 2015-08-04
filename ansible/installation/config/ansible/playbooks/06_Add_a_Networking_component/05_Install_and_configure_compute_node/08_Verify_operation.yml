@@ -1,0 +1,15 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
+- name:  "finalize the installation"
+  hosts: compute
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  # Source the admin credentials to gain access to admin-only CLI commands
+  environment: config.environment.admin
+  tasks:
+
+  - name: TODO
+    debug: msg="TODO"
+

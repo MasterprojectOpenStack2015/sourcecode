@@ -1,0 +1,14 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-compute-node.html
+- name:  "configure the Open vSwitch (OVS) service"
+  hosts: compute
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    - name: "1. Restart the OVS service"
+      shell: "service openvswitch-switch restart"
+
+
