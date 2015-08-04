@@ -1,0 +1,25 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "Add a networking component > Install and configure network node > Verify operation"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  # Source the admin credentials to gain access to admin-only CLI commands
+  environment: config.environment.admin
+  tasks:
+
+  - name: 2.1 List agents to verify successful launch of the neutron agents
+    shell: neutron agent-list
+    register: neutrol_agent_list
+
+
+  - name: 2.2 Check that "Metadata agent", "Open vSwitch agent", "L3 agent" and, "DHCP agent" are alive
+    assert:
+      that:
+      - neutrol_agent_list.stdout | search("Metadata agent\s*\|\s*network\s*\|\s*:-\)\s*\|\s*True\s*\|\s*neutron-metadata-agent")
+      - neutrol_agent_list.stdout | search("Open vSwitch agent\s*\|\s*network\s*\|\s*:-\)\s*\|\s*True\s*\|\s*neutron-openvswitch-agent")
+      - neutrol_agent_list.stdout | search("L3 agent\s*\|\s*network\s*\|\s*:-\)\s*\|\s*True\s*\|\s*neutron-l3-agent")
+      - neutrol_agent_list.stdout | search("DHCP agent\s*\|\s*network\s*\|\s*:-\)\s*\|\s*True\s*\|\s*neutron-dhcp-agent")
+
