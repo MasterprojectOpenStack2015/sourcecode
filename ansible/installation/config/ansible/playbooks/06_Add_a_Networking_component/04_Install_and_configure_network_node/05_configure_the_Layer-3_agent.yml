@@ -1,0 +1,31 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "configure the Layer-3 (L3) agent"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    # 1. Edit the /etc/neutron/l3_agent.ini file
+
+    - name: "1.a In the [DEFAULT] section, configure the interface driver, external network bridge, and enable deletion of defunct router namespaces"
+      ini_file: dest=/etc/neutron/l3_agent.ini
+                section=DEFAULT
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'interface_driver', value: 'neutron.agent.linux.interface.OVSInterfaceDriver' }
+      - { option: 'external_network_bridge', value: '' }
+      - { option: 'router_delete_namespaces', value: 'True' }
+
+    - name: 1.b (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section
+      ini_file: dest=/etc/neutron/l3_agent.ini
+                section=DEFAULT
+                option=verbose
+                value=True
+                backup=no
+
+

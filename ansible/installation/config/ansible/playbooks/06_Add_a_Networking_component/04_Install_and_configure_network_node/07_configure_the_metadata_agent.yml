@@ -1,0 +1,62 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "configure the metadata agent"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    - name: "1. Edit the /etc/neutron/metadata_agent.ini file"
+      ini_file: dest=/etc/neutron/metadata_agent.ini
+                section=DEFAULT
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      # 1.a In the [DEFAULT] section, configure access parameters
+      - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+      - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+      - { option: 'auth_region', value: 'RegionOne' }
+      - { option: 'auth_plugin', value: 'password' }
+      - { option: 'project_domain_id', value: 'default' }
+      - { option: 'user_domain_id', value: 'default' }
+      - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'neutron' }
+      - { option: 'password', value: '{{ config.neutron_user_password }}' }
+      # 1.b In the [DEFAULT] section, configure the metadata host
+      - { option: 'nova_metadata_ip', value: '{{ config.controller_node_hostname }}' }
+      # 1.c In the [DEFAULT] section, configure the metadata proxy shared secret
+      - { option: 'metadata_proxy_shared_secret', value: '{{ config.metadata_proxy_shared_secret }}' }
+      # 1.d (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section
+      - { option: 'verbose', value: 'True' }
+
+
+- name:  "configure the metadata agent"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+    
+    # 2. On the controller node, edit the /etc/nova/nova.conf file
+
+    - name: "2.a In the [neutron] section, enable the metadata proxy and configure the secret"
+      ini_file: dest=/etc/nova/nova.conf
+                section=neutron
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'service_metadata_proxy', value: 'True' }
+      - { option: 'metadata_proxy_shared_secret', value: '{{ config.metadata_proxy_shared_secret }}' }
+
+    - name: "3. restart the Compute API service"
+      shell: service nova-api restart
+
+
+
+
+

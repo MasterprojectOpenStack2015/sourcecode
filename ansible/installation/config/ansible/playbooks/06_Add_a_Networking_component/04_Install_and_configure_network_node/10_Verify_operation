@@ -1,33 +1,19 @@
 ---
-- name:  "Controller - Finalize Installation"
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "Verify operation"
   hosts: network
   roles:
     - config
   sudo: True
   gather_facts: False
+  # Source the admin credentials to gain access to admin-only CLI commands
+  environment: config.environment.admin
   tasks:
-
-  # 7. To finalize the installation
-  # -------------------------------
-
-  - name: "Restart the Networking services:"
-    service: 
-      name: "{{ item }}"
-      state: restarted
-    with_items:
-    - neutron-plugin-openvswitch-agent
-    - neutron-l3-agent
-    - neutron-dhcp-agent
-    - neutron-metadata-agent
-
-  # 8. Verify operation
-  # -------------------
 
   - name: 2.1 List agents to verify successful launch of the neutron agents
     shell: neutron agent-list
     register: neutrol_agent_list
-    # Source the admin credentials to gain access to admin-only CLI commands
-    environment: config.environment.admin
+
 
   - name: 2.2 Check that "Metadata agent", "Open vSwitch agent", "L3 agent" and, "DHCP agent" are alive
     assert:

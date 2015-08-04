@@ -1,0 +1,62 @@
+---
+- name:  "Verify operation"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+  # 1. Source the admin credentials to gain access to admin-only CLI commands
+  
+  - name: 2.1 List loaded extensions to verify successful launch of the neutron-server process
+    shell: neutron ext-list
+    environment: config.environment.admin
+    register: neutron_ext_list
+
+  - name: 2.1 Check that extensions are present
+    assert:
+      that: 
+        - neutron_ext_list.stdout | search("^\|\s*security-group")
+        - neutron_ext_list.stdout | search("^\|\s*l3_agent_scheduler")
+        - neutron_ext_list.stdout | search("^\|\s*net-mtu")
+        - neutron_ext_list.stdout | search("^\|\s*ext-gw-mode")
+        - neutron_ext_list.stdout | search("^\|\s*binding")
+        - neutron_ext_list.stdout | search("^\|\s*provider")
+        - neutron_ext_list.stdout | search("^\|\s*agent")
+        - neutron_ext_list.stdout | search("^\|\s*quotas")
+        - neutron_ext_list.stdout | search("^\|\s*subnet_allocation")
+        - neutron_ext_list.stdout | search("^\|\s*dhcp_agent_scheduler")
+        - neutron_ext_list.stdout | search("^\|\s*l3-ha")
+        - neutron_ext_list.stdout | search("^\|\s*multi-provider")
+        - neutron_ext_list.stdout | search("^\|\s*external-net")
+        - neutron_ext_list.stdout | search("^\|\s*router")
+        - neutron_ext_list.stdout | search("^\|\s*allowed-address-pairs")
+        - neutron_ext_list.stdout | search("^\|\s*extraroute")
+        - neutron_ext_list.stdout | search("^\|\s*extra_dhcp_opt")
+        - neutron_ext_list.stdout | search("^\|\s*dvr")
+
+        # +-----------------------+-----------------------------------------------+
+        # | alias                 | name                                          |
+        # +-----------------------+-----------------------------------------------+
+        # | security-group        | security-group                                |
+        # | l3_agent_scheduler    | L3 Agent Scheduler                            |
+        # | net-mtu               | Network MTU                                   |
+        # | ext-gw-mode           | Neutron L3 Configurable external gateway mode |
+        # | binding               | Port Binding                                  |
+        # | provider              | Provider Network                              |
+        # | agent                 | agent                                         |
+        # | quotas                | Quota management support                      |
+        # | subnet_allocation     | Subnet Allocation                             |
+        # | dhcp_agent_scheduler  | DHCP Agent Scheduler                          |
+        # | l3-ha                 | HA Router extension                           |
+        # | multi-provider        | Multi Provider Network                        |
+        # | external-net          | Neutron external network                      |
+        # | router                | Neutron L3 Router                             |
+        # | allowed-address-pairs | Allowed Address Pairs                         |
+        # | extraroute            | Neutron Extra Route                           |
+        # | extra_dhcp_opt        | Neutron Extra DHCP opts                       |
+        # | dvr                   | Distributed Virtual Router                    |
+        # +-----------------------+-----------------------------------------------+
+
+ 

@@ -1,15 +1,7 @@
 ---
-# http://docs.openstack.org/kilo/install-guide/install/apt/content/networking-service-overview.html
-- include: 01_configure_prerequisites.yml
-- include: 02_Install_and_configure_controller_node.yml
-- include: 03_finalize_installation.yml
-- include: 04_configure_prerequisites.yml
-- include: 05_Install_and_configure_network_node.yml
-- include: 06_enable_metadata_proxy_controller_node.yml
-- include: 07_finalize_installation.yml
-- include: 08_configure_prerequisites.yml
-- include: 09_Install_and_configure_compute_node.yml
-- include: 10_finalize_installation.yml
-- include: 11_Create_external_networks.yml
-- include: 12_Create_tenant_networks.yml
-- include: 13_Verify_connectivity.yml
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/section_neutron-networking.html
+- include: 03_Install_and_configure_controller_node/main.yml
+- include: 04_Install_and_configure_network_node/main.yml
+- include: 05_Install_and_configure_compute_node/main.yml
+- include: 06_Create_initial_networks/main.yml
+

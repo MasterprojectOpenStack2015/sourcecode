@@ -1,0 +1,66 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "Configure the Modular Layer 2 (ML2) plug-in"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    # 1.Edit the /etc/neutron/plugins/ml2/ml2_conf.ini file 
+
+    - name: "1.f In the [ml2] section, enable the flat, VLAN, generic routing encapsulation (GRE), and virtual extensible LAN (VXLAN) network type drivers, GRE tenant networks, and the OVS mechanism driver"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=ml2
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'type_drivers', value: 'flat,vlan,gre,vxlan' }
+      - { option: 'tenant_network_types', value: 'gre' }
+      - { option: 'mechanism_drivers', value: 'openvswitch' }
+
+    - name: "1.b In the [ml2_type_flat] section, configure the external flat provider network"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=ml2_type_flat
+                option=flat_networks
+                value=external
+                backup=no
+
+    - name: "1.c In the [ml2_type_gre] section, configure the tunnel identifier (id) range"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=ml2_type_gre
+                option=tunnel_id_ranges
+                value=1:1000
+                backup=no
+
+    - name: "1.d In the [securitygroup] section, enable security groups, enable ipset, and configure the OVS iptables firewall driver"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=securitygroup
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'enable_security_group', value: 'True' }
+      - { option: 'enable_ipset', value: 'True' }
+      - { option: 'firewall_driver', value: 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver' }
+
+    - name: "1.e In the [ovs] section, enable tunnels, configure the local tunnel endpoint, and map the external flat provider network to the br-ex external network bridge"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=ovs
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      # TODO: check if that is correct: Replace INSTANCE_TUNNELS_INTERFACE_IP_ADDRESS with the IP address of the instance tunnels network interface on your network node
+      - { option: 'local_ip ', value: '{{ config.ip_tunnel_prefix }}.{{ config.ip_network_suffix }}' }
+      - { option: 'bridge_mappings', value: 'external:br-ex' }
+
+    - name: "1.f In the [agent] section, enable GRE tunnels"
+      ini_file: dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+                section=agent
+                option=tunnel_types
+                value=gre
+                backup=no
+

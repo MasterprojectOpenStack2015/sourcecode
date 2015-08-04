@@ -1,3 +1,5 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_nova.html
 - hosts: compute
   gather_facts: True
   tasks:

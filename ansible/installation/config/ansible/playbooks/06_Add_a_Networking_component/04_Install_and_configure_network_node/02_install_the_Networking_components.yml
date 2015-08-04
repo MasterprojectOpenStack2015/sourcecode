@@ -1,0 +1,16 @@
+---
+- name:  "install the Networking components"
+  hosts: network
+  sudo: True
+  gather_facts: False
+
+  tasks:
+
+    - name: "1. install the Networking components"
+      apt: pkg={{item}} state=installed
+      with_items:
+      - neutron-plugin-ml2
+      - neutron-plugin-openvswitch-agent
+      - neutron-l3-agent
+      - neutron-dhcp-agent
+      - neutron-metadata-agent

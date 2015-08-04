@@ -1,0 +1,21 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "inalize the installation"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+  - name: "1. Restart the Networking services"
+    service: 
+      name: "{{ item }}"
+      state: restarted
+    with_items:
+    - neutron-plugin-openvswitch-agent
+    - neutron-l3-agent
+    - neutron-dhcp-agent
+    - neutron-metadata-agent
+
+

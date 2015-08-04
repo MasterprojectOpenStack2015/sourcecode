@@ -1,0 +1,22 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "configure the Open vSwitch (OVS) service"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    - name: "1. Restart the OVS service"
+      shell: "service openvswitch-switch restart"
+
+    - name: "2. Add the external bridge"
+      shell: "ovs-vsctl --may-exist add-br br-ex"
+
+    - name: "3.1 Add a port to the external bridge that connects to the physical external network interface"
+      shell: "ovs-vsctl --may-exist add-port br-ex {{ config.network_node_external_interface_name }}"
+
+    - name: "3.2 Depending on your network interface driver, you may need to disable generic receive offload (GRO) to achieve suitable throughput between your instances and the external network. To temporarily disable GRO on the external network interface while testing your environment"
+      shell: "echo OPTIONAL TODO"
+

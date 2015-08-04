@@ -1,0 +1,54 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "configure the DHCP agent"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    # 1. Edit the /etc/neutron/dhcp_agent.ini file
+
+    - name: "1.a In the [DEFAULT] section, configure the interface and DHCP drivers and enable deletion of defunct DHCP namespaces"
+      ini_file: dest=/etc/neutron/dhcp_agent.ini
+                section=DEFAULT
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'interface_driver', value: 'neutron.agent.linux.interface.OVSInterfaceDriver' }
+      - { option: 'dhcp_driver', value: 'neutron.agent.linux.dhcp.Dnsmasq' }
+      - { option: 'dhcp_delete_namespaces', value: 'True' }
+
+    - name: 1.b (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section
+      ini_file: dest=/etc/neutron/dhcp_agent.ini
+                section=DEFAULT
+                option=verbose
+                value=True
+                backup=no
+
+    # 2. (Optional)
+    # 2.a Edit the /etc/neutron/dhcp_agent.ini file
+
+    - name: 2.a.i In the [DEFAULT] section, enable the dnsmasq configuration file
+      ini_file: dest=/etc/neutron/dhcp_agent.ini
+                section=DEFAULT
+                option=dnsmasq_config_file
+                value=/etc/neutron/dnsmasq-neutron.conf
+                backup=no
+
+    # 2.b Create and edit the /etc/neutron/dnsmasq-neutron.conf file
+
+    - name: "2.b.i Enable the DHCP MTU option (26) and configure it to 1454 bytes"
+      lineinfile: dest=/etc/neutron/dnsmasq-neutron.conf
+                  line="dhcp-option-force=26,1454"
+                  state=present
+                  create=yes
+
+    - name: "2.c Kill any existing dnsmasq processes"
+      # Demo of pkill behaviour with Ansible: https://gist.github.com/willthames/ee40bd6d9b5eebb9b8eb
+      shell: "pkill dnsmasq" 
+      ignore_errors: True
+
+

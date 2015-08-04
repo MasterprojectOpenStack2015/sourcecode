@@ -1,11 +1,8 @@
 ---
-- name:  "Network - configure prerequisites"
+- name:  "configure prerequisites"
   hosts: network
-  roles:
-    - config
   sudo: True
   gather_facts: False
-  environment: config.environment.token
 
   tasks:
     - name: "1. Edit the /etc/sysctl.conf file to contain the following parameters"
@@ -22,11 +19,3 @@
     - name: "2. Implement the changes"
       shell: "sysctl -p"
 
-    - name: "3. install the Networking components"
-      apt: pkg={{item}} state=installed
-      with_items:
-      - neutron-plugin-ml2
-      - neutron-plugin-openvswitch-agent
-      - neutron-l3-agent
-      - neutron-dhcp-agent
-      - neutron-metadata-agent

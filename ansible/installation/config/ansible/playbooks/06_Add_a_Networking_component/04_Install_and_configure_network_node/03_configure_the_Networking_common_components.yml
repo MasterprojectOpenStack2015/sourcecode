@@ -1,0 +1,96 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
+- name:  "configure the Networking common components"
+  hosts: network
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
+    - name: "1.a In the [database] section, comment out any connection options because network nodes do not directly access the database"
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=database
+                option="connection"
+                state=absent
+
+    - name: 1.b.1 In the [DEFAULT]  section, configure RabbitMQ message queue access
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=DEFAULT_WORKAROUND
+                option=rpc_backend
+                value=rabbit
+                backup=no
+
+    - name: 1.b.2 In the [oslo_messaging_rabbit] section, configure RabbitMQ message queue access
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=oslo_messaging_rabbit
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'rabbit_host', value: '{{ config.controller_node_hostname }}' }
+      - { option: 'rabbit_userid', value: 'openstack' }
+      - { option: 'rabbit_password', value: '{{ config.rabbitmq_password }}' }
+
+    - name: 1.c.1 Comment out or remove any other options in the [keystone_authtoken] section
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=keystone_authtoken
+                state=absent
+
+    - name: 1.c.2 In the [DEFAULT] section, configure Identity service access
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=DEFAULT_WORKAROUND
+                option=auth_strategy
+                value=keystone
+                backup=no
+
+    - name: 1.c.3 In the [keystone_authtoken] section, configure Identity service access
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=keystone_authtoken
+                state=present
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+      - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+      - { option: 'auth_plugin', value: 'password' }
+      - { option: 'project_domain_id', value: 'default' }
+      - { option: 'user_domain_id', value: 'default' }
+      - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'neutron' }
+      - { option: 'password', value: '{{ config.neutron_user_password }}' }
+
+    - name: 1.d In the [DEFAULT] section, enable the Modular Layer 2 (ML2) plug-in, router service, and overlapping IP addresses
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=DEFAULT_WORKAROUND
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'core_plugin', value: 'ml2' }
+      - { option: 'service_plugins', value: 'router' }
+      - { option: 'allow_overlapping_ips', value: 'True' }
+
+    - name: 1.e (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section
+      ini_file: dest=/etc/neutron/neutron.conf
+                section=DEFAULT_WORKAROUND
+                option=verbose
+                value=True
+                backup=no
+
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/neutron/neutron.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no
+
+

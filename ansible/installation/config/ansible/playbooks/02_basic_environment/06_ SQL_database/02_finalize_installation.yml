@@ -1,4 +1,5 @@
 ---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
 - name: finalize installation
   hosts: controller
   gather_facts: True

@@ -1,5 +1,5 @@
 ---
-- name:  "Controller - Finalize Installation"
+- name:  "finalize installation"
   hosts: controller
   roles:
     - config
@@ -19,4 +19,3 @@
       name: neutron-server 
       state: restarted
 
-# TODO: add verification section
