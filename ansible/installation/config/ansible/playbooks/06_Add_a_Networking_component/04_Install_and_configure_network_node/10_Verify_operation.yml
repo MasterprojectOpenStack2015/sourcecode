@@ -10,12 +10,26 @@
   environment: config.environment.admin
   tasks:
 
-  - name: 2.1 List agents to verify successful launch of the neutron agents
+  - name: 2.1 Wait for the agents to be present
+    shell: for i in `seq 1 10`; \
+           do \
+             if [ `neutron agent-list | grep -cE "neutron-metadata-agent|neutron-openvswitch-agent|neutron-l3-agent|neutron-dhcp-agent"` == "4" ] ; \
+             then \
+               break ; \
+             fi ; \
+             sleep 1 ; \
+           done
+    args:
+      executable: /bin/bash
+
+  - name: 2.2 List agents to verify successful launch of the neutron agents
     shell: neutron agent-list
     register: neutrol_agent_list
 
+  - name: debug
+    debug: msg="{{neutrol_agent_list}}"
 
-  - name: 2.2 Check that "Metadata agent", "Open vSwitch agent", "L3 agent" and, "DHCP agent" are alive
+  - name: 2.3 Check that "Metadata agent", "Open vSwitch agent", "L3 agent" and, "DHCP agent" are alive
     assert:
       that:
       - neutrol_agent_list.stdout | search("Metadata agent\s*\|\s*network\s*\|\s*:-\)\s*\|\s*True\s*\|\s*neutron-metadata-agent")
