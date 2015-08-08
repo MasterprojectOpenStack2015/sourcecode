@@ -22,9 +22,95 @@
       file: path=/etc/swift state=directory mode=0755
 
     # 3. Obtain the proxy service configuration file from the Object Storage source repository
- 
+
     - name: "4. Edit the /etc/swift/proxy-server.conf file and complete the following actions"
       # this was done in the file
       template: src=proxy-server.conf.j2 dest=/etc/swift/proxy-server.conf owner={{ ansible_user_id }}
 
-    
+    # To configure Compute to use Networking
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/swift/proxy-server.conf
+                regexp='\[DEFAULT\]'
+                replace="[DEFAULT_WORKAROUND]"
+                backup=no
+
+    - name: "Edit the /etc/swift/proxy-server.conf file: In the [DEFAULT] section, configure the bind port, user, and configuration directory"
+      ini_file: dest=/etc/swift/proxy-server.conf
+                section=DEFAULT_WORKAROUND
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'bind_port', value: '8080' }
+      - { option: 'user', value: 'swift' }
+      - { option: 'swift_dir', value: '/etc/swift' }
+
+    - name: "Edit the /etc/swift/proxy-server.conf file: In the [pipeline:main] section, enable the appropriate modules"
+      ini_file: dest=/etc/swift/proxy-server.conf
+                section='pipeline:main'
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'pipeline', value: 'PIPELINE_REPLACEMENT_STRING' }
+
+    - name: "In the [pipeline:main] section, enable the appropriate modules (Using ansible replace as ini_file does not support spaces in value)"
+      replace: dest=/etc/swift/proxy-server.conf
+                regexp='PIPELINE_REPLACEMENT_STRING'
+                replace="catch_errors gatekeeper healthcheck proxy-logging cache container_sync bulk ratelimit authtoken keystoneauth container-quotas account-quotas slo dlo proxy-logging proxy-server"
+                backup=no
+
+    - name: "Edit the /etc/swift/proxy-server.conf file: In the [app:proxy-server] section, enable automatic account creation"
+      ini_file: dest=/etc/swift/proxy-server.conf
+                section='app:proxy-server'
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'account_autocreate', value: 'true' }
+
+    - name: "Edit the /etc/swift/proxy-server.conf file: In the [filter:keystoneauth] section, configure the operator roles"
+      ini_file: dest=/etc/swift/proxy-server.conf
+                section='filter:keystoneauth'
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'use', value: 'egg:swift#keystoneauth' }
+      - { option: 'operator_roles', value: 'admin,user' }
+
+    - name: "Edit the /etc/swift/proxy-server.conf file: In the [filter:authtoken] section, configure Identity service access"
+      ini_file: dest=/etc/swift/proxy-server.conf
+                section='filter:authtoken'
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'paste.filter_factory', value: 'keystonemiddleware.auth_token:filter_factory' }
+      - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
+      - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
+      - { option: 'auth_plugin', value: 'password' }
+      - { option: 'project_domain_id', value: 'default' }
+      - { option: 'user_domain_id', value: 'default' }
+      - { option: 'project_name', value: 'service' }
+      - { option: 'username', value: 'swift' }
+      - { option: 'password', value: '{{ config.swift_user_password }}' }
+      - { option: 'delay_auth_decision', value: 'true' }
+
+    - name: "Edit the /etc/swift/proxy-server.conf file: In the [filter:cache] section, configure the memcached location"
+      ini_file: dest=/etc/swift/proxy-server.conf
+                section='filter:cache'
+                option={{ item.option }}
+                value={{ item.value }}
+                backup=no
+      with_items:
+      - { option: 'memcache_servers', value: '127.0.0.1:11211' }
+
+
+    # WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING:
+    - name: "WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION"
+      replace: dest=/etc/swift/proxy-server.conf
+                regexp='\[DEFAULT_WORKAROUND\]'
+                replace="[DEFAULT]"
+                backup=no
