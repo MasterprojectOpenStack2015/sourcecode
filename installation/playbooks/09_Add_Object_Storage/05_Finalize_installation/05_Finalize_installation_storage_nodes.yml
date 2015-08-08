@@ -1,0 +1,12 @@
+---
+- name: "Finalize installation: Storage Nodes"
+  hosts: object
+  roles:
+    - config
+  sudo: True
+  gather_facts: True
+  environment: config.environment.admin
+  tasks:
+
+  - name: "Copy the swift.conf file to the /etc/swift directory on each storage node and any additional nodes running the proxy service."
+    template: src=swift.conf.j2 dest=/etc/swift owner={{ ansible_user_id }}

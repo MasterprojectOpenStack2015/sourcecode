@@ -1,0 +1,16 @@
+---
+- name: "Finalize installation: Controller Nodes"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: True
+  tasks:
+
+  - name: "On the controller node and any other nodes running the proxy service, restart the Object Storage proxy service including its dependencies:"
+    service: 
+      name: "{{ item }}"
+      state: restarted
+    with_items:
+    - memcached
+    - swift-proxy

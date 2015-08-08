@@ -1,0 +1,35 @@
+---
+- name: "Distribute Ring Configurations: Fetch"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: True
+  tasks:
+
+  # ansible synchronize does not seem to work from host to host, so we fetch from controller and copy to object nodes in next playbook
+  - name: "Get the account.ring.gz file"
+    fetch: src=/etc/swift/account.ring.gz dest=/tmp/fetched/ flat=yes
+
+  - name: "Get the container.ring.gz file"
+    fetch: src=/etc/swift/container.ring.gz dest=/tmp/fetched/ flat=yes
+
+  - name: "Get the object.ring.gz file"
+    fetch: src=/etc/swift/object.ring.gz dest=/tmp/fetched/ flat=yes
+
+
+
+
+
+  ###################### WONT WORK:
+  # - name: "Copy the account.ring.gz file to the /etc/swift directory on each storage node"
+  #   synchronize: mode=pull src=/etc/swift/account.ring.gz dest=/etc/swift/
+  #   delegate_to: "{{ config.controller_node_hostname }}"
+
+  # - name: "Copy the container.ring.gz file to the /etc/swift directory on each storage node"
+  #   synchronize: mode=pull src=/etc/swift/container.ring.gz dest=/etc/swift/container.ring.gz
+  #   delegate_to: "{{ config.controller_node_hostname }}"
+
+  # - name: "Copy the object.ring.gz file to the /etc/swift directory on each storage node"
+  #   synchronize: mode=pull src=/etc/swift/object.ring.gz dest=/etc/swift/object.ring.gz
+  #   delegate_to: "{{ config.controller_node_hostname }}"

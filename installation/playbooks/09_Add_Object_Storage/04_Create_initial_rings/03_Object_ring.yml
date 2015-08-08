@@ -3,6 +3,7 @@
   hosts: controller
   roles:
     - config
+  sudo: True
   gather_facts: True
   vars: 
     # Use this instead of /dev/sdb1
@@ -20,13 +21,13 @@
     register: host_ip
 
   - name: "Add each storage node to the ring DEVICE 1"
-    shell: "swift-ring-builder object.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6000/{{ partition1 }} 100"
+    shell: "cd /etc/swift; swift-ring-builder object.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6000/{{ partition1 }} 100"
 
   - name: "Add each storage node to the ring DEVICE 2"
-    shell: "swift-ring-builder object.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6000/{{ partition2 }} 100"
+    shell: "cd /etc/swift; swift-ring-builder object.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6000/{{ partition2 }} 100"
 
   - name: "Verify the ring contents:"
- 	shell: "swift-ring-builder object.builder"
+    shell: "cd /etc/swift; swift-ring-builder object.builder"
 
   - name: "Rebalance the ring:"
- 	shell: "swift-ring-builder object.builder rebalance"
+    shell: "cd /etc/swift; swift-ring-builder object.builder rebalance"

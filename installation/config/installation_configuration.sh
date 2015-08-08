@@ -142,6 +142,11 @@ metadata_proxy_shared_secret=metadata_proxy_shared_secret_$default_password
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/swift-install-controller-node.html
 swift_user_password=swift_user_password_$default_password
 
+# swift_hash_path
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/swift-finalize-installation.html
+swift_hash_path_suffix=suffix_$default_password
+swift_hash_path_prefix=prefix_$default_password
+
 ###############################################################################
 ###### configuration for keystone
 

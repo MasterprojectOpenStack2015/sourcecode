@@ -1,0 +1,11 @@
+---
+- name: "Finalize installation: Controller and Storage Nodes"
+  hosts: controller:object
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  tasks:
+
+  - name: "On all nodes, ensure proper ownership of the configuration directory:"
+    shell: "chown -R swift:swift /etc/swift"

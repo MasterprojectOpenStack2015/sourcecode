@@ -1,0 +1,11 @@
+---
+- name: "Finalize installation: Storage Nodes"
+  hosts: object
+  roles:
+    - config
+  sudo: True
+  gather_facts: True
+  tasks:
+
+  - name: "On the storage nodes, start the Object Storage services:"
+    shell: "swift-init all start"
