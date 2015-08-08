@@ -11,7 +11,7 @@
   tasks:
 
   # 2. create the Identity service credentials
- 
+
   - name: 2.a.0 Delete the swift user if existent
     shell: "openstack user delete swift"
     ignore_errors: yes

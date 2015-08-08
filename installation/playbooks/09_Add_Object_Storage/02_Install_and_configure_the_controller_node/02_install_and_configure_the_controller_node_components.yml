@@ -22,9 +22,7 @@
       file: path=/etc/swift state=directory mode=0755
 
     # 3. Obtain the proxy service configuration file from the Object Storage source repository
- 
+
     - name: "4. Edit the /etc/swift/proxy-server.conf file and complete the following actions"
       # this was done in the file
       template: src=proxy-server.conf.j2 dest=/etc/swift/proxy-server.conf owner={{ ansible_user_id }}
-
-    
