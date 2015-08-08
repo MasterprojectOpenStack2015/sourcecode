@@ -11,7 +11,7 @@
     # Use this instead of /dev/sdb1
     partition1: "/dev/{{ config.object_partition_1_name }}"
     # Use this instead of /dev/sdc1
-    partition2: "/dev/{{ config.object_partition_1_name }}"
+    partition2: "/dev/{{ config.object_partition_2_name }}"
 
   tasks:
 
@@ -54,11 +54,11 @@
       create: yes
       line: "{{ item }}"
     with_items:
-    - "/dev/sdb1 /srv/node/sdb1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
-    - "/dev/sdc1 /srv/node/sdc1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
+    - "{{ partition1 }} /srv/node/{{ config.object_partition_1_name }} xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
+    - "{{ partition2 }} /srv/node/{{ config.object_partition_2_name }} xfs noatime,nodiratime,nobarrier,logbufs=8 0 2"
 
   - name: "3.g Mount the devices"
-    shell: "mount /srv/node/sdb1; mount /srv/node/sdc1"
+    shell: "mount /srv/node/{{ config.object_partition_1_name }}; mount /srv/node/{{ config.object_partition_2_name }}"
 
   # 4. Edit the /etc/rsyncd.conf file
 
@@ -109,10 +109,10 @@
               value={{ item.value }}
               backup=no
     with_items:
-    - { option: 'max connections' value: '2' }
-    - { option: 'path' value: '/srv/node/' }
-    - { option: 'read only' value: 'false' }
-    - { option: 'lock file' value: '/var/lock/object.lock' }
+    - { option: 'max connections', value: '2' }
+    - { option: 'path', value: '/srv/node/' }
+    - { option: 'read only', value: 'false' }
+    - { option: 'lock file', value: '/var/lock/object.lock' }
 
   - name: "5. Edit the /etc/default/rsync file and enable the rsync service"
     lineinfile:
@@ -121,7 +121,7 @@
       line: "{{ item }}"
     with_items:
     - "RSYNC_ENABLE=true"
-    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>MAKE SURE rsyncd.conf IS WRITTEN CORRECTLY
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>MAKE SURE rsyncd.conf IS WRITTEN CORRECTLY
 
   - name: "6. Start the rsync service:"
     service: 
