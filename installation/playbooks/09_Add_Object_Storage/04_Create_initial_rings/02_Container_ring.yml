@@ -1,0 +1,34 @@
+---
+- name: "Create Initial Rings: Container ring"
+  hosts: controller
+  roles:
+    - config
+  gather_facts: True
+  vars: 
+    # Use this instead of /dev/sdb1
+    partition1: "/dev/{{ config.object_partition_1_name }}"
+    # Use this instead of /dev/sdc1
+    partition2: "/dev/{{ config.object_partition_2_name }}"
+
+  tasks:
+
+  - name: "Create the base account.builder file: with 2^10 (1024) maximum partitions, 3 replicas of each object, and 1 hour minimum time between moving a partition"
+    shell: "cd /etc/swift; swift-ring-builder container.builder create 10 3 1"
+
+  - name: Get the host part of the IP 
+    shell: echo {{ inventory_hostname }}
+    register: host_ip
+
+  - name: "Add each storage node to the ring DEVICE 1"
+    shell: "swift-ring-builder container.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6001/{{ partition1 }} 100"
+
+  - name: "Add each storage node to the ring DEVICE 2"
+    shell: "swift-ring-builder container.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6001/{{ partition2 }} 100"
+
+  - name: "Verify the ring contents:"
+ 	shell: "swift-ring-builder container.builder"
+
+  - name: "Rebalance the ring:"
+ 	shell: "swift-ring-builder container.builder rebalance"
+
+

@@ -1,0 +1,7 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/swift-initial-rings.html
+- include: 01_Account_ring.yml
+- include: 02_Container_ring.yml
+- include: 03_Object_ring.yml
+- include: 04_Distribute_ring_configuration_files.yml
+

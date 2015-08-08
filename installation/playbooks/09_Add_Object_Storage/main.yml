@@ -2,3 +2,4 @@
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_swift.html
 - include: 02_Install_and_configure_the_controller_node/main.yml
 - include: 03_Install_and_configure_the_storage_nodes/main.yml
+- include: 04_Create_initial_rings/main.yml
