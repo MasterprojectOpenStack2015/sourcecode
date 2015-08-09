@@ -15,44 +15,19 @@
     - swift-object
 
   - name: "Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:"
-    copy: 
-      src: account-server.conf
-      dest: "/etc/swift/account-server.conf"
-      owner: root
-      group: root
-      mode: 644
+    template: src=account-server.conf.j2 dest=/etc/swift/account-server.conf owner={{ ansible_user_id }}
 
   - name: "Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:"
-    copy: 
-      src: container-server.conf
-      dest: "/etc/swift/container-server.conf"
-      owner: root
-      group: root
-      mode: 644
+    template: src=container-server.conf.j2 dest=/etc/swift/container-server.conf owner={{ ansible_user_id }}
 
   - name: "Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:"
-    copy: 
-      src: object-server.conf
-      dest: "/etc/swift/object-server.conf"
-      owner: root
-      group: root
-      mode: 644
+    template: src=object-server.conf.j2 dest=/etc/swift/object-server.conf owner={{ ansible_user_id }}
 
   - name: "Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:"
-    copy: 
-      src: container-reconciler.conf
-      dest: "/etc/swift/container-reconciler.conf"
-      owner: root
-      group: root
-      mode: 644
+    template: src=container-reconciler.conf.j2 dest=/etc/swift/container-reconciler.conf owner={{ ansible_user_id }}
 
   - name: "Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:"
-    copy: 
-      src: object-expirer.conf
-      dest: "/etc/swift/object-expirer.conf"
-      owner: root
-      group: root
-      mode: 644
+    template: src=object-expirer.conf.j2 dest=/etc/swift/object-expirer.conf owner={{ ansible_user_id }}
 
   - name: Get the host part of the IP 
     shell: echo {{ inventory_hostname }}

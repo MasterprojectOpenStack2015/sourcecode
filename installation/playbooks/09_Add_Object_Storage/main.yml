@@ -3,8 +3,7 @@
 - include: 02_Install_and_configure_the_controller_node/main.yml
 - include: 03_Install_and_configure_the_storage_nodes/main.yml
 - include: 04_Create_initial_rings/main.yml
-- include: 05_Finalize_installation/05_Finalize_installation_storage_nodes.yml
-- include: 05_Finalize_installation/06_Finalize_installation_all_nodes.yml
-- include: 05_Finalize_installation/07_Finalize_installation_controller_node.yml
-- include: 05_Finalize_installation/08_Finalize_installation_storage_node.yml
+- include: 05_Finalize_installation/05_Finalize_installation_all_nodes.yml
+- include: 05_Finalize_installation/06_Finalize_installation_controller_node.yml
+- include: 05_Finalize_installation/07_Finalize_installation_storage_node.yml
 - include: 09_Verify_operation.yml
