@@ -1,10 +1,13 @@
 ---
 - name: "Verify Operation"
-  hosts: localhost
+  hosts: controller
   roles:
     - config
-  gather_facts: False
+  gather_facts: True
   tasks:
+  - name: Get the host part of the IP 
+    shell: echo {{ inventory_hostname }}
+    register: host_ip
 
   - name: "TODO"
-    debug: msg="TODO"
+    debug: msg="cd /etc/swift; swift-ring-builder object.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6000/{{ config.object_partition_2_name }} 100"

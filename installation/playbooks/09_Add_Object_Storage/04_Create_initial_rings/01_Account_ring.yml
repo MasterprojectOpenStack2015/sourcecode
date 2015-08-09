@@ -5,11 +5,6 @@
     - config
   sudo: True
   gather_facts: True
-  vars: 
-    # Use this instead of /dev/sdb1
-    partition1: "/dev/{{ config.object_partition_1_name }}"
-    # Use this instead of /dev/sdc1
-    partition2: "/dev/{{ config.object_partition_2_name }}"
 
   tasks:
 
@@ -21,10 +16,10 @@
     register: host_ip
 
   - name: "Add each storage node to the ring DEVICE 1"
-    shell: "cd /etc/swift; swift-ring-builder account.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6002/{{ partition1 }} 100"
+    shell: "cd /etc/swift; swift-ring-builder account.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6002/{{ config.object_partition_1_name }} 100"
 
   - name: "Add each storage node to the ring DEVICE 2"
-    shell: "cd /etc/swift; swift-ring-builder account.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6002/{{ partition2 }} 100"
+    shell: "cd /etc/swift; swift-ring-builder account.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6002/{{ config.object_partition_2_name }} 100"
 
   - name: "Verify the ring contents:"
     shell: "cd /etc/swift; swift-ring-builder account.builder"
