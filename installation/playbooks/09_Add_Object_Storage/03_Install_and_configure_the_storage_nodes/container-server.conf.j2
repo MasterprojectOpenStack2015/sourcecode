@@ -1,11 +1,11 @@
 [DEFAULT]
-# bind_ip = 0.0.0.0
+bind_ip = {{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}
 bind_port = 6001
 # bind_timeout = 30
 # backlog = 4096
-# user = swift
-# swift_dir = /etc/swift
-# devices = /srv/node
+user = swift
+swift_dir = /etc/swift
+devices = /srv/node
 # mount_check = true
 # disable_fallocate = false
 #
@@ -90,7 +90,7 @@ use = egg:swift#healthcheck
 
 [filter:recon]
 use = egg:swift#recon
-#recon_cache_path = /var/cache/swift
+recon_cache_path = /var/cache/swift
 
 [container-replicator]
 # You can override the default log routing for this app here (don't use set!):
