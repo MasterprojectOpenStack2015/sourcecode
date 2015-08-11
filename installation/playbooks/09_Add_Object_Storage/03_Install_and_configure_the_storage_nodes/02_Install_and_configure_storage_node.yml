@@ -4,7 +4,7 @@
   roles:
     - config
   sudo: True
-  gather_facts: False
+  gather_facts: True
   tasks:
   - name: "Install the packages"
     apt: pkg={{item}} state=installed
