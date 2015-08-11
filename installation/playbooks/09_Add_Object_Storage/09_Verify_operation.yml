@@ -10,4 +10,11 @@
     register: host_ip
 
   - name: "TODO"
-    debug: msg="cd /etc/swift; swift-ring-builder object.builder add r1z1-{{ config.ip_management_prefix }}.{{ host_ip.stdout.split('.')[3] }}:6000/{{ config.object_partition_2_name }} 100"
+    debug: msg="swift-ring-builder account.builder add r1z1-{{ item }}:6002/{{ config.object_partition_2_name }} 100"
+    with_items: "{{ groups['object'] }}"
+
+
+
+# {% for host in groups['object'] %}
+#   {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}
+# {% endfor %}    
