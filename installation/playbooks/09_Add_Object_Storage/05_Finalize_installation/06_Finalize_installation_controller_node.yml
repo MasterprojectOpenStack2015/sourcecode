@@ -15,5 +15,8 @@
     - memcached
     - swift-proxy
 
+  - name: "restart memcached again"
+    shell: "service memcached --full-restart"
+
   - name: "restart swift-proxy again"
-    shell: "service swift-proxy restart"
+    shell: "service swift-proxy --full-restart"
