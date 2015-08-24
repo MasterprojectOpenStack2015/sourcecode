@@ -80,7 +80,6 @@
                 value={{ item.value }}
                 backup=no
       with_items:
-      # TODO: replace 'http://{{ config.controller_node_hostname }}:5000' and 'http://{{ config.controller_node_hostname }}:35357' with variable everywhere
       - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
       - { option: 'auth_plugin', value: 'password' }

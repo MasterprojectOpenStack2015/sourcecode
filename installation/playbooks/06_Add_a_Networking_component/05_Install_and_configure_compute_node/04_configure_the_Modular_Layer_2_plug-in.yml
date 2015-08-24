@@ -50,7 +50,6 @@
                 value={{ item.value }}
                 backup=no
       with_items:
-      # TODO: verify Replace INSTANCE_TUNNELS_INTERFACE_IP_ADDRESS with the IP address of the instance tunnels network interface on your compute node
       - { option: 'local_ip ', value: '{{ config.ip_tunnel_prefix }}.{{ host_ip.stdout.split(''.'')[3] }}' }
 
     - name: "1.e In the [agent] section, enable GRE tunnels"

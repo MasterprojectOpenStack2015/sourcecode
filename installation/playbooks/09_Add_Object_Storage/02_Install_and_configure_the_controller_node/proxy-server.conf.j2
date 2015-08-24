@@ -283,7 +283,6 @@ user_test5_tester5 = testing5 service
 #
 [filter:authtoken]
 paste.filter_factory = keystonemiddleware.auth_token:filter_factory
-# TODO: replace urls with variables
 auth_uri = http://{{ config.controller_node_hostname }}:5000
 auth_url = http://{{ config.controller_node_hostname }}:35357
 auth_plugin = password

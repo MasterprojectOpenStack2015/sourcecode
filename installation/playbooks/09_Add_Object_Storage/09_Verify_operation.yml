@@ -5,16 +5,5 @@
     - config
   gather_facts: True
   tasks:
-  - name: Get the host part of the IP 
-    shell: echo {{ inventory_hostname }}
-    register: host_ip
-
   - name: "TODO"
-    debug: msg="swift-ring-builder account.builder add r1z1-{{ item }}:6002/{{ config.object_partition_2_name }} 100"
-    with_items: "{{ groups['object'] }}"
-
-
-
-# {% for host in groups['object'] %}
-#   {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}
-# {% endfor %}    
+    debug: msg="TODO"

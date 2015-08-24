@@ -26,5 +26,4 @@
     shell: 'openstack service create --name swift --description "OpenStack Object Storage" object-store'
 
   - name: "3. Create the swift service entity"
-    # TODO: put urls into variable
     shell: "openstack endpoint create --publicurl \'http://{{ config.controller_node_hostname }}:8080/v1/AUTH_%(tenant_id)s\' --internalurl \'http://{{ config.controller_node_hostname }}:8080/v1/AUTH_%(tenant_id)s\' --adminurl http://{{ config.controller_node_hostname }}:8080 --region RegionOne object-store"

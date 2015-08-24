@@ -62,7 +62,6 @@
                 value={{ item.value }}
                 backup=no
       with_items:
-      # TODO: urls into variable
       - { option: 'auth_uri', value: 'http://{{ config.controller_node_hostname }}:5000' }
       - { option: 'auth_url', value: 'http://{{ config.controller_node_hostname }}:35357' }
       - { option: 'auth_plugin', value: 'password' }
