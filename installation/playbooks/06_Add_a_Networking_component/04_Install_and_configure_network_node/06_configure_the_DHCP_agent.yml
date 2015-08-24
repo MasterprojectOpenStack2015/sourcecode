@@ -28,7 +28,7 @@
                 value=True
                 backup=no
 
-    # 2. (Optional)
+    # 2. DHCP MTU 
     # 2.a Edit the /etc/neutron/dhcp_agent.ini file
 
     - name: 2.a.i In the [DEFAULT] section, enable the dnsmasq configuration file
