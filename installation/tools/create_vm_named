@@ -16,7 +16,7 @@ source ../config/installation_configuration.sh
 export configuration_directory=$configuration_directory
 
 virsh destroy $vm_name 2> /dev/null
-virsh undefine $vm_name 2> /dev/null
+virsh undefine $vm_name --snapshots-metadata 2> /dev/null
 
 # Create a new folder for the vm files.
 # Every file generated should be in this folder.
