@@ -16,7 +16,7 @@ tools/step ./create_virtual_machines.sh
 tools/step ./configure_ansible_for_vms.sh
 tools/step ./wait_for_virtual_machines_to_start.sh
 tools/step ./setup_virtual_machines.sh
-tools/step ./snapshot_virtual_machines.sh
+tools/step ./snapshot_virtual_machines.sh initial
 
 
 
