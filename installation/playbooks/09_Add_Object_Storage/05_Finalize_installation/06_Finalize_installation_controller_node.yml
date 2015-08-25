@@ -13,16 +13,16 @@
       name: "{{ item }}"
       state: restarted
     with_items:
-    - memcached
     - swift-proxy
+    #- memcached
 
 
   # workaround for restart of memcached and swift-proxy not working correctly. need to be restart multiple times until they
   # work, else openstack wont work correctly (e.g. openstack user list will give a 500 server error, so we keep restarting
   # the services until the error goes away (i.e. in this case output lists the users, containing user "admin")
-  - name: "WORKAROUND"
-    shell: "sudo service memcached restart && sudo service swift-proxy restart && openstack user list"
-    register: result
-    until: result.stdout.find("admin") != -1
-    retries: 20
-    delay: 20
+  # - name: "WORKAROUND"
+  #   shell: "sudo service memcached restart && sudo service swift-proxy restart && openstack user list"
+  #   register: result
+  #   until: result.stdout.find("admin") != -1
+  #   retries: 20
+  #   delay: 20
