@@ -23,7 +23,7 @@
             <source file='{{ vm_image_file }}'/>
             <target dev='vda' bus='virtio'/>
         </disk>
-        <disk type='file' device='disk'>
+        <disk type='file' device='disk' snapshot='no'>
             <source file='{{ user_data_vm_config_image }}'/>
             <target dev='vdb' bus='virtio'/>
         </disk>
