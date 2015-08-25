@@ -1,0 +1,5 @@
+---
+# http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_keystone.html
+- include: 01_mount_host_apt_cache_dir.yml
+- include: 02_install_apt-cacher-ng.yml
+- include: 03_setup_proxy_everywhere.yml

@@ -9,3 +9,6 @@
 
 [object]
 {{ object1_node_ip_address }}
+
+[aptcache]
+{{ aptcache_node_ip_address }}

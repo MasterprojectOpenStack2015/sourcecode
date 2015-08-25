@@ -1,0 +1,17 @@
+---
+# http://www.linux-kvm.org/page/9p_virtio
+- name: mount the shared filesystem for aptcache
+  hosts: aptcache
+  sudo: True
+  gather_facts: False
+
+  tasks:
+  - name: "create mountpoint with correct permissions"
+    file: path=/var/cache/apt-cacher-ng state=directory mode=0777
+
+  - name: "mount the apt_cache_dir in the VM"
+    mount: name=/var/cache/apt-cacher-ng 
+           src='APTCACHE'
+           fstype=9p 
+           opts='trans=virtio'
+           state=mounted

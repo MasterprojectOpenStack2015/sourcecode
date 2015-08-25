@@ -8,6 +8,7 @@
 ###### network configuration
 
 # IP Addresses
+#warning, something other than /24 doesn't actually work, fixing 2 blocks below should suffice to enable it
 ip_management_prefix=192.168.100
 ip_tunnel_prefix=192.168.101 
 ip_external_prefix=192.168.102
@@ -20,6 +21,7 @@ ip_compute1_suffix=31
 ip_compute2_suffix=32
 ip_object1_suffix=51
 ip_object2_suffix=52
+ip_aptcache_suffix=111
 
 controller_node_ip_address=$ip_management_prefix.$ip_controller_suffix
 network_node_ip_address=$ip_management_prefix.$ip_network_suffix
@@ -27,6 +29,7 @@ compute1_node_ip_address=$ip_management_prefix.$ip_compute1_suffix
 compute2_node_ip_address=$ip_management_prefix.$ip_compute2_suffix
 object1_node_ip_address=$ip_management_prefix.$ip_object1_suffix
 object2_node_ip_address=$ip_management_prefix.$ip_object2_suffix
+aptcache_node_ip_address=$ip_management_prefix.$ip_aptcache_suffix
 
 external_network_cidr=$ip_external_prefix.0$network_cidr_suffix
 external_network_gateway=$ip_external_prefix.1
@@ -49,6 +52,7 @@ compute1_node_hostname=compute1
 compute2_node_hostname=compute2
 object1_node_hostname=object1
 object2_node_hostname=object2
+aptcache_node_hostname=aptcache
 
 # network interfaces:
 network_node_external_interface_name=eth2
@@ -220,6 +224,11 @@ vm_image_md5_hash=
 # saved.
 downloaded_vm_image_folder=$downloads_directory/images/vm
 
+
+# apt_cache_dir is where packages requested by the VMs are cached by
+# the aptcache node
+
+apt_cache_dir="/tmp/openstack_apt_cache_dir"
 ###############################################################################
 ###### configuration for the creation of the vms
 

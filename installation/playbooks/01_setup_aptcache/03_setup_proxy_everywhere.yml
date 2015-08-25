@@ -1,0 +1,12 @@
+---
+# https://www.unix-ag.uni-kl.de/~bloch/acng/html/config-servquick.html#config-client
+- name: set aptcache as proxy server for apt
+  hosts: all
+  sudo: True
+
+  tasks: 
+  - name: "set proxy"
+    lineinfile: dest=/etc/apt/apt.conf.d/02proxy
+                  line='Acquire::http::proxy "http://aptcache:3142";'
+                  state=present
+                  create=yes

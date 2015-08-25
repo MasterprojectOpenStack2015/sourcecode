@@ -1,0 +1,13 @@
+---
+# https://www.unix-ag.uni-kl.de/~bloch/acng/html/config-servquick.html#server-config
+- name: install & start the apt-cacher-ng service
+  hosts: aptcache
+  roles:
+    - config
+  sudo: True
+
+  tasks:
+
+  - name: "install apt-cacher-ng"
+    apt: pkg=apt-cacher-ng state=installed
+
