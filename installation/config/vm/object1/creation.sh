@@ -24,9 +24,13 @@ storage_file2=$this_vm_files_folder/storage2.img
 echo storage_file1=$storage_file1 >> $variables_file
 echo storage_file2=$storage_file2 >> $variables_file
  
-dd if=/dev/zero of=$storage_file1 bs=1M seek=4096 count=0 \
+qemu-img create -f qcow2 -o preallocation=metadata $storage_file1 4G \
 || exit 42
-dd if=/dev/zero of=$storage_file2 bs=1M seek=4096 count=0 \
+qemu-img create -f qcow2 -o preallocation=metadata $storage_file2 4G \
 || exit 43
+
+
+
+
 
 

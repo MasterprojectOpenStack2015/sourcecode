@@ -101,12 +101,12 @@ keystone_os_token=$keystone_admin_token
 # openstack_admin_user_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-users.html
 # this is the password for the openstack user 'admin'
-openstack_admin_user_password=openstack_admin_user_password_$default_password
+openstack_admin_user_password=admin
 
 # openstack_demo_user_password
 # see http://docs.openstack.org/kilo/install-guide/install/apt/content/keystone-users.html
 # this is the password for the openstack user 'demo'
-openstack_demo_user_password=openstack_demo_user_password_$default_password
+openstack_demo_user_password=demo
 
 # glance_mysql_password
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/glance-install.html
