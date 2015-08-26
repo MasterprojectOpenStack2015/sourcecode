@@ -4,6 +4,7 @@ echo "------------------------------------------------------------"
 echo "Available snapshots: "
 echo "------------------------------------------------------------"
 
+
 for virtual_machine_name in `tools/vm_names`
 do 
 	virsh snapshot-list $virtual_machine_name || exit 2
@@ -12,6 +13,7 @@ echo "------------------------------------------------------------"
 echo "Enter snapshot name: "
 read snapshot_name
 
+./tools/shutdown_all_vms
 
 for virtual_machine_name in `tools/vm_names`
 do 
@@ -19,7 +21,7 @@ do
 done
 echo "------------------------------------------------------------"
 echo "All VMs restored to snapshot "$snapshot_name
+echo "If logged in in Horizon, please re-login after restore."
 echo "------------------------------------------------------------"
 
-
-
+./tools/start_all_vms
