@@ -17,6 +17,7 @@ read snapshot_name
 
 for virtual_machine_name in `tools/vm_names`
 do 
+	echo "virsh snapshot-revert $virtual_machine_name $snapshot_name"
 	virsh snapshot-revert $virtual_machine_name $snapshot_name || exit 2
 done
 echo "------------------------------------------------------------"

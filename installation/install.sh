@@ -6,6 +6,8 @@ cd `dirname $0`
 
 tools/start_stepping
 
+date1=$(date +"%s")
+
 tools/step ./install_tools.sh
 tools/step ./install_ansible.sh
 tools/step ./create_ssh_keys.sh
@@ -19,4 +21,6 @@ tools/step ./setup_virtual_machines.sh
 tools/step ./snapshot_virtual_machines.sh initial
 
 
-
+date2=$(date +"%s")
+diff=$(($date2-$date1))
+echo "Done. Installation took $(($diff / 60))m $(($diff % 60))s. Horizon: http://controller/horizon/"
