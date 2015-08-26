@@ -1,0 +1,22 @@
+#!/bin/sh
+
+
+# see https://raw.githubusercontent.com/kumina/shutdown-kvm-guests/master/shutdown-kvm-guests.sh
+
+echo "Starting all VMs"
+
+list_shutdown_domains() {
+	virsh list --inactive | grep "shut off" | awk '{ print $2}'
+}
+
+list_shutdown_domains | while read DOMAIN; do
+	# Try to shutdown given domain.
+	virsh start $DOMAIN
+done
+
+while [ true ]; do
+	# Break while loop when no domains are left.
+	test -z "$(list_shutdown_domains)" && break
+	# Wait a litte, we don't want to DoS libvirt.
+	sleep 1
+done
