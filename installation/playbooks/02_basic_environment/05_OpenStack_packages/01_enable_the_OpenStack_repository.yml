@@ -1,7 +1,7 @@
 ---
 # http://docs.openstack.org/kilo/install-guide/install/apt/content/ch_basic_environment.html
 - name: Basic environment > OpenStack packages > enable the OpenStack repository
-  hosts: all
+  hosts: all:!aptcache
   # see https://github.com/ansible/ansible/issues/4355#issuecomment-25623433
   # for sudo: yes
   sudo: yes

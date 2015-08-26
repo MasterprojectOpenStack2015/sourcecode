@@ -1,0 +1,8 @@
+---
+- name: set apt repo source to german server
+  hosts: all
+  sudo: yes
+  tasks:
+
+  - name: "set apt repo source to german server"
+    replace: dest=/etc/apt/sources.list regexp="archive\.ubuntu\.com/ubuntu" replace="suse.uni-leipzig.de/pub/releases.ubuntu.com/ubuntu/"

@@ -9,5 +9,11 @@
   tasks:
 
   - name: "install apt-cacher-ng"
-    apt: pkg=apt-cacher-ng state=installed
+    apt: pkg=apt-cacher-ng state=installed update_cache=yes
+
+#  - name: "set proxy"
+#    lineinfile: dest=/etc/apt-cacher-ng/acng.conf
+#                  line='offlinemode:1'
+#                  state=present
+#                  create=yes
 
