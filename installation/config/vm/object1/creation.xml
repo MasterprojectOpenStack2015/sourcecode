@@ -19,7 +19,8 @@
             <target dev='vda' bus='virtio'/>
         </disk>
         <disk type='file' device='disk' snapshot='no'>
-            <source file='{{ user_data_vm_config_image }}'/>
+            <driver type='qcow2' cache='none'/>
+            <source file='{{ user_data_vm_config_image_qcow }}'/>
             <target dev='vdb' bus='virtio'/>
         </disk>
         <disk type='file' device='disk'>

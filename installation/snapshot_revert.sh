@@ -4,19 +4,22 @@ echo "------------------------------------------------------------"
 echo "Available snapshots: "
 echo "------------------------------------------------------------"
 
+list_domains() {
+	virsh list --all | grep "running\|shut off" | awk '{ print $2}'
+}
 
-for virtual_machine_name in `tools/vm_names`
-do 
+list_domains | while read virtual_machine_name; do 
 	virsh snapshot-list $virtual_machine_name || exit 2
 done
 echo "------------------------------------------------------------"
 echo "Enter snapshot name: "
 read snapshot_name
 
+
 ./tools/shutdown_all_vms
 
-for virtual_machine_name in `tools/vm_names`
-do 
+
+list_domains | while read virtual_machine_name; do 
 	echo "virsh snapshot-revert $virtual_machine_name $snapshot_name"
 	virsh snapshot-revert $virtual_machine_name $snapshot_name || exit 2
 done
