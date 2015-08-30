@@ -9,6 +9,8 @@ list_domains() {
 }
 
 list_domains | while read virtual_machine_name; do 
+	echo
+	echo $virtual_machine_name
 	virsh snapshot-list $virtual_machine_name || exit 2
 done
 echo "------------------------------------------------------------"

@@ -27,4 +27,6 @@ diff=$(($date2-$date1))
 echo "Done. Installation took $(($diff / 60))m $(($diff % 60))s."
 echo "Horizon URL: http://controller/horizon/ (Wait a few seconds for VMs to come back up)"
 echo "Logins are demo/demo or admin/admin if not otherwise specified in config"
+echo "SSH to VMs with ubuntu@nodename (e.g. ubuntu@controller)"
+echo "------------------------------------------------------------"
 echo "------------------------------------------------------------"
