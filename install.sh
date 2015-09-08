@@ -1,6 +1,6 @@
 #!/bin/bash
 
 (
-  cd "$0/../installation/"
+  cd "`dirname $0`/installation/"
   ./install.sh $*
 )
