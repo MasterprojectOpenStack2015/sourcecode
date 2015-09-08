@@ -6,7 +6,7 @@ cd `dirname $0`
 
 tools/start_stepping
 
-date1=$(date +"%s")
+date_of_installation_start=$(date +"%s")
 
 tools/step ./install_tools.sh
 tools/step ./install_ansible.sh
@@ -21,12 +21,9 @@ tools/step ./setup_virtual_machines.sh
 tools/step ./remove_aptcache_vm.sh
 tools/step ./snapshot_virtual_machines.sh initial
 
+date_of_installation_end=$(date +"%s")
+installation_duration=$(($date_of_installation_end-$date_of_installation_start))
+echo ---------------------------------------------------------
+echo "Installation took $(($installation_duration / 60))m $(($installation_duration % 60))s."
+./print_advice.sh
 
-date2=$(date +"%s")
-diff=$(($date2-$date1))
-echo "Done. Installation took $(($diff / 60))m $(($diff % 60))s."
-echo "Horizon URL: http://controller/horizon/ (Wait a few seconds for VMs to come back up)"
-echo "Logins are demo/demo or admin/admin if not otherwise specified in config"
-echo "SSH to VMs with ubuntu@nodename (e.g. ubuntu@controller)"
-echo "------------------------------------------------------------"
-echo "------------------------------------------------------------"
