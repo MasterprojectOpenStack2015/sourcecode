@@ -25,5 +25,5 @@ date_of_installation_end=$(date +"%s")
 installation_duration=$(($date_of_installation_end-$date_of_installation_start))
 echo ---------------------------------------------------------
 echo "Installation took $(($installation_duration / 60))m $(($installation_duration % 60))s."
-./print_advice.sh
+tools/print_advice
 
