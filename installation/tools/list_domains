@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd `dirname $0`
+
+for vm_name in `./vm_names`
+do
+  # check for the word boundary 
+  # http://unix.stackexchange.com/questions/71537/confused-about-word-boundary
+  if virsh list --all | grep -q "\b${vm_name}\b"
+  then
+    echo $vm_name
+  fi
+done

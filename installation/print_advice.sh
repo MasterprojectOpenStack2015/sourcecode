@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "`dirname $0`"
+
 source config/installation_configuration.sh
 
 echo "To use the Horizon Web interface visit http://$controller_node_hostname/horizon/"
@@ -9,7 +11,7 @@ echo "    user: \"demo\" password: \"$openstack_demo_user_password\""
 echo "    user: \"admin\" password: \"$openstack_admin_user_password\""
 echo "  as specified in the configuration."
 echo "To use SSH execute"
-for vm_name in `tools/vm_names`
+for vm_name in `tools/list_domains`
 do
   echo "  ssh `tools/ansible_remote_user`@$vm_name"
 done

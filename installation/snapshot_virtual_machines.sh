@@ -5,16 +5,12 @@ if [ "$#" -ne 1 ]; then
     exit 2
 fi
 
-list_domains() {
-	virsh list --all | grep "running\|shut off" | awk '{ print $2}'
-}
-
 ./tools/shutdown_all_vms
 
-list_domains | while read virtual_machine_name; do 
+./tools/list_domains | while read virtual_machine_name; do 
 	echo "------------------------------------------------------------"
 	echo $virtual_machine_name
-	virsh snapshot-create-as $virtual_machine_name --name $1 || exit 2
+	virsh snapshot-create-as $virtual_machine_name --name $1 || exit 3
 	virsh snapshot-list $virtual_machine_name
 done
 
