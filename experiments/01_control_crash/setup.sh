@@ -2,7 +2,7 @@ echo "################## SETUP ###########################"
 echo "$1"
 source "$1"
 
-cat run_on_controller.sh | ssh ubuntu@controller | tee "$TMP_PATH/remote.log"
+cat setup_on_controller.sh | ssh ubuntu@controller | tee "$TMP_PATH/remote.log"
 
 FLOATING_IP=`tail -n1 "$TMP_PATH/remote.log" | cut -s -d ":" -f2`
 echo "FLOATING_IP=$FLOATING_IP" >> "$1"

@@ -14,5 +14,3 @@ ping -c1 controller 2>&1 | head -n2
 
 echo
 
-echo "Press enter to continue to next step"
-read -s
