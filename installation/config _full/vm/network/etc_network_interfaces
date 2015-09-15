@@ -1,0 +1,22 @@
+# static configuration 
+# http://askubuntu.com/questions/31023/how-to-configure-eth0-manually
+#Configure the first interface as the management interface:
+auto eth0
+iface eth0 inet static
+        address {{ network_node_ip_address }}
+        netmask 255.255.255.0
+        broadcast 192.168.100.255 
+        gateway 192.168.100.1
+        dns-nameservers 8.8.8.8
+
+# Configure the second interface as the instance tunnels interface:
+auto eth1
+iface eth1 inet static
+        address {{ ip_tunnel_prefix }}.{{ ip_network_suffix }}
+        netmask 255.255.255.0
+
+# Configure the third interface as the external interface:
+auto eth2
+iface eth2 inet manual
+        up ip link set dev $IFACE up
+        down ip link set dev $IFACE down

@@ -1,0 +1,13 @@
+---
+- name:  "Delete File from Object Storage"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  environment: config.environment.demo
+  tasks:
+
+  - name: delete test file
+    shell: rm testfile
+

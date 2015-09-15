@@ -1,0 +1,16 @@
+---
+- name:  "Upload File to Object Storage"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  environment: config.environment.demo
+  tasks:
+
+  - name: create test file
+    shell: truncate -s 100M testfile
+
+  - name: upload test file
+    shell: swift -V 3 upload demo-container1 testfile
+

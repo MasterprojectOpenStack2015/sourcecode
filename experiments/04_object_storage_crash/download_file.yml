@@ -1,0 +1,20 @@
+---
+- name:  "Download File from Object Storage"
+  hosts: controller
+  roles:
+    - config
+  sudo: True
+  gather_facts: False
+  environment: config.environment.demo
+  tasks:
+
+  - name: download test file
+    shell: swift -V 3 download demo-container1 testfile
+    register: dl_result
+    ignore_errors: yes
+
+  - name: "assert correct download"
+    assert:
+      that:
+        - "'Error' not in dl_result.stderr"
+    ignore_errors: yes
