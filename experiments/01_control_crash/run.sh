@@ -3,6 +3,7 @@ mkdir -p $TMP_PATH
 echo "TMP_PATH=\"$TMP_PATH\"" > "$TMP_PATH/variables.tmp"
 
 #TODO: echo a description, wait for user confirmation?
+#TODO: add stages of severity?
 
 ./setup.sh "$TMP_PATH/variables.tmp"
 ./run_checks.sh "$TMP_PATH/variables.tmp"
@@ -14,6 +15,7 @@ echo "Press enter to continue to next step"; read -s
 echo "Press enter to continue to next step"; read -s
 ./heal.sh "$TMP_PATH/variables.tmp"
 ./run_checks.sh "$TMP_PATH/variables.tmp"
-echo "It still may take a while until the cluster has reconnected and is fully responsive."
+echo "Controller is online again, note that this *doesn't* mean that OpenStack is fully functional again. Cluster synchronization may take a while and the controller may be damaged."
+
 
 
