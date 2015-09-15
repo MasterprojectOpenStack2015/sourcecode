@@ -1,0 +1,10 @@
+# static configuration 
+# http://askubuntu.com/questions/31023/how-to-configure-eth0-manually
+#Configure the first interface as the management interface:
+auto eth0
+iface eth0 inet static
+        address {{ object1_node_ip_address }}
+        netmask 255.255.255.0
+        broadcast 192.168.100.255
+        gateway 192.168.100.1
+        dns-nameservers 8.8.8.8

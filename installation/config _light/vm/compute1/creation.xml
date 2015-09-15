@@ -1,7 +1,12 @@
 <domain type='kvm'>
     <name>{{ vm_name }}</name>
-    <memory>4097152</memory>
+    <memory>2048576</memory>
     <vcpu>1</vcpu>
+    
+    <cpu>
+    <model>Westmere</model>
+        <feature policy='require' name='vmx' />
+    </cpu>
 
     <features>
         <acpi/>
@@ -32,10 +37,7 @@
             <source network='neutron-tunnel'/>
             <model type='virtio'/>
         </interface>
-        <interface type='network'>
-            <source network='external'/>
-            <model type='virtio'/>
-        </interface>
+
 
         <input type='mouse' bus='ps2'/>
             <input type='keyboard' bus='ps2'/>
