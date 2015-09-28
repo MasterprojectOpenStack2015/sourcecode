@@ -2,7 +2,7 @@
 
 color_code=`output_error`
 
-is_logging -v && log "    "$color_code $@
+is_logging -v && log "      "$color_code $@
 
 is_logging -vvv && newlines='
 '
