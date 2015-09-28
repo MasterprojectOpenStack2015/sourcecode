@@ -1,0 +1,18 @@
+
+INSTANCE_NAME=$1
+source "$variables"
+
+TMP_SCRIPT="$TMP_PATH/setup_on_controller.sh"
+echo "INSTANCE_NAME=$INSTANCE_NAME" > $TMP_SCRIPT
+cat ../common/create_instance_on_controller.template >> $TMP_SCRIPT
+
+exitcode=0
+cat TMP_SCRIPT | { ssh ubuntu@controller 2>&1 || exitcode=$? ; } | tee "$TMP_PATH/remote.log" | log -vvv --input
+if ! ( exit $exitcode )
+then
+  echo "ERROR $exitcode in ssh."
+  exit $exitcode
+fi
+
+FLOATING_IP=`tail -n1 "$TMP_PATH/remote.log" | cut -s -d ":" -f2`
+echo "FLOATING_IP=$FLOATING_IP" >> "$variables"

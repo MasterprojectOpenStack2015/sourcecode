@@ -1,6 +1,10 @@
 source demo-openrc.sh
 
-INSTANCE_NAME=experiment-01-test-instance
+if [ -z "$INSTANCE_NAME" ] 
+then 
+	echo "INSTANCE_NAME is unset!"
+	exit 99
+fi
 
 # kill an instance if it exists
 echo Killing the instance $INSTANCE_NAME
