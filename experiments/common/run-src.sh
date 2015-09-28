@@ -6,3 +6,4 @@ experiment_folder=`pwd`
 experiment_folder=`filename "$experiment_folder"`
 export variables=`create_variables_file "$experiment_folder"`
 
+cd `dirname $0`
