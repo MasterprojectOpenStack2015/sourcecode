@@ -4,8 +4,9 @@ INSTANCE_NAME=$1
 source "$variables"
 
 TMP_SCRIPT="$TMP_PATH/setup_on_controller.sh"
+#echo $TMP_SCRIPT
 echo "INSTANCE_NAME=$INSTANCE_NAME" > $TMP_SCRIPT
-cat ../common/create_instance_on_controller.template >> $TMP_SCRIPT
+cat "`dirname \"$0\"`/create_instance_on_controller.template" >> $TMP_SCRIPT
 
 cat $TMP_SCRIPT | ssh ubuntu@controller 2>&1 | tee "$TMP_PATH/remote.log" | log -vvv --input; exitcode=${PIPESTATUS[0]}
 

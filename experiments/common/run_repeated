@@ -1,0 +1,26 @@
+#!/bin/bash
+
+$@
+EXIT_CODE=$?
+if [ $EXIT_CODE != 0 ] 
+then
+    exit $EXIT_CODE;
+fi
+
+while true
+do
+    echo -n "Type r<ENTER> to repeat this set of checks. <ENTER> continues to the next step."
+    python -c 'raw_input()=="r" and exit(5)' 2>> /dev/null
+    LOOP_CODE=$?
+    if [ $LOOP_CODE != 5 ] 
+    then
+        exit $LOOP_CODE;
+    fi
+
+    $@
+    EXIT_CODE=$?
+    if [ $EXIT_CODE != 0 ] 
+    then
+        exit $EXIT_CODE;
+    fi
+done
