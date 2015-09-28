@@ -1,6 +1,11 @@
-source "$1"
+#!/bin/bash
 
-echo "flushing memcache on controller"
-ssh ubuntu@controller "echo flush_all | nc localhost 11211"
+heading CREATING FAULT
+
+source "$variables"
+
+subheading "flushing memcache on controller"
+
+ssh ubuntu@controller "echo flush_all | nc localhost 11211" | log -vvv -i
 
 
