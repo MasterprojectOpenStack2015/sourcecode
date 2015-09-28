@@ -15,6 +15,5 @@ then
   execute-playbook download_file.yml "Successfully downloaded file." "Unable to download file."
 else
   execute-playbook download_file_fails.yml "File not accessible" "File downloaded! Impossible!"
-  exit 1
 fi
 

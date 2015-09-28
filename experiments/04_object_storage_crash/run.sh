@@ -8,6 +8,7 @@ experiment_heading "Crash Objct Storage"
 
 start_stepping
 
+step ./heal.sh object1 object2
 step ./setup.sh
 step ./run_checks.sh
 
