@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# use first argument for the experiment
+
+TMP_PATH=/tmp/openstack_experiments/$1
+mkdir -p $TMP_PATH
+variables="$TMP_PATH/variables.tmp"
+echo "TMP_PATH=\"$TMP_PATH\"" > "$variables"
+echo "variables=\"$variables\"" >> "$variables"
+echo -n $variables

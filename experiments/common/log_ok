@@ -1,0 +1,10 @@
+#!/bin/bash
+
+color_code=`output_ok`
+
+is_logging -v && log "      "$color_code $@
+
+is_logging -vvv && newlines='
+'
+is_logging -vv -vvv && log "$newlines" $color_code $@ "$newlines"
+
