@@ -1,0 +1,25 @@
+#!/bin/bash
+
+cd `dirname $0`
+
+output=$@
+
+./log -v "+ "$output
+
+
+function log_bar {
+  if ./is_logging -vv -vvv
+  then
+    echo -n "################################"
+    # sequence from http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html
+    for i in `seq 1 ${#output}`;
+    do
+      echo -n "#"
+    done  
+    echo
+  fi
+}
+
+log_bar
+./log -vv -vvv "############### $output ###############"
+log_bar

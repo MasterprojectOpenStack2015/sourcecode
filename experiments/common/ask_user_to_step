@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+
+`dirname $0`/is_logging -vv -vvv && { echo "Press enter to continue to next step"; read -s ; }

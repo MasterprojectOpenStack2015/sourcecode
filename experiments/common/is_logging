@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cd `dirname $0`
+
+if ! ./log
+then
+  >&2  echo "ERROR: log does not work"
+  exit 2
+fi
+
+if [ "`./log -v -vv -vvv 0`" != "0" ]
+then
+  >&2  echo "ERROR: log does not output as required"
+  exit 1
+fi
+
+if [ "`./log $1 $2 $3 0`" == "0" ]
+then
+  exit 0
+else
+  exit 1
+fi

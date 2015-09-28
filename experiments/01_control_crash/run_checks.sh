@@ -1,16 +1,15 @@
-source "$1"
+source "$variables"
 #TODO: improve formatting
 
-echo "############### Running checks ###############"
+heading Running checks
 
 
-echo "  ##  pinging the created instance  ##  "
-ping -c1 $FLOATING_IP 2>&1 | head -n2
+subheading pinging the created instance
+ping -c1 $FLOATING_IP 2>&1 | head -n2 | log -vvv -i
 
-echo
+log -vvv
 
-echo "  ##  pinging the controller  ##  "
-ping -c1 controller 2>&1 | head -n2
+subheading pinging the controller
+ping -c1 controller 2>&1 | head -n2 | log -vvv -i
 
-echo
-
+log -vvv

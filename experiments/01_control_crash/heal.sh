@@ -1,10 +1,9 @@
-echo "################## HEALING FAULT #################"
-echo
+heading HEALING FAULT
 
-echo "restarting the controller"
-virsh start controller
+subheading "restarting the controller"
+virsh start controller | log -vvv --input
 
-echo "wait for controller to come up again"
+subheading "wait for controller to come up again"
 until [ "`ssh-keyscan -H controller 2> /dev/null`" != "" ]
 do
 	sleep 1

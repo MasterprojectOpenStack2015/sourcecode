@@ -7,6 +7,7 @@ then
   echo '-vv              use logging_level "vv"'
   echo '-vvv             use logging_level "vvv"'
   echo '-i --input       output the stdin'
+  echo '-n               do not output a newline at the end'
   exit 0
 fi
 
@@ -25,8 +26,11 @@ function print {
 # using shift according to 
 # http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
 
+use_stdin=false
 use_stdout=false
+used_stdout=false
 has_output=false
+output_a_newlinie_at_end=true
 output_from_arguments=''
 
 while (( "$#" )); do
@@ -34,18 +38,22 @@ while (( "$#" )); do
   then
     if [ "$has_output" == "true" ]
     then
-      print "$output_from_arguments "
+      print "$output_from_arguments"
+      used_stdout=true
     fi
     use_stdout=true
   elif ( [ "$1" == '--input' ] || [ "$1" == "-i" ])
   then
-    cat 
+    use_stdin=true
   elif ( [ "$1" == "-v" ]   || \
 	     [ "$1" == "-vv" ]  || \
 	     [ "$1" == "-vvv" ] )
   then
     # do not use the argument
     ( : )
+  elif [ "$1" == "-n" ]
+  then
+    output_a_newlinie_at_end=false
   else
     # print the argument
     if [ "$use_stdout" == false ]
@@ -58,7 +66,14 @@ while (( "$#" )); do
       fi
       has_output=true
     else
-      print "$1 "
+      if [ "$has_output" == "true" ]
+      then 
+        print " $1"
+      else
+        print "$1"
+        has_output=true
+      fi
+      used_stdout=true
     fi
   fi
 
@@ -66,8 +81,19 @@ while (( "$#" )); do
   shift
 done
 
-if [ "$use_stdout" == "true" ]
+if [ "$use_stdout" == "true" ] && [ "$output_a_newlinie_at_end" == "true" ]
 then
-  # print last newline
-  echo
+  if [ "$use_stdin" == "true" ] && [ "$used_stdout" == "false" ]
+  then
+    # do not print a newline before the input
+    ( : )
+  else
+    # print last newline
+    echo
+  fi
+fi
+if [ "$use_stdin" == "true" ] && [ "$use_stdout" == "true" ]
+then
+  # output stdin
+  cat
 fi

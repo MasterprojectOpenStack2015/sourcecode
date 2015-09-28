@@ -1,0 +1,28 @@
+#!/bin/bash
+
+status_file="`pwd`/step_status"
+step_status=`cat "$status_file"`
+
+PATH=`dirname $0`:$PATH
+
+log -vvv -------------------------------------------------------------------
+if [ "$step_status" = "0" ]
+then
+	log -vvv running $@
+	$@
+	step_status=$?
+	if [ $step_status != 0 ]
+	then
+		log -vvv
+		log -vvv $@
+		log -vvv -vv -v exit status $step_status
+	fi
+else
+	log -vvv skipping $@
+fi
+
+echo -n $step_status > "$status_file"
+
+
+
+
