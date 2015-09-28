@@ -1,0 +1,17 @@
+#!/bin/bash
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+
+ping -c1 $1 2>&1 | head -n2 | log -vvv -i
+EXIT_CODE=${PIPESTATUS[0]}
+
+if [ "$EXIT_CODE" == "0" ] 
+then
+	log_ok
+else
+	log_error
+fi
+
+exit $EXIT_CODE

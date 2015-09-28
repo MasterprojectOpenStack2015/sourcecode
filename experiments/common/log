@@ -98,8 +98,13 @@ then
     echo
   fi
 fi
-if [ "$use_stdin" == "true" ] && [ "$use_stdout" == "true" ]
+if [ "$use_stdin" == "true" ]
 then
-  # output stdin
-  cat
+  if [ "$use_stdout" == "true" ]
+  then
+    # output stdin
+    cat
+  else
+    cat >/dev/null
+  fi
 fi
