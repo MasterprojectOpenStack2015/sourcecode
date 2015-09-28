@@ -1,5 +1,5 @@
 echo "################## SETUP ###########################"
-echo "$1"
-source "$1"
+
+source "$variables"
 
 ansible-playbook upload_file.yml
