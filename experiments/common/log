@@ -3,7 +3,7 @@
 if ( [ "$1" == "-h" ] || [ "$1" == "--help" ] )
 then
   echo '-h --help        display this help and exit'
-  echo '-v               use logging_level "v"'
+  echo '-v               use logging_level "v" or ""'
   echo '-vv              use logging_level "vv"'
   echo '-vvv             use logging_level "vvv"'
   echo '-i --input       output the stdin'
@@ -11,12 +11,18 @@ then
   exit 0
 fi
 
-if ! ( [ "$logging_level" == "v" ]   || \
-	   [ "$logging_level" == "vv" ]  || \
+if ! ( [ "$logging_level" == "" ]   || \
+	   [ "$logging_level" == "v" ]  || \
+	   [ "$logging_level" == "vv" ] || \
 	   [ "$logging_level" == "vvv" ] )
 then
-  >&2 echo 'ERROR: Variable $logging_level should be se to "v", "vv" or, "vvv".'
+  >&2 echo 'ERROR: Variable $logging_level should be set to "", "v", "vv" or, "vvv".'
   exit 1
+fi
+
+if [ "$logging_level" == "" ]
+then
+  logging_level="v"
 fi
 
 function print {
