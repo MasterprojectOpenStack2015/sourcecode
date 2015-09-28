@@ -7,7 +7,7 @@ TMP_SCRIPT="$TMP_PATH/setup_on_controller.sh"
 echo "INSTANCE_NAME=$INSTANCE_NAME" > $TMP_SCRIPT
 cat ../common/create_instance_on_controller.template >> $TMP_SCRIPT
 
-cat TMP_SCRIPT | ssh ubuntu@controller 2>&1 | tee "$TMP_PATH/remote.log" | log -vvv --input; exitcode=${PIPESTATUS[0]}
+cat $TMP_SCRIPT | ssh ubuntu@controller 2>&1 | tee "$TMP_PATH/remote.log" | log -vvv --input; exitcode=${PIPESTATUS[0]}
 
 if ! ( exit $exitcode )
 then
@@ -15,5 +15,5 @@ then
   exit $exitcode
 fi
 
-FLOATING_IP=`tail -n1 "$TMP_PATH/remote.log" | cut -s -d ":" -f2`
+FLOATING_IP=`tail -n1 "$TMP_PATH/remote.log" | grep "FLOATING_IP:"| cut -s -d ":" -f2`
 echo "FLOATING_IP=$FLOATING_IP" >> "$variables"
