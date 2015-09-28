@@ -1,6 +1,5 @@
-echo "################## CREATING FAULT ################"
-echo
+heading CREATING FAULT
 
-echo "killing the controller"
-virsh destroy controller
+subheading killing the controller
+virsh destroy controller | log -vvv --input 
 
