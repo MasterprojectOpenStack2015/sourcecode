@@ -1,6 +1,6 @@
 
 # use the log command
-source ../common/run-src.sh
+source `dirname $0`/../common/run-src.sh
 
 experiment_heading "Crash Output"
 #TODO: echo a description, wait for user confirmation?

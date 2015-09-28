@@ -2,7 +2,7 @@
 
 if `dirname $0`/is_logging -vv -vvv 
 then
-  echo -n "Press enter to continue to the next step"
+  echo -n $@ "Press enter to continue to the next step"
   python -c 'raw_input()' 2>> /dev/null
   exit $?
 fi

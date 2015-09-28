@@ -13,7 +13,7 @@
     register: dl_result
     ignore_errors: yes
 
-  - name: "assert correct download"
+  - name: "assert download failed"
     assert:
       that:
-        - "'Error' not in dl_result.stderr"
+        - "'Error' in dl_result.stderr"
