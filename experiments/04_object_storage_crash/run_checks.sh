@@ -1,20 +1,20 @@
 source "$variables"
-#TODO: improve formatting
 
-echo "############### Running checks ###############"
+heading Running checks
 
-echo "  ##  pinging object1  ##  "
-ping -c2 object1 2>&1 || echo "unable to ping"
-echo
+subheading pinging object1
+ping_check object1
 
 
-echo "  ##  pinging object2  ##  "
-ping -c2 object2 2>&1 || echo "unable to ping"
-echo
+subheading pinging object2
+ping_check object2
 
-echo "  ##  downloading created file  ##  "
-ansible-playbook $2
-echo
-
-
+subheading downloading created file
+if [ "$1" == "" ]
+then
+  execute-playbook download_file.yml "Successfully downloaded file." "Unable to download file."
+else
+  execute-playbook download_file_fails.yml "File not accessible" "File downloaded! Impossible!"
+  exit 1
+fi
 

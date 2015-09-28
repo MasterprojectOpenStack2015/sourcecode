@@ -1,5 +1,7 @@
-echo "################## SETUP ###########################"
+#!/bin/bash
 
-source "$variables"
+heading SETUP
 
-ansible-playbook upload_file.yml
+subheading "uploading a file"
+execute-playbook upload_file.yml "Successfully uploaded file" "Failed to upload file."
+exit $?

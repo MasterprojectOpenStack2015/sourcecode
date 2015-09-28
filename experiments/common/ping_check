@@ -9,9 +9,9 @@ EXIT_CODE=${PIPESTATUS[0]}
 
 if [ "$EXIT_CODE" == "0" ] 
 then
-	log_ok -v -vv -vvv
+	log_ok -v -vv -vvv "$1"
 else
-	log_error -v -vv -vvv
+	log_error -v -vv -vvv "$2"
 fi
 
 exit $EXIT_CODE

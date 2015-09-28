@@ -1,0 +1,28 @@
+#!/bin/bash
+
+playbook=$1
+
+log -vvv executing playbook $playbook
+
+if is_logging -vv -vvv 
+then
+  ansible-playbook $playbook
+  errorcode=$?
+elif is_logging -v
+then 
+  ansible-playbook $playbook >> /tmp/ansible-playbook.out
+  errorcode=$?
+else
+  echo "ERROR: something is wrong with logging"
+  exit 42
+fi
+
+if [ "$errorcode" == "0" ]
+then
+  log_ok -v -vv -vvv "$2"
+else
+  cat /tmp/ansible-playbook.out | log -v -i
+  log_error -v -vv -vvv "$3"
+fi
+
+exit $errorcode

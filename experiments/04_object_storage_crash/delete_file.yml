@@ -1,5 +1,5 @@
 ---
-- name:  "Delete File from Object Storage"
+- name:  "Delete File"
   hosts: controller
   roles:
     - config
@@ -8,6 +8,9 @@
   environment: config.environment.demo
   tasks:
 
-  - name: delete test file
-    shell: rm testfile
+  - name: delete test file on controller
+    shell: rm -f testfile
 
+  - name: delete test file on object storage
+    shell: swift -V 3 delete demo-container1 testfile
+    ignore_errors: yes
