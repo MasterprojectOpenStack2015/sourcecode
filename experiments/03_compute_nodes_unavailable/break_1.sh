@@ -1,6 +1,6 @@
-source "$1"
+source "$variables"
 
-#kill network connections off all compute hosts
+subheading kill network connections off all compute hosts
 
 for compute_host in `ansible compute --list-hosts`
 do
@@ -8,6 +8,4 @@ do
 	ssh -n -f ubuntu@$compute_host "nohup sudo ifdown \`ip route | grep $compute_host | cut -d' ' -f3\` > /dev/null 2>&1 &"
 done
 
-#TODO: launch second instance
-
-
+log -v -vv -vvv "All compute hosts have been incapacitated"
