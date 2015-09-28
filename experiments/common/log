@@ -108,3 +108,5 @@ then
     cat >/dev/null
   fi
 fi
+
+exit 0

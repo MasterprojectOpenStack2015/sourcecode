@@ -8,3 +8,4 @@ is_logging -vvv && newlines='
 '
 is_logging -vv -vvv && log "$newlines" $color_code $@ "$newlines"
 
+exit 0
