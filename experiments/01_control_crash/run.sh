@@ -2,7 +2,7 @@
 # use the log command
 source `dirname $0`/../common/run-src.sh
 
-experiment_heading "Crash Output"
+experiment_heading "Crash Controller"
 #TODO: echo a description, wait for user confirmation?
 #TODO: add stages of severity?
 

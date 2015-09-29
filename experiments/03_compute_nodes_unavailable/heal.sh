@@ -20,6 +20,7 @@ do
 	fi
 done
 
+sleep 2
 
 for VM in `cat "$TMP_PATH/compute_VMs.log"`
 do
