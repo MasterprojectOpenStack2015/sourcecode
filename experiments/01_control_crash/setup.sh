@@ -10,8 +10,10 @@ log -vvv "$services"
 if echo "$services" | grep -q down
 then
   log -v -vv "$services"
-  log -v -vv -vvv "ERROR: An OpenStack service is down. This experiment may fail in unexpected ways. (Press Ctrl+C to exit.)"
-  ask_user_to_step || exit 1
+  log -v -vv -vvv 
+  log -v -vv -vvv "ERROR: An OpenStack service is down. This experiment may fail in unexpected ways."
+  log -v -vv -vvv "       Maybe execute 'virsh reboot HOST'?"
+  ask_user_to_step "Press Ctrl+C to exit." || exit 1
 fi
 
 subheading Creating instance on controller
