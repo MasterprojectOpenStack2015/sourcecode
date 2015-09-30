@@ -1,12 +1,25 @@
 #!/bin/bash
-
+#
+# no parameter -> list all domains
+# --active -> list only active domains
 cd `dirname $0`
+
+all=--all
+
+
+if [ "$1" == "--active" ]
+then
+  all=
+elif [ "$1" != "" ]
+then
+  1>&2 echo "ERROR: inalid parameter \"$1\" to \"list_domains\". Only --active allowed"
+fi
 
 for vm_name in `./vm_names`
 do
   # check for the word boundary 
   # http://unix.stackexchange.com/questions/71537/confused-about-word-boundary
-  if virsh list --all | grep -q "\b${vm_name}\b"
+  if virsh list $all | grep -q "\b${vm_name}\b"
   then
     echo $vm_name
   fi
