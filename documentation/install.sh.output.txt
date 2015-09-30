@@ -1,0 +1,2044 @@
+# this is not the first run on this computer, so it does not need to install so much
+mpos2015-source$ ./install.sh
+---------------------------------------------------------
+running ./install_tools.sh
+---------------------------------------------------------
+running ./install_ansible.sh
+---------------------------------------------------------
+running ./create_ssh_keys.sh
+---------------------------------------------------------
+running ./install_lib_virt.sh
+---------------------------------------------------------
+running ./create_virtual_networks.sh
+Processing config/network/external.xml
+Network "external" already exists, removing it.
+Network external destroyed
+
+
+Creating network "external"
+Network external created from config/network/external.xml
+
+Processing config/network/management.xml
+Network "management" already exists, removing it.
+Network management destroyed
+
+
+Creating network "management"
+Network management created from config/network/management.xml
+
+Processing config/network/neutron-tunnel.xml
+Network "neutron-tunnel" already exists, removing it.
+Network neutron-tunnel destroyed
+
+
+Creating network "neutron-tunnel"
+Network neutron-tunnel created from config/network/neutron-tunnel.xml
+
+---------------------------------------------------------
+running ./create_virtual_machine_image.sh
+--2015-09-30 15:25:18--  https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
+Resolving cloud-images.ubuntu.com (cloud-images.ubuntu.com)... 2001:67c:1360:8001:ffff:ffff:ffff:fffe, 91.189.88.141
+Connecting to cloud-images.ubuntu.com (cloud-images.ubuntu.com)|2001:67c:1360:8001:ffff:ffff:ffff:fffe|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 258540032 (247M) [application/octet-stream]
+Saving to: ‘trusty-server-cloudimg-amd64-disk1.img’
+
+     0K .......... .......... .......... .......... ..........  0%  312K 13m29s
+    50K .......... .......... .......... .......... ..........  0%  966K 8m55s
+   100K .......... .......... .......... .......... ..........  0% 9,50M 6m5s
+   150K .......... .......... .......... .......... ..........  0% 1,18M 5m26s
+   200K .......... .......... .......... .......... ..........  0% 11,1M 4m25s
+   250K .......... .......... .......... .......... ..........  0% 11,6M 3m45s
+   300K .......... .......... .......... .......... ..........  0% 1,34M 3m39s
+   350K .......... .......... .......... .......... ..........  0% 11,3M 3m14s
+   400K .......... .......... .......... .......... ..........  0% 8,66M 2m56s
+   450K .......... .......... .......... .......... ..........  0% 11,5M 2m40s
+   500K .......... .......... .......... .......... ..........  0% 11,5M 2m28s
+   550K .......... .......... .......... .......... ..........  0%  860K 2m40s
+   600K .......... .......... .......... .......... ..........  0% 11,0M 2m29s
+   650K .......... .......... .......... .......... ..........  0% 11,8M 2m20s
+   700K .......... .......... .......... .......... ..........  0% 11,2M 2m12s
+   750K .......... .......... .......... .......... ..........  0% 11,8M 2m5s
+   800K .......... .......... .......... .......... ..........  0% 8,64M 1m59s
+   850K .......... .......... .......... .......... ..........  0% 11,5M 1m54s
+   900K .......... .......... .......... .......... ..........  0% 11,8M 1m49s
+   950K .......... .......... .......... .......... ..........  0% 11,1M 1m45s
+  1000K .......... .......... .......... .......... ..........  0% 1,14M 1m50s
+  1050K .......... .......... .......... .......... ..........  0% 11,2M 1m46s
+  1100K .......... .......... .......... .......... ..........  0% 11,9M 1m42s
+  1150K .......... .......... .......... .......... ..........  0% 11,2M 99s
+  1200K .......... .......... .......... .......... ..........  0% 8,85M 96s
+  1250K .......... .......... .......... .......... ..........  0% 11,8M 93s
+  1300K .......... .......... .......... .......... ..........  0% 11,2M 90s
+  1350K .......... .......... .......... .......... ..........  0% 11,8M 88s
+  1400K .......... .......... .......... .......... ..........  0% 10,9M 86s
+  1450K .......... .......... .......... .......... ..........  0% 11,8M 83s
+  1500K .......... .......... .......... .......... ..........  0% 11,2M 81s
+  1550K .......... .......... .......... .......... ..........  0% 11,8M 79s
+  1600K .......... .......... .......... .......... ..........  0% 5,00M 79s
+  1650K .......... .......... .......... .......... ..........  0% 11,2M 77s
+  1700K .......... .......... .......... .......... ..........  0% 6,73M 76s
+  1750K .......... .......... .......... .......... ..........  0% 11,2M 74s
+  1800K .......... .......... .......... .......... ..........  0% 9,55M 73s
+  1850K .......... .......... .......... .......... ..........  0% 11,5M 71s
+  1900K .......... .......... .......... .......... ..........  0% 11,5M 70s
+  1950K .......... .......... .......... .......... ..........  0% 11,5M 69s
+  2000K .......... .......... .......... .......... ..........  0% 3,98M 69s
+  2050K .......... .......... .......... .......... ..........  0% 11,5M 68s
+  2100K .......... .......... .......... .......... ..........  0% 11,5M 67s
+  2150K .......... .......... .......... .......... ..........  0% 11,5M 65s
+  2200K .......... .......... .......... .......... ..........  0% 11,2M 64s
+  2250K .......... .......... .......... .......... ..........  0% 11,5M 64s
+  2300K .......... .......... .......... .......... ..........  0% 11,5M 63s
+  2350K .......... .......... .......... .......... ..........  0% 11,5M 62s
+  2400K .......... .......... .......... .......... ..........  0% 8,85M 61s
+  2450K .......... .......... .......... .......... ..........  0% 11,5M 60s
+  2500K .......... .......... .......... .......... ..........  1% 11,5M 59s
+  2550K .......... .......... .......... .......... ..........  1% 11,5M 59s
+  2600K .......... .......... .......... .......... ..........  1% 11,2M 58s
+  2650K .......... .......... .......... .......... ..........  1% 11,5M 57s
+  2700K .......... .......... .......... .......... ..........  1% 11,5M 57s
+  2750K .......... .......... .......... .......... ..........  1%  231K 75s
+  2800K .......... .......... .......... .......... ..........  1% 20,3M 74s
+  2850K .......... .......... .......... .......... ..........  1% 57,1M 73s
+  2900K .......... .......... .......... .......... ..........  1% 56,2M 71s
+  2950K .......... .......... .......... .......... ..........  1% 58,6M 70s
+  3000K .......... .......... .......... .......... ..........  1% 49,5M 69s
+  3050K .......... .......... .......... .......... ..........  1% 57,2M 68s
+  3100K .......... .......... .......... .......... ..........  1% 56,3M 67s
+  3150K .......... .......... .......... .......... ..........  1% 57,6M 66s
+  3200K .......... .......... .......... .......... ..........  1% 48,5M 65s
+  3250K .......... .......... .......... .......... ..........  1% 67,0M 64s
+[snip]
+250350K .......... .......... .......... .......... .......... 99% 11,8M 0s
+250400K .......... .......... .......... .......... .......... 99% 8,29M 0s
+250450K .......... .......... .......... .......... .......... 99% 2,99M 0s
+250500K .......... .......... .......... .......... .......... 99% 9,54M 0s
+250550K .......... .......... .......... .......... .......... 99% 9,91M 0s
+250600K .......... .......... .......... .......... .......... 99% 11,2M 0s
+250650K .......... .......... .......... .......... .......... 99% 11,8M 0s
+250700K .......... .......... .......... .......... .......... 99% 3,27M 0s
+250750K .......... .......... .......... .......... .......... 99% 7,85M 0s
+250800K .......... .......... .......... .......... .......... 99% 6,62M 0s
+250850K .......... .......... .......... .......... .......... 99% 11,5M 0s
+250900K .......... .......... .......... .......... .......... 99% 10,8M 0s
+250950K .......... .......... .......... .......... .......... 99% 3,26M 0s
+251000K .......... .......... .......... .......... .......... 99% 8,90M 0s
+251050K .......... .......... .......... .......... .......... 99% 7,49M 0s
+251100K .......... .......... .......... .......... .......... 99% 11,9M 0s
+251150K .......... .......... .......... .......... .......... 99% 11,1M 0s
+251200K .......... .......... .......... .......... .......... 99% 3,20M 0s
+251250K .......... .......... .......... .......... .......... 99% 8,28M 0s
+251300K .......... .......... .......... .......... .......... 99% 7,23M 0s
+251350K .......... .......... .......... .......... .......... 99% 11,9M 0s
+251400K .......... .......... .......... .......... .......... 99% 10,3M 0s
+251450K .......... .......... .......... .......... .......... 99% 4,03M 0s
+251500K .......... .......... .......... .......... .......... 99% 6,40M 0s
+251550K .......... .......... .......... .......... .......... 99% 11,9M 0s
+251600K .......... .......... .......... .......... .......... 99% 5,90M 0s
+251650K .......... .......... .......... .......... .......... 99% 6,98M 0s
+251700K .......... .......... .......... .......... .......... 99% 5,83M 0s
+251750K .......... .......... .......... .......... .......... 99% 5,35M 0s
+251800K .......... .......... .......... .......... .......... 99% 7,81M 0s
+251850K .......... .......... .......... .......... .......... 99% 11,5M 0s
+251900K .......... .......... .......... .......... .......... 99% 7,38M 0s
+251950K .......... .......... .......... .......... .......... 99% 6,74M 0s
+252000K .......... .......... .......... .......... .......... 99% 4,87M 0s
+252050K .......... .......... .......... .......... .......... 99% 5,67M 0s
+252100K .......... .......... .......... .......... .......... 99% 11,5M 0s
+252150K .......... .......... .......... .......... .......... 99% 7,10M 0s
+252200K .......... .......... .......... .......... .......... 99% 4,95M 0s
+252250K .......... .......... .......... .......... .......... 99% 10,6M 0s
+252300K .......... .......... .......... .......... .......... 99% 11,4M 0s
+252350K .......... .......... .......... .......... .......... 99% 5,36M 0s
+252400K .......... .......... .......... .......... .......... 99% 4,76M 0s
+252450K .......... .......... ..........                      100% 19,3M=37s
+
+2015-09-30 15:25:56 (6,61 MB/s) - ‘trusty-server-cloudimg-amd64-disk1.img’ saved [258540032/258540032]
+
+./create_virtual_machine_image.sh: line 23: [: 79be6bea255295b7933fd102ae3d2720: unary operator expected
+Image resized.
+Formatting '/tmp/openstack_installation/images/vm.img.tmp', fmt=qcow2 size=10951327744 backing_file='/tmp/openstack_installation/images/vm.img.original' encryption=off cluster_size=65536 lazy_refcounts=off 
+---------------------------------------------------------
+running ./create_virtual_machines.sh
+Domain aptcache destroyed
+
+Domain aptcache has been undefined
+
+Domain aptcache defined from /tmp/openstack_installation/images/aptcache/creation.xml
+
+Domain compute1 destroyed
+
+Domain compute1 has been undefined
+
+Domain compute1 defined from /tmp/openstack_installation/images/compute1/creation.xml
+
+Domain compute2 destroyed
+
+Domain compute2 has been undefined
+
+Domain compute2 defined from /tmp/openstack_installation/images/compute2/creation.xml
+
+Domain controller destroyed
+
+Domain controller has been undefined
+
+Domain controller defined from /tmp/openstack_installation/images/controller/creation.xml
+
+Domain network destroyed
+
+Domain network has been undefined
+
+Domain network defined from /tmp/openstack_installation/images/network/creation.xml
+
+Domain object1 destroyed
+
+Domain object1 has been undefined
+
+Formatting '/tmp/openstack_installation/images/object1/storage1.img', fmt=qcow2 size=4294967296 encryption=off cluster_size=65536 preallocation='metadata' lazy_refcounts=off 
+Formatting '/tmp/openstack_installation/images/object1/storage2.img', fmt=qcow2 size=4294967296 encryption=off cluster_size=65536 preallocation='metadata' lazy_refcounts=off 
+Domain object1 defined from /tmp/openstack_installation/images/object1/creation.xml
+
+Domain object2 destroyed
+
+Domain object2 has been undefined
+
+Formatting '/tmp/openstack_installation/images/object2/storage1.img', fmt=qcow2 size=4294967296 encryption=off cluster_size=65536 preallocation='metadata' lazy_refcounts=off 
+Formatting '/tmp/openstack_installation/images/object2/storage2.img', fmt=qcow2 size=4294967296 encryption=off cluster_size=65536 preallocation='metadata' lazy_refcounts=off 
+Domain object2 defined from /tmp/openstack_installation/images/object2/creation.xml
+
+---------------------------------------------------------
+running ./configure_ansible_for_vms.sh
+---------------------------------------------------------
+running ./wait_for_virtual_machines_to_start.sh
+Domain aptcache started
+
+Domain compute1 started
+
+Domain compute2 started
+
+Domain controller started
+
+Domain network started
+
+Domain object1 started
+
+Domain object2 started
+
+Waiting for 192.168.100.11
+Waiting for 192.168.100.11
+Waiting for 192.168.100.11
+# 192.168.100.11 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.11 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+Waiting for 192.168.100.21
+# 192.168.100.21 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.21 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.31 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.31 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.32 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.32 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.51 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.51 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+Waiting for 192.168.100.52
+# 192.168.100.52 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.52 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.111 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+# 192.168.100.111 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.3
+---------------------------------------------------------
+running ./setup_virtual_machines.sh
+
+SUDO password:
+
+PLAY [Preconfiguration > generate host files] ********************************* 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.31]
+ok: [192.168.100.21]
+ok: [localhost]
+ok: [192.168.100.51]
+ok: [192.168.100.32]
+ok: [192.168.100.52]
+ok: [192.168.100.111]
+ok: [192.168.100.11]
+
+TASK: [remove old hostfile entries] ******************************************* 
+ok: [192.168.100.111]
+ok: [192.168.100.31]
+changed: [localhost]
+ok: [192.168.100.51]
+ok: [192.168.100.32]
+ok: [192.168.100.11]
+ok: [192.168.100.21]
+ok: [192.168.100.52]
+
+TASK: [create new /etc/hosts entries] ***************************************** 
+skipping: [192.168.100.31] => (item=localhost)
+changed: [192.168.100.31] => (item=192.168.100.111)
+changed: [192.168.100.31] => (item=192.168.100.31)
+changed: [192.168.100.31] => (item=192.168.100.32)
+changed: [192.168.100.31] => (item=192.168.100.21)
+changed: [192.168.100.31] => (item=192.168.100.51)
+changed: [192.168.100.31] => (item=192.168.100.52)
+changed: [192.168.100.31] => (item=192.168.100.11)
+skipping: [192.168.100.21] => (item=localhost)
+changed: [192.168.100.21] => (item=192.168.100.111)
+changed: [192.168.100.21] => (item=192.168.100.31)
+changed: [192.168.100.21] => (item=192.168.100.32)
+changed: [192.168.100.21] => (item=192.168.100.21)
+changed: [192.168.100.21] => (item=192.168.100.51)
+changed: [192.168.100.21] => (item=192.168.100.52)
+changed: [192.168.100.21] => (item=192.168.100.11)
+skipping: [localhost] => (item=localhost)
+changed: [localhost] => (item=192.168.100.111)
+changed: [localhost] => (item=192.168.100.31)
+changed: [localhost] => (item=192.168.100.32)
+changed: [localhost] => (item=192.168.100.21)
+changed: [localhost] => (item=192.168.100.51)
+changed: [localhost] => (item=192.168.100.52)
+changed: [localhost] => (item=192.168.100.11)
+skipping: [192.168.100.51] => (item=localhost)
+changed: [192.168.100.51] => (item=192.168.100.111)
+changed: [192.168.100.51] => (item=192.168.100.31)
+changed: [192.168.100.51] => (item=192.168.100.32)
+changed: [192.168.100.51] => (item=192.168.100.21)
+changed: [192.168.100.51] => (item=192.168.100.51)
+changed: [192.168.100.51] => (item=192.168.100.52)
+changed: [192.168.100.51] => (item=192.168.100.11)
+skipping: [192.168.100.111] => (item=localhost)
+changed: [192.168.100.111] => (item=192.168.100.111)
+changed: [192.168.100.111] => (item=192.168.100.31)
+changed: [192.168.100.111] => (item=192.168.100.32)
+changed: [192.168.100.111] => (item=192.168.100.21)
+changed: [192.168.100.111] => (item=192.168.100.51)
+changed: [192.168.100.111] => (item=192.168.100.52)
+changed: [192.168.100.111] => (item=192.168.100.11)
+skipping: [192.168.100.52] => (item=localhost)
+changed: [192.168.100.52] => (item=192.168.100.111)
+changed: [192.168.100.52] => (item=192.168.100.31)
+changed: [192.168.100.52] => (item=192.168.100.32)
+changed: [192.168.100.52] => (item=192.168.100.21)
+changed: [192.168.100.52] => (item=192.168.100.51)
+changed: [192.168.100.52] => (item=192.168.100.52)
+changed: [192.168.100.52] => (item=192.168.100.11)
+skipping: [192.168.100.32] => (item=localhost)
+changed: [192.168.100.32] => (item=192.168.100.111)
+changed: [192.168.100.32] => (item=192.168.100.31)
+changed: [192.168.100.32] => (item=192.168.100.32)
+changed: [192.168.100.32] => (item=192.168.100.21)
+changed: [192.168.100.32] => (item=192.168.100.51)
+changed: [192.168.100.32] => (item=192.168.100.52)
+changed: [192.168.100.32] => (item=192.168.100.11)
+skipping: [192.168.100.11] => (item=localhost)
+changed: [192.168.100.11] => (item=192.168.100.111)
+changed: [192.168.100.11] => (item=192.168.100.31)
+changed: [192.168.100.11] => (item=192.168.100.32)
+changed: [192.168.100.11] => (item=192.168.100.21)
+changed: [192.168.100.11] => (item=192.168.100.51)
+changed: [192.168.100.11] => (item=192.168.100.52)
+changed: [192.168.100.11] => (item=192.168.100.11)
+
+PLAY [Preconfiguration > add ssh keys of hostnames to known hosts] ************ 
+
+GATHERING FACTS *************************************************************** 
+ok: [localhost]
+
+TASK: [gather all hostnames and add the keys to ~/.ssh/known_hosts] *********** 
+changed: [localhost]
+
+PLAY [Preconfiguration > deactivate cloud-init] ******************************* 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.111]
+ok: [192.168.100.31]
+ok: [192.168.100.51]
+ok: [192.168.100.32]
+ok: [192.168.100.52]
+ok: [192.168.100.21]
+ok: [192.168.100.11]
+
+TASK: [clear /etc/cloud/cloud.cfg] ******************************************** 
+changed: [192.168.100.111]
+changed: [192.168.100.31]
+changed: [192.168.100.51]
+changed: [192.168.100.32]
+changed: [192.168.100.11]
+changed: [192.168.100.21]
+changed: [192.168.100.52]
+
+PLAY [Preconfiguration > update german locale] ******************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.21]
+ok: [192.168.100.51]
+ok: [192.168.100.32]
+ok: [192.168.100.111]
+ok: [192.168.100.11]
+ok: [192.168.100.31]
+ok: [192.168.100.52]
+
+TASK: [Build German locale to avoid problems with dev machines] *************** 
+changed: [192.168.100.21]
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+changed: [192.168.100.51]
+changed: [192.168.100.11]
+changed: [192.168.100.111]
+changed: [192.168.100.52]
+
+PLAY [mount the shared filesystem for aptcache] ******************************* 
+
+TASK: [create mountpoint with correct permissions] **************************** 
+changed: [192.168.100.111]
+
+TASK: [mount the apt_cache_dir in the VM] ************************************* 
+changed: [192.168.100.111]
+
+PLAY [install & start the apt-cacher-ng service] ****************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.111]
+
+TASK: [install apt-cacher-ng] ************************************************* 
+changed: [192.168.100.111]
+
+PLAY [set aptcache as proxy server for apt] *********************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.21]
+ok: [192.168.100.32]
+ok: [192.168.100.31]
+ok: [192.168.100.51]
+ok: [192.168.100.52]
+ok: [192.168.100.111]
+ok: [192.168.100.11]
+
+TASK: [set proxy] ************************************************************* 
+changed: [192.168.100.51]
+changed: [192.168.100.111]
+changed: [192.168.100.32]
+changed: [192.168.100.21]
+changed: [192.168.100.52]
+changed: [192.168.100.31]
+changed: [192.168.100.11]
+
+PLAY [Basic environment > OpenStack packages > enable the OpenStack repository] *** 
+
+TASK: [1. update the cache] *************************************************** 
+ok: [192.168.100.32]
+ok: [192.168.100.51]
+ok: [192.168.100.31]
+ok: [192.168.100.52]
+ok: [192.168.100.21]
+ok: [192.168.100.11]
+
+TASK: [2. install cloud keyring] ********************************************** 
+changed: [192.168.100.52]
+changed: [192.168.100.31]
+changed: [192.168.100.51]
+changed: [192.168.100.32]
+changed: [192.168.100.21]
+changed: [192.168.100.11]
+
+TASK: [3. add repository] ***************************************************** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+changed: [192.168.100.32]
+changed: [192.168.100.21]
+changed: [192.168.100.31]
+changed: [192.168.100.11]
+
+PLAY [Basic environment > OpenStack packages > finalize installation] ********* 
+
+TASK: [1.1 Upgrade the packages on your system] ******************************* 
+ok: [192.168.100.21]
+ok: [192.168.100.31]
+ok: [192.168.100.32]
+ok: [192.168.100.111]
+ok: [192.168.100.52]
+ok: [192.168.100.51]
+ok: [192.168.100.11]
+
+TASK: [1.2 Upgrade the packages on your system] ******************************* 
+changed: [192.168.100.31]
+changed: [192.168.100.51]
+changed: [192.168.100.21]
+changed: [192.168.100.111]
+changed: [192.168.100.52]
+changed: [192.168.100.32]
+changed: [192.168.100.11]
+
+PLAY [Basic environment > SQL database > install and configure the database server] *** 
+
+TASK: [1.1 ERROR: perl: please check that your locale settings] *************** 
+changed: [192.168.100.11]
+
+TASK: [1.2 Install the packages] ********************************************** 
+changed: [192.168.100.11] => (item=mariadb-server,python-mysqldb)
+
+TASK: [3. Create and edit the /etc/mysql/conf.d/mysqld_openstack.cnf file and complete the following actions] *** 
+changed: [192.168.100.11]
+
+PLAY [Basic environment > SQL database > finalize installation] *************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [1. Restart the database service] *************************************** 
+changed: [192.168.100.11]
+
+TASK: [2.1 delete anonymous MySQL server user for {{ ansible_hostname }}] ***** 
+ok: [192.168.100.11]
+
+TASK: [2.2 delete anonymous MySQL server user for localhost] ****************** 
+ok: [192.168.100.11]
+
+TASK: [2.3 remove the MySQL test database] ************************************ 
+ok: [192.168.100.11]
+
+TASK: [2.4 Change root user password on first run] **************************** 
+changed: [192.168.100.11] => (item=controller)
+changed: [192.168.100.11] => (item=127.0.0.1)
+changed: [192.168.100.11] => (item=::1)
+changed: [192.168.100.11] => (item=localhost)
+
+PLAY [Basic environment > Message queue > install the message queue service] *** 
+
+TASK: [Install the package] *************************************************** 
+changed: [192.168.100.111]
+changed: [192.168.100.21]
+changed: [192.168.100.51]
+changed: [192.168.100.31]
+changed: [192.168.100.11]
+changed: [192.168.100.32]
+changed: [192.168.100.52]
+
+PLAY [Basic environment > Message queue > configure the message queue service] *** 
+
+TASK: [1. Add the openstack user] ********************************************* 
+changed: [192.168.100.21]
+changed: [192.168.100.32]
+changed: [192.168.100.51]
+changed: [192.168.100.111]
+changed: [192.168.100.52]
+changed: [192.168.100.31]
+changed: [192.168.100.11]
+
+TASK: [2. Permit configuration, write, and read access for the openstack user] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.21]
+changed: [192.168.100.51]
+changed: [192.168.100.111]
+changed: [192.168.100.52]
+changed: [192.168.100.32]
+changed: [192.168.100.11]
+
+PLAY [Add the Identity service > Install and configure > Install or verify Keystone database] *** 
+
+TASK: [1.b Create the keystone database] ************************************** 
+changed: [192.168.100.11]
+
+TASK: [1.c Grant proper access to the keystone database] ********************** 
+changed: [192.168.100.11] => (item=%)
+changed: [192.168.100.11] => (item=localhost)
+
+PLAY [Add the Identity service > Install and configure > install and configure the Identity service components] *** 
+
+TASK: [1. Disable the keystone service from starting automatically after installation] *** 
+changed: [192.168.100.11]
+
+TASK: [2. install the packages] *********************************************** 
+changed: [192.168.100.11] => (item=keystone,python-openstackclient,apache2,libapache2-mod-wsgi,memcached,python-memcache)
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [3.a define the value of the initial administration token] ************** 
+changed: [192.168.100.11]
+
+TASK: [3.b configure database access] ***************************************** 
+changed: [192.168.100.11]
+
+TASK: [3.c configure the Memcache service] ************************************ 
+changed: [192.168.100.11]
+
+TASK: [3.d.1 configure the UUID token provider] ******************************* 
+changed: [192.168.100.11]
+
+TASK: [3.d.2 configure the Memcached driver] ********************************** 
+changed: [192.168.100.11]
+
+TASK: [3.e configure the SQL revocation driver] ******************************* 
+changed: [192.168.100.11]
+
+TASK: [3.f To assist with troubleshooting, enable verbose logging] ************ 
+changed: [192.168.100.11]
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [4. Populate the Identity service database] ***************************** 
+changed: [192.168.100.11]
+
+PLAY [Add the Identity service > Install and configure > configure the Apache HTTP server] *** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [1. Edit the /etc/apache2/apache2.conf file and configure the ServerName option to reference the controller node] *** 
+changed: [192.168.100.11]
+
+TASK: [2. Create the /etc/apache2/sites-available/wsgi-keystone.conf file] **** 
+changed: [192.168.100.11]
+
+TASK: [3. Enable the Identity service virtual hosts] ************************** 
+changed: [192.168.100.11]
+
+TASK: [4. Create the directory structure for the WSGI components] ************* 
+changed: [192.168.100.11]
+
+TASK: [5. Copy the WSGI components from the upstream repository into this directory] *** 
+changed: [192.168.100.11] => (item=/var/www/cgi-bin/keystone/main)
+changed: [192.168.100.11] => (item=/var/www/cgi-bin/keystone/admin)
+
+TASK: [6. Adjust ownership and permissions on this directory and the files in it] *** 
+changed: [192.168.100.11]
+
+PLAY [Add the Identity service > Install and configure > configure the Apache HTTP server] *** 
+
+TASK: [1. Restart the Apache HTTP server] ************************************* 
+changed: [192.168.100.11]
+
+TASK: [2. Because this configuration uses a SQL database server, you can remove the SQLite database file] *** 
+changed: [192.168.100.11]
+
+PLAY [Add the Identity service > Create the service entity and API endpoint] *** 
+
+TASK: [Create the service entity for the Identity service] ******************** 
+changed: [192.168.100.11]
+
+TASK: [Create the Identity service API endpoint] ****************************** 
+changed: [192.168.100.11]
+
+PLAY [Add the Identity service > Create projects, users, and roles] *********** 
+
+TASK: [1.a.0. Delete the admin project if existent] *************************** 
+changed: [192.168.100.11]
+
+TASK: [1.a. Create the admin project] ***************************************** 
+changed: [192.168.100.11]
+
+TASK: [1.b.0. Delete the admin user if existent] ****************************** 
+changed: [192.168.100.11]
+
+TASK: [1.b. Create the admin user] ******************************************** 
+changed: [192.168.100.11]
+
+TASK: [1.c.0. Delete the admin role  if existent] ***************************** 
+changed: [192.168.100.11]
+
+TASK: [1.c. Create the admin role] ******************************************** 
+changed: [192.168.100.11]
+
+TASK: [1.d. Add the admin role to the admin project and user] ***************** 
+changed: [192.168.100.11]
+
+TASK: [2.a.0. Delete the service project if existent] ************************* 
+changed: [192.168.100.11]
+
+TASK: [2.a. Create the service project] *************************************** 
+changed: [192.168.100.11]
+
+TASK: [3.a.0. Delete the demo project if existent] **************************** 
+changed: [192.168.100.11]
+
+TASK: [3.a. Create the demo project] ****************************************** 
+changed: [192.168.100.11]
+
+TASK: [3.b.0. Delete the demo user if existent] ******************************* 
+changed: [192.168.100.11]
+
+TASK: [3.b. Create the demo user] ********************************************* 
+changed: [192.168.100.11]
+
+TASK: [3.c.0. Delete the user role if existent] ******************************* 
+changed: [192.168.100.11]
+
+TASK: [3.c. Create the user role] ********************************************* 
+changed: [192.168.100.11]
+
+TASK: [3.d. Add the user role to the demo project and user] ******************* 
+changed: [192.168.100.11]
+
+PLAY [Add the Identity service > Verify operation] **************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [1. For security reasons, disable the temporary authentication token mechanism] *** 
+changed: [192.168.100.11]
+
+TASK: [2. Unset the temporary OS_TOKEN and OS_URL environment variables] ****** 
+changed: [192.168.100.11]
+
+TASK: [3. As the admin user, request an authentication token from the Identity version 2.0 API] *** 
+changed: [192.168.100.11]
+
+TASK: [4. As the admin user, request an authentication token from the Identity version 3.0 API] *** 
+changed: [192.168.100.11]
+
+TASK: [5.1. As the admin user, list projects to verify that the admin user can execute admin-only CLI commands and that the Identity service contains the projects that you created] *** 
+changed: [192.168.100.11]
+
+TASK: [5.2. Test for the service, demo and admin project] ********************* 
+ok: [192.168.100.11]
+
+TASK: [6.1. As the admin user, list users to verify that the Identity service contains the users that you created] *** 
+changed: [192.168.100.11]
+
+TASK: [6.2. Test for the demo and admin user.] ******************************** 
+ok: [192.168.100.11]
+
+TASK: [7.1. As the admin user, list roles to verify that the Identity service contains the role that you created] *** 
+changed: [192.168.100.11]
+
+TASK: [7.2. Test for the user and admin role.] ******************************** 
+ok: [192.168.100.11]
+
+TASK: [8. As the demo user, request an authentication token from the Identity version 3 API] *** 
+changed: [192.168.100.11]
+
+TASK: [9.1. As the demo user, attempt to list users to verify that it cannot execute admin-only CLI commands] *** 
+changed: [192.168.100.11]
+
+TASK: [9.2 Check that an error occurred.] ************************************* 
+ok: [192.168.100.11]
+
+PLAY [Add the Identity service > Create OpenStack client environment scripts > create the scripts] *** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.21]
+ok: [192.168.100.31]
+ok: [192.168.100.111]
+ok: [192.168.100.11]
+ok: [localhost]
+ok: [192.168.100.51]
+ok: [192.168.100.32]
+ok: [192.168.100.52]
+
+TASK: [1. Edit the admin-openrc.sh file] ************************************** 
+changed: [192.168.100.21]
+changed: [192.168.100.31]
+ok: [localhost]
+changed: [192.168.100.51]
+changed: [192.168.100.111]
+changed: [192.168.100.11]
+changed: [192.168.100.32]
+changed: [192.168.100.52]
+
+TASK: [2. Edit the demo-openrc.sh file] *************************************** 
+changed: [192.168.100.21]
+changed: [192.168.100.111]
+ok: [localhost]
+changed: [192.168.100.51]
+changed: [192.168.100.31]
+changed: [192.168.100.11]
+changed: [192.168.100.32]
+changed: [192.168.100.52]
+
+PLAY [Add the Identity service > Create OpenStack client environment scripts > load client environment scripts] *** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [Load the admin-openrc.sh file and request an authentication token] ***** 
+changed: [192.168.100.11]
+
+PLAY [Add the Image service > Install and configure > configure prerequisites] *** 
+
+TASK: [1.b Create the glance database] **************************************** 
+changed: [192.168.100.11]
+
+TASK: [1.c Grant proper access to the glance database] ************************ 
+changed: [192.168.100.11] => (item=%)
+changed: [192.168.100.11] => (item=localhost)
+
+TASK: [3.a.1 Delete the glance user if existent] ****************************** 
+failed: [192.168.100.11] => {"changed": true, "cmd": "openstack user delete glance", "delta": "0:00:00.639605", "end": "2015-09-30 13:32:32.949686", "rc": 1, "start": "2015-09-30 13:32:32.310081", "warnings": []}
+stderr: ERROR: openstack No user with a name or ID of 'glance' exists.
+...ignoring
+
+TASK: [3.a.2 Create the glance user] ****************************************** 
+changed: [192.168.100.11]
+
+TASK: [3.b Add the admin role to the glance user and service project] ********* 
+changed: [192.168.100.11]
+
+TASK: [3.c Create the glance service entity] ********************************** 
+changed: [192.168.100.11]
+
+TASK: [4. Create the Image service API endpoint] ****************************** 
+changed: [192.168.100.11]
+
+PLAY [Add the Image service > Install and configure > Install and configure the Image service components] *** 
+
+TASK: [1. Install the packages] *********************************************** 
+changed: [192.168.100.11] => (item=glance,python-glanceclient)
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [2.a In the [database] section, configure database access:] ************* 
+changed: [192.168.100.11]
+
+TASK: [2.b.1 Comment out or remove any other options in the [keystone_authtoken] section] *** 
+changed: [192.168.100.11]
+
+TASK: [2.b.2 In the [keystone_authtoken] section, configure Identity service access] *** 
+changed: [192.168.100.11] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.11] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.11] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.11] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.11] => (item={'option': 'username', 'value': 'glance'})
+changed: [192.168.100.11] => (item={'option': 'password', 'value': u'glance_user_password_aXp7s50'})
+
+TASK: [2.b.3 In the [paste_deploy] section, configure Identity service access] *** 
+changed: [192.168.100.11]
+
+TASK: [2.c In the [glance_store] section, configure the local file system store and location of image files] *** 
+ok: [192.168.100.11] => (item={'option': 'default_store', 'value': 'file'})
+ok: [192.168.100.11] => (item={'option': 'filesystem_store_datadir', 'value': '/var/lib/glance/images/'})
+
+TASK: [2.d&e In the [DEFAULT] section, configure the noop notification driver to disable notifications because they only pertain to the optional Telemetry service and enable verbose debug output] *** 
+changed: [192.168.100.11] => (item={'option': 'notification_driver', 'value': 'noop'})
+changed: [192.168.100.11] => (item={'option': 'verbose', 'value': 'True'})
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [3.a In the [database] section, configure database access:] ************* 
+changed: [192.168.100.11]
+
+TASK: [3.b.1 In the [keystone_authtoken] section, configure Identity service access:] *** 
+changed: [192.168.100.11] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.11] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.11] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.11] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.11] => (item={'option': 'username', 'value': 'glance'})
+changed: [192.168.100.11] => (item={'option': 'password', 'value': u'glance_user_password_aXp7s50'})
+
+TASK: [3.b.2 In the [keystone_authtoken] and >>>>[paste_deploy]<<<< sections, configure Identity service access:] *** 
+changed: [192.168.100.11]
+
+TASK: [3.c&d In the [DEFAULT] section, configure the noop notification driver to disable notifications because they only pertain to the optional Telemetry service and enable verbose debug output] *** 
+changed: [192.168.100.11] => (item={'option': 'notification_driver', 'value': 'noop'})
+changed: [192.168.100.11] => (item={'option': 'verbose', 'value': 'True'})
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [4. Populate the Image service database] ******************************** 
+changed: [192.168.100.11]
+
+PLAY [Add the Image service > Install and configure > finalize installation] *** 
+
+TASK: [1.1 Restart the Image service services] ******************************** 
+changed: [192.168.100.11]
+
+TASK: [1.2 Restart the Image service services] ******************************** 
+changed: [192.168.100.11]
+
+TASK: [2. Because this configuration uses a SQL database server, you can remove the SQLite database file] *** 
+changed: [192.168.100.11]
+
+PLAY [Add the Image service > Verify Operation] ******************************* 
+
+TASK: [2.1 Source the admin credentials to gain access to admin-only CLI commands 2.0] *** 
+changed: [192.168.100.11] => (item=admin-openrc.sh)
+changed: [192.168.100.11] => (item=demo-openrc.sh)
+
+TASK: [2.2 Check ansible environment admin credentials to gain access to admin-only CLI commands 2.0] *** 
+changed: [192.168.100.11]
+
+TASK: [2.3 Check ansible environment demo credentials to gain access to admin-only CLI commands 2.0] *** 
+changed: [192.168.100.11]
+
+TASK: [3.1 Remove the temporary local directory and source image] ************* 
+ok: [192.168.100.11]
+
+TASK: [3.2 Create a temporary local directory] ******************************** 
+changed: [192.168.100.11]
+
+TASK: [4. Download the source image into it] ********************************** 
+changed: [192.168.100.11]
+
+TASK: [5.1. Upload the image to the Image service using the QCOW2 disk format, bare container format, and public visibility so all projects can access it] *** 
+changed: [192.168.100.11]
+
+TASK: [5.2. Check the output for name and visibility] ************************* 
+ok: [192.168.100.11]
+
+TASK: [6.1 Confirm upload of the image and validate attributes] *************** 
+changed: [192.168.100.11]
+
+TASK: [6.2 Check the output for {{ config.default_image_name }}] ************** 
+ok: [192.168.100.11]
+
+TASK: [7. Remove the temporary local directory and source image] ************** 
+changed: [192.168.100.11]
+
+PLAY [Add the Compute service > Install and configure controller node > configure prerequisites] *** 
+
+TASK: [1.b Create the nova database] ****************************************** 
+changed: [192.168.100.11]
+
+TASK: [1.c Grant proper access to the nova database] ************************** 
+changed: [192.168.100.11] => (item=%)
+changed: [192.168.100.11] => (item=localhost)
+
+TASK: [3.a.1 Delete the nova user if existent] ******************************** 
+changed: [192.168.100.11]
+
+TASK: [3.a.2 Create the nova user] ******************************************** 
+changed: [192.168.100.11]
+
+TASK: [3.b Add the admin role to the nova user] ******************************* 
+changed: [192.168.100.11]
+
+TASK: [3.c Create the nova service entity] ************************************ 
+changed: [192.168.100.11]
+
+TASK: [4. Create the Compute service API endpoint] **************************** 
+changed: [192.168.100.11]
+
+PLAY [Add the Compute service > Install and configure controller node > install and configure Compute controller components] *** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [1. Install the packages] *********************************************** 
+changed: [192.168.100.11] => (item=nova-api,nova-cert,nova-conductor,nova-consoleauth,nova-novncproxy,nova-scheduler,python-novaclient)
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [2.a Add a [database] section, and configure database access] *********** 
+changed: [192.168.100.11] => (item={'option': 'connection', 'value': u'mysql://nova:nova_mysql_password_aXp7s50@controller/nova'})
+
+TASK: [2.b.1 In the [DEFAULT] section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.11] => (item={'option': 'rpc_backend', 'value': 'rabbit'})
+
+TASK: [2.b.2 In the [oslo_messaging_rabbit] section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.11] => (item={'option': 'rabbit_host', 'value': u'controller'})
+changed: [192.168.100.11] => (item={'option': 'rabbit_userid', 'value': 'openstack'})
+changed: [192.168.100.11] => (item={'option': 'rabbit_password', 'value': u'rabbitmq_password_aXp7s50'})
+
+TASK: [2.c.1 In the [DEFAULT] section, configure Identity service access] ***** 
+changed: [192.168.100.11]
+
+TASK: [2.c.2 Comment out or remove any other options in the [keystone_authtoken] section] *** 
+ok: [192.168.100.11]
+
+TASK: [2.c.3 In the [keystone_authtoken] section, configure Identity service access] *** 
+changed: [192.168.100.11] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.11] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.11] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.11] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.11] => (item={'option': 'username', 'value': 'nova'})
+changed: [192.168.100.11] => (item={'option': 'password', 'value': u'nova_user_password_aXp7s50'})
+
+TASK: [2.d In the [DEFAULT] section, configure the my_ip option to use the management interface IP address of the controller node] *** 
+changed: [192.168.100.11]
+
+TASK: [2.e In the [DEFAULT] section, configure the VNC proxy to use the management interface IP address of the controller node] *** 
+changed: [192.168.100.11] => (item={'option': 'vncserver_listen', 'value': u'192.168.100.11'})
+changed: [192.168.100.11] => (item={'option': 'vncserver_proxyclient_address', 'value': u'192.168.100.11'})
+
+TASK: [2.f In the [glance] section, configure the location of the Image service] *** 
+changed: [192.168.100.11]
+
+TASK: [2.g In the [oslo_concurrency] section, configure the lock path] ******** 
+changed: [192.168.100.11]
+
+TASK: [2.h (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section] *** 
+ok: [192.168.100.11]
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [3. Populate the Compute database] ************************************** 
+changed: [192.168.100.11]
+
+PLAY [Add the Compute service > Install and configure controller node > finalize installation] *** 
+
+TASK: [1. Restart the Compute services] *************************************** 
+changed: [192.168.100.11] => (item=nova-api)
+changed: [192.168.100.11] => (item=nova-cert)
+changed: [192.168.100.11] => (item=nova-consoleauth)
+changed: [192.168.100.11] => (item=nova-scheduler)
+changed: [192.168.100.11] => (item=nova-conductor)
+changed: [192.168.100.11] => (item=nova-novncproxy)
+
+TASK: [2. Because this configuration uses a SQL database server, you can remove the SQLite database file] *** 
+changed: [192.168.100.11]
+
+PLAY [Add the Compute service > Install and configure a compute node > install and configure the Compute hypervisor components] *** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.31]
+ok: [192.168.100.32]
+
+TASK: [1. Install the packages] *********************************************** 
+changed: [192.168.100.32] => (item=nova-compute,sysfsutils)
+changed: [192.168.100.31] => (item=nova-compute,sysfsutils)
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [2.a.1 In the [DEFAULT] section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [2.a.2 In the [oslo_messaging_rabbit] section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.31] => (item={'option': 'rabbit_host', 'value': u'controller'})
+changed: [192.168.100.31] => (item={'option': 'rabbit_userid', 'value': 'openstack'})
+changed: [192.168.100.31] => (item={'option': 'rabbit_password', 'value': u'rabbitmq_password_aXp7s50'})
+changed: [192.168.100.32] => (item={'option': 'rabbit_host', 'value': u'controller'})
+changed: [192.168.100.32] => (item={'option': 'rabbit_userid', 'value': 'openstack'})
+changed: [192.168.100.32] => (item={'option': 'rabbit_password', 'value': u'rabbitmq_password_aXp7s50'})
+
+TASK: [2.b.1 In the [DEFAULT] section, configure Identity service access] ***** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [2.b.2 Comment out or remove any other options in the [keystone_authtoken] section] *** 
+ok: [192.168.100.32]
+ok: [192.168.100.31]
+
+TASK: [2.b.3 In the [keystone_authtoken] section, configure Identity service access] *** 
+changed: [192.168.100.31] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.31] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.31] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.31] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.31] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.31] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.31] => (item={'option': 'username', 'value': 'nova'})
+changed: [192.168.100.31] => (item={'option': 'password', 'value': u'nova_user_password_aXp7s50'})
+changed: [192.168.100.32] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.32] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.32] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.32] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.32] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.32] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.32] => (item={'option': 'username', 'value': 'nova'})
+changed: [192.168.100.32] => (item={'option': 'password', 'value': u'nova_user_password_aXp7s50'})
+
+TASK: [2.c In the [DEFAULT] section, configure the my_ip option] ************** 
+changed: [192.168.100.32]
+changed: [192.168.100.31]
+
+TASK: [2.d In the [DEFAULT] section, enable and configure remote console access] *** 
+changed: [192.168.100.31] => (item={'option': 'vnc_enabled', 'value': 'True'})
+changed: [192.168.100.31] => (item={'option': 'vncserver_listen', 'value': '0.0.0.0'})
+changed: [192.168.100.31] => (item={'option': 'vncserver_proxyclient_address', 'value': u'192.168.100.31'})
+changed: [192.168.100.31] => (item={'option': 'novncproxy_base_url', 'value': u'http://controller:6080/vnc_auto.html'})
+changed: [192.168.100.32] => (item={'option': 'vnc_enabled', 'value': 'True'})
+changed: [192.168.100.32] => (item={'option': 'vncserver_listen', 'value': '0.0.0.0'})
+changed: [192.168.100.32] => (item={'option': 'vncserver_proxyclient_address', 'value': u'192.168.100.32'})
+changed: [192.168.100.32] => (item={'option': 'novncproxy_base_url', 'value': u'http://controller:6080/vnc_auto.html'})
+
+TASK: [2.e In the [glance] section, configure the location of the Image service] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [2.f In the [oslo_concurrency] section, configure the lock pat] ********* 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [2.g (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section] *** 
+ok: [192.168.100.31]
+ok: [192.168.100.32]
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+PLAY [Add the Compute service > Install and configure a compute node > finalize installation] *** 
+
+TASK: [1. Determine whether your compute node supports hardware acceleration for virtual machines] *** 
+changed: [192.168.100.32]
+changed: [192.168.100.31]
+
+TASK: [2. Restart the Compute service:] *************************************** 
+changed: [192.168.100.32]
+changed: [192.168.100.31]
+
+TASK: [3. Because this configuration uses a SQL database server, you can remove the SQLite database file] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+PLAY [compute] **************************************************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.31]
+ok: [192.168.100.32]
+
+TASK: [shell echo "I just want to gather facts for 2.2.2"] ******************** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+PLAY [Add the Compute service > Verify operation] ***************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [1. Source the admin credentials to gain access to admin-only CLI commands] *** 
+changed: [192.168.100.11]
+
+TASK: [2.1.1 List service components to verify successful launch and registration of each process] *** 
+changed: [192.168.100.11]
+
+TASK: [2.1.2 Check that nova-consoleauth, nova-scheduler, nova-cert, nova-conductor exist] *** 
+ok: [192.168.100.11] => (item=nova-consoleauth)
+ok: [192.168.100.11] => (item=nova-scheduler)
+ok: [192.168.100.11] => (item=nova-cert)
+ok: [192.168.100.11] => (item=nova-conductor)
+
+TASK: [2.2.1 List service components to verify successful launch and registration of each process] *** 
+changed: [192.168.100.11]
+
+TASK: [2.2.2 Check for nova-compute] ****************************************** 
+ok: [192.168.100.11] => (item=192.168.100.31)
+ok: [192.168.100.11] => (item=192.168.100.32)
+
+TASK: [3.1 List API endpoints in the Identity service to verify connectivity with the Identity service] *** 
+changed: [192.168.100.11]
+
+TASK: [3.2 Check that keystone, glance and nova have a public, internal and admin interface] *** 
+ok: [192.168.100.11] => (item=glance)
+ok: [192.168.100.11] => (item=keystone)
+ok: [192.168.100.11] => (item=nova)
+
+TASK: [4.1 List images in the Image service catalog to verify connectivity with the Image service] *** 
+changed: [192.168.100.11]
+
+TASK: [4.2 Check that cirros image is present] ******************************** 
+ok: [192.168.100.11]
+
+PLAY [Add a networking component > Install and configure controller node > configure prerequisites] *** 
+
+TASK: [1.b Create the neutron database] *************************************** 
+changed: [192.168.100.11]
+
+TASK: [1.c Grant proper access to the neutron database] *********************** 
+changed: [192.168.100.11] => (item=%)
+changed: [192.168.100.11] => (item=localhost)
+
+TASK: [3.a.1 Delete the neutron user if existent] ***************************** 
+changed: [192.168.100.11]
+
+TASK: [3.a.2 Create the neutron user] ***************************************** 
+changed: [192.168.100.11]
+
+TASK: [3.b Add the admin role to the neutron user] **************************** 
+changed: [192.168.100.11]
+
+TASK: [3.c Create the neutron service entity] ********************************* 
+changed: [192.168.100.11]
+
+TASK: [4. Create the Networking service API endpoint] ************************* 
+changed: [192.168.100.11]
+
+PLAY [Add a networking component > Install and configure controller node > Install and configure controller node] *** 
+
+TASK: [Install the packages] ************************************************** 
+changed: [192.168.100.11] => (item=neutron-server,neutron-plugin-ml2,python-neutronclient)
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [1.a Edit /etc/neutron/neutron.conf [DEFAULT] section] ****************** 
+changed: [192.168.100.11] => (item={'option': 'rpc_backend', 'value': 'rabbit'})
+changed: [192.168.100.11] => (item={'option': 'auth_strategy', 'value': 'keystone'})
+ok: [192.168.100.11] => (item={'option': 'core_plugin', 'value': 'ml2'})
+changed: [192.168.100.11] => (item={'option': 'service_plugins', 'value': 'router'})
+changed: [192.168.100.11] => (item={'option': 'allow_overlapping_ips', 'value': 'True'})
+changed: [192.168.100.11] => (item={'option': 'notify_nova_on_port_status_changes', 'value': 'True'})
+changed: [192.168.100.11] => (item={'option': 'notify_nova_on_port_data_changes', 'value': 'True'})
+changed: [192.168.100.11] => (item={'option': 'nova_url', 'value': u'http://controller:8774/v2'})
+changed: [192.168.100.11] => (item={'option': 'verbose', 'value': 'True'})
+
+TASK: [1.b Edit /etc/neutron/neutron.conf [database] section] ***************** 
+changed: [192.168.100.11] => (item={'option': 'connection', 'value': u'mysql://neutron:neutron_mysql_password_aXp7s50@controller/neutron'})
+
+TASK: [1.c Edit /etc/neutron/neutron.conf [oslo_messaging_rabbit] section] **** 
+changed: [192.168.100.11] => (item={'option': 'rabbit_host', 'value': u'controller'})
+changed: [192.168.100.11] => (item={'option': 'rabbit_userid', 'value': 'openstack'})
+changed: [192.168.100.11] => (item={'option': 'rabbit_password', 'value': u'rabbitmq_password_aXp7s50'})
+
+TASK: [1.d Edit /etc/neutron/neutron.conf [keystone_authtoken] section] ******* 
+changed: [192.168.100.11] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.11] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.11] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.11] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.11] => (item={'option': 'username', 'value': 'neutron'})
+changed: [192.168.100.11] => (item={'option': 'password', 'value': u'neutron_user_password_aXp7s50'})
+
+TASK: [1.e Edit /etc/neutron/neutron.conf [nova] section] ********************* 
+changed: [192.168.100.11] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.11] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.11] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.11] => (item={'option': 'region_name', 'value': 'RegionOne'})
+changed: [192.168.100.11] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.11] => (item={'option': 'username', 'value': 'nova'})
+changed: [192.168.100.11] => (item={'option': 'password', 'value': u'nova_user_password_aXp7s50'})
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [2.a  Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2] section] ********* 
+changed: [192.168.100.11] => (item={'option': 'type_drivers', 'value': 'flat,vlan,gre,vxlan'})
+changed: [192.168.100.11] => (item={'option': 'tenant_network_types', 'value': 'gre'})
+changed: [192.168.100.11] => (item={'option': 'mechanism_drivers', 'value': 'openvswitch'})
+
+TASK: [2.b  Edit /etc/neutron/plugins/ml2/ml2_conf.ini [ml2_type_gre] section] *** 
+changed: [192.168.100.11] => (item={'option': 'tunnel_id_ranges', 'value': '1:1000'})
+
+TASK: [2.c Edit /etc/neutron/plugins/ml2/ml2_conf.ini [securitygroup] section] *** 
+changed: [192.168.100.11] => (item={'option': 'enable_security_group', 'value': 'True'})
+changed: [192.168.100.11] => (item={'option': 'enable_ipset', 'value': 'True'})
+changed: [192.168.100.11] => (item={'option': 'firewall_driver', 'value': 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver'})
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+TASK: [3.a Edit /etc/nova/nova.conf [DEFAULT] section] ************************ 
+changed: [192.168.100.11] => (item={'option': 'network_api_class', 'value': 'nova.network.neutronv2.api.API'})
+changed: [192.168.100.11] => (item={'option': 'security_group_api', 'value': 'neutron'})
+changed: [192.168.100.11] => (item={'option': 'linuxnet_interface_driver', 'value': 'nova.network.linux_net.LinuxOVSInterfaceDriver'})
+changed: [192.168.100.11] => (item={'option': 'firewall_driver', 'value': 'nova.virt.firewall.NoopFirewallDriver'})
+
+TASK: [3.b Edit /etc/nova/nova.conf [neutron] section] ************************ 
+changed: [192.168.100.11] => (item={'option': 'url', 'value': u'http://controller:9696'})
+changed: [192.168.100.11] => (item={'option': 'admin_auth_url', 'value': u'http://controller:35357/v2.0'})
+changed: [192.168.100.11] => (item={'option': 'admin_tenant_name', 'value': 'service'})
+changed: [192.168.100.11] => (item={'option': 'admin_username', 'value': 'neutron'})
+changed: [192.168.100.11] => (item={'option': 'admin_password', 'value': u'neutron_user_password_aXp7s50'})
+changed: [192.168.100.11] => (item={'option': 'auth_strategy', 'value': 'keystone'})
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.11]
+
+PLAY [Add a networking component > Install and configure controller node > finalize installation] *** 
+
+TASK: [1. Populate the database] ********************************************** 
+changed: [192.168.100.11]
+
+TASK: [2. Restart the Compute service] **************************************** 
+changed: [192.168.100.11]
+
+TASK: [3. Restart the Networking service] ************************************* 
+changed: [192.168.100.11]
+
+PLAY [Add a networking component > Install and configure controller node > Verify operation] *** 
+
+TASK: [2.1 Wait for neutron server to start] ********************************** 
+ok: [192.168.100.11]
+
+TASK: [2.1 List loaded extensions to verify successful launch of the neutron-server process] *** 
+changed: [192.168.100.11]
+
+TASK: [2.1 Check that extensions are present] ********************************* 
+ok: [192.168.100.11]
+
+PLAY [Add a networking component > Install and configure network node > configure prerequisites] *** 
+
+TASK: [1. Edit the /etc/sysctl.conf file to contain the following parameters] *** 
+changed: [192.168.100.21] => (item=net.ipv4.ip_forward=1)
+changed: [192.168.100.21] => (item=net.ipv4.conf.all.rp_filter=0)
+changed: [192.168.100.21] => (item=net.ipv4.conf.default.rp_filter=0)
+
+TASK: [2. Implement the changes] ********************************************** 
+changed: [192.168.100.21]
+
+PLAY [Add a networking component > Install and configure network node > install the Networking components] *** 
+
+TASK: [1. install the Networking components] ********************************** 
+changed: [192.168.100.21] => (item=neutron-plugin-ml2,neutron-plugin-openvswitch-agent,neutron-l3-agent,neutron-dhcp-agent,neutron-metadata-agent)
+
+PLAY [Add a networking component > Install and configure network node > configure the Networking common components] *** 
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.21]
+
+TASK: [1.a In the [database] section, comment out any connection options because network nodes do not directly access the database] *** 
+changed: [192.168.100.21]
+
+TASK: [1.b.1 In the [DEFAULT]  section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.21]
+
+TASK: [1.b.2 In the [oslo_messaging_rabbit] section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.21] => (item={'option': 'rabbit_host', 'value': u'controller'})
+changed: [192.168.100.21] => (item={'option': 'rabbit_userid', 'value': 'openstack'})
+changed: [192.168.100.21] => (item={'option': 'rabbit_password', 'value': u'rabbitmq_password_aXp7s50'})
+
+TASK: [1.c.1 Comment out or remove any other options in the [keystone_authtoken] section] *** 
+changed: [192.168.100.21]
+
+TASK: [1.c.2 In the [DEFAULT] section, configure Identity service access] ***** 
+changed: [192.168.100.21]
+
+TASK: [1.c.3 In the [keystone_authtoken] section, configure Identity service access] *** 
+changed: [192.168.100.21] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.21] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.21] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.21] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.21] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.21] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.21] => (item={'option': 'username', 'value': 'neutron'})
+changed: [192.168.100.21] => (item={'option': 'password', 'value': u'neutron_user_password_aXp7s50'})
+
+TASK: [1.d In the [DEFAULT] section, enable the Modular Layer 2 (ML2) plug-in, router service, and overlapping IP addresses] *** 
+ok: [192.168.100.21] => (item={'option': 'core_plugin', 'value': 'ml2'})
+changed: [192.168.100.21] => (item={'option': 'service_plugins', 'value': 'router'})
+changed: [192.168.100.21] => (item={'option': 'allow_overlapping_ips', 'value': 'True'})
+
+TASK: [1.e (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section] *** 
+changed: [192.168.100.21]
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.21]
+
+PLAY [Add a networking component > Install and configure network node > Configure the Modular Layer 2 (ML2) plug-in] *** 
+
+TASK: [1.f In the [ml2] section, enable the flat, VLAN, generic routing encapsulation (GRE), and virtual extensible LAN (VXLAN) network type drivers, GRE tenant networks, and the OVS mechanism driver] *** 
+changed: [192.168.100.21] => (item={'option': 'type_drivers', 'value': 'flat,vlan,gre,vxlan'})
+changed: [192.168.100.21] => (item={'option': 'tenant_network_types', 'value': 'gre'})
+changed: [192.168.100.21] => (item={'option': 'mechanism_drivers', 'value': 'openvswitch'})
+
+TASK: [1.b In the [ml2_type_flat] section, configure the external flat provider network] *** 
+changed: [192.168.100.21]
+
+TASK: [1.c In the [ml2_type_gre] section, configure the tunnel identifier (id) range] *** 
+changed: [192.168.100.21]
+
+TASK: [1.d In the [securitygroup] section, enable security groups, enable ipset, and configure the OVS iptables firewall driver] *** 
+changed: [192.168.100.21] => (item={'option': 'enable_security_group', 'value': 'True'})
+changed: [192.168.100.21] => (item={'option': 'enable_ipset', 'value': 'True'})
+changed: [192.168.100.21] => (item={'option': 'firewall_driver', 'value': 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver'})
+
+TASK: [1.e In the [ovs] section, enable tunnels, configure the local tunnel endpoint, and map the external flat provider network to the br-ex external network bridge] *** 
+changed: [192.168.100.21] => (item={'option': 'local_ip ', 'value': u'192.168.101.21'})
+changed: [192.168.100.21] => (item={'option': 'bridge_mappings', 'value': 'external:br-ex'})
+
+TASK: [1.f In the [agent] section, enable GRE tunnels] ************************ 
+changed: [192.168.100.21]
+
+PLAY [Add a networking component > Install and configure network node > configure the Layer-3 (L3) agent] *** 
+
+TASK: [1.a In the [DEFAULT] section, configure the interface driver, external network bridge, and enable deletion of defunct router namespaces] *** 
+changed: [192.168.100.21] => (item={'option': 'interface_driver', 'value': 'neutron.agent.linux.interface.OVSInterfaceDriver'})
+changed: [192.168.100.21] => (item={'option': 'external_network_bridge', 'value': ''})
+changed: [192.168.100.21] => (item={'option': 'router_delete_namespaces', 'value': 'True'})
+
+TASK: [1.b (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section] *** 
+changed: [192.168.100.21]
+
+PLAY [Add a networking component > Install and configure network node > configure the DHCP agent] *** 
+
+TASK: [1.a In the [DEFAULT] section, configure the interface and DHCP drivers and enable deletion of defunct DHCP namespaces] *** 
+changed: [192.168.100.21] => (item={'option': 'interface_driver', 'value': 'neutron.agent.linux.interface.OVSInterfaceDriver'})
+changed: [192.168.100.21] => (item={'option': 'dhcp_driver', 'value': 'neutron.agent.linux.dhcp.Dnsmasq'})
+changed: [192.168.100.21] => (item={'option': 'dhcp_delete_namespaces', 'value': 'True'})
+
+TASK: [1.b (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section] *** 
+changed: [192.168.100.21]
+
+TASK: [2.a.i In the [DEFAULT] section, enable the dnsmasq configuration file] *** 
+changed: [192.168.100.21]
+
+TASK: [2.b.i Enable the DHCP MTU option (26) and configure it to 1454 bytes] *** 
+changed: [192.168.100.21]
+
+TASK: [2.c Kill any existing dnsmasq processes] ******************************* 
+failed: [192.168.100.21] => {"changed": true, "cmd": "pkill dnsmasq", "delta": "0:00:00.021435", "end": "2015-09-30 13:38:19.930345", "rc": 1, "start": "2015-09-30 13:38:19.908910", "warnings": []}
+...ignoring
+
+PLAY [Add a networking component > Install and configure network node > configure the metadata agent] *** 
+
+TASK: [1. Edit the /etc/neutron/metadata_agent.ini file] ********************** 
+changed: [192.168.100.21] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.21] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+ok: [192.168.100.21] => (item={'option': 'auth_region', 'value': 'RegionOne'})
+changed: [192.168.100.21] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.21] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.21] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.21] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.21] => (item={'option': 'username', 'value': 'neutron'})
+changed: [192.168.100.21] => (item={'option': 'password', 'value': u'neutron_user_password_aXp7s50'})
+changed: [192.168.100.21] => (item={'option': 'nova_metadata_ip', 'value': u'controller'})
+changed: [192.168.100.21] => (item={'option': 'metadata_proxy_shared_secret', 'value': u'metadata_proxy_shared_secret_aXp7s50'})
+changed: [192.168.100.21] => (item={'option': 'verbose', 'value': 'True'})
+
+PLAY [configure the metadata agent] ******************************************* 
+
+TASK: [2.a In the [neutron] section, enable the metadata proxy and configure the secret] *** 
+changed: [192.168.100.11] => (item={'option': 'service_metadata_proxy', 'value': 'True'})
+changed: [192.168.100.11] => (item={'option': 'metadata_proxy_shared_secret', 'value': u'metadata_proxy_shared_secret_aXp7s50'})
+
+TASK: [3. restart the Compute API service] ************************************ 
+changed: [192.168.100.11]
+
+PLAY [Add a networking component > Install and configure network node > configure the Open vSwitch (OVS) service] *** 
+
+TASK: [1. Restart the OVS service] ******************************************** 
+changed: [192.168.100.21]
+
+TASK: [2. Add the external bridge] ******************************************** 
+changed: [192.168.100.21]
+
+TASK: [3.1 Add a port to the external bridge that connects to the physical external network interface] *** 
+changed: [192.168.100.21]
+
+TASK: [3.2 Depending on your network interface driver, you may need to disable generic receive offload (GRO) to achieve suitable throughput between your instances and the external network. To temporarily disable GRO on the external network interface while testing your environment] *** 
+changed: [192.168.100.21]
+
+PLAY [Add a networking component > Install and configure network node > inalize the installation] *** 
+
+TASK: [1. Restart the Networking services] ************************************ 
+changed: [192.168.100.21] => (item=neutron-plugin-openvswitch-agent)
+changed: [192.168.100.21] => (item=neutron-l3-agent)
+changed: [192.168.100.21] => (item=neutron-dhcp-agent)
+changed: [192.168.100.21] => (item=neutron-metadata-agent)
+
+PLAY [Add a networking component > Install and configure network node > Verify operation] *** 
+
+TASK: [2.1 Wait for the agents to be present] ********************************* 
+changed: [192.168.100.21]
+
+TASK: [2.2 List agents to verify successful launch of the neutron agents] ***** 
+changed: [192.168.100.21]
+
+TASK: [2.3 Check that "Metadata agent", "Open vSwitch agent", "L3 agent" and, "DHCP agent" are alive] *** 
+ok: [192.168.100.21]
+
+PLAY [Add a networking component > Install and configure compute node > configure prerequisites] *** 
+
+TASK: [1. Edit the /etc/sysctl.conf file to contain the following parameters] *** 
+changed: [192.168.100.31] => (item=net.ipv4.conf.all.rp_filter=0)
+changed: [192.168.100.31] => (item=net.ipv4.conf.default.rp_filter=0)
+changed: [192.168.100.31] => (item=net.bridge.bridge-nf-call-iptables=1)
+changed: [192.168.100.31] => (item=net.bridge.bridge-nf-call-ip6tables=1)
+changed: [192.168.100.32] => (item=net.ipv4.conf.all.rp_filter=0)
+changed: [192.168.100.32] => (item=net.ipv4.conf.default.rp_filter=0)
+changed: [192.168.100.32] => (item=net.bridge.bridge-nf-call-iptables=1)
+changed: [192.168.100.32] => (item=net.bridge.bridge-nf-call-ip6tables=1)
+
+TASK: [2. Implement the changes] ********************************************** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+PLAY [Add a networking component > Install and configure compute node > install the Networking components] *** 
+
+TASK: [1. Install the packages] *********************************************** 
+changed: [192.168.100.31] => (item=neutron-plugin-ml2,neutron-plugin-openvswitch-agent)
+changed: [192.168.100.32] => (item=neutron-plugin-ml2,neutron-plugin-openvswitch-agent)
+
+PLAY [Add a networking component > Install and configure compute node > configure the Networking common components] *** 
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [1.a In the [database] section, comment out any connection options because network nodes do not directly access the database] *** 
+changed: [192.168.100.32]
+changed: [192.168.100.31]
+
+TASK: [1.b.1 In the [DEFAULT] section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [1.b.1 In the [oslo_messaging_rabbit] section, configure RabbitMQ message queue access] *** 
+changed: [192.168.100.32] => (item={'option': 'rabbit_host', 'value': u'controller'})
+changed: [192.168.100.32] => (item={'option': 'rabbit_userid', 'value': 'openstack'})
+changed: [192.168.100.32] => (item={'option': 'rabbit_password', 'value': u'rabbitmq_password_aXp7s50'})
+changed: [192.168.100.31] => (item={'option': 'rabbit_host', 'value': u'controller'})
+changed: [192.168.100.31] => (item={'option': 'rabbit_userid', 'value': 'openstack'})
+changed: [192.168.100.31] => (item={'option': 'rabbit_password', 'value': u'rabbitmq_password_aXp7s50'})
+
+TASK: [1.c.1 Comment out or remove any other options in the [keystone_authtoken] section.] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [1.c.2 In the [DEFAULT] section, configure Identity service access] ***** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [1.c.3 In the [keystone_authtoken] section, configure Identity service access] *** 
+changed: [192.168.100.31] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.31] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.31] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.31] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.31] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.31] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.31] => (item={'option': 'username', 'value': 'neutron'})
+changed: [192.168.100.31] => (item={'option': 'password', 'value': u'neutron_user_password_aXp7s50'})
+changed: [192.168.100.32] => (item={'option': 'auth_uri', 'value': u'http://controller:5000'})
+changed: [192.168.100.32] => (item={'option': 'auth_url', 'value': u'http://controller:35357'})
+changed: [192.168.100.32] => (item={'option': 'auth_plugin', 'value': 'password'})
+changed: [192.168.100.32] => (item={'option': 'project_domain_id', 'value': 'default'})
+changed: [192.168.100.32] => (item={'option': 'user_domain_id', 'value': 'default'})
+changed: [192.168.100.32] => (item={'option': 'project_name', 'value': 'service'})
+changed: [192.168.100.32] => (item={'option': 'username', 'value': 'neutron'})
+changed: [192.168.100.32] => (item={'option': 'password', 'value': u'neutron_user_password_aXp7s50'})
+
+TASK: [1.d In the [DEFAULT] section, enable the Modular Layer 2 (ML2) plug-in, router service, and overlapping IP addresses] *** 
+ok: [192.168.100.32] => (item={'option': 'core_plugin', 'value': 'ml2'})
+changed: [192.168.100.32] => (item={'option': 'service_plugins', 'value': 'router'})
+changed: [192.168.100.32] => (item={'option': 'allow_overlapping_ips', 'value': 'True'})
+ok: [192.168.100.31] => (item={'option': 'core_plugin', 'value': 'ml2'})
+changed: [192.168.100.31] => (item={'option': 'service_plugins', 'value': 'router'})
+changed: [192.168.100.31] => (item={'option': 'allow_overlapping_ips', 'value': 'True'})
+
+TASK: [1.e (Optional) To assist with troubleshooting, enable verbose logging in the [DEFAULT] section] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.32]
+changed: [192.168.100.31]
+
+PLAY [Add a networking component > Install and configure compute node > configure the Modular Layer 2 (ML2) plug-in] *** 
+
+TASK: [1.a In the [ml2] section, enable the flat, VLAN, generic routing encapsulation (GRE), and virtual extensible LAN (VXLAN) network type drivers, GRE tenant networks, and the OVS mechanism driver] *** 
+changed: [192.168.100.32] => (item={'option': 'type_drivers', 'value': 'flat,vlan,gre,vxlan'})
+changed: [192.168.100.32] => (item={'option': 'tenant_network_types', 'value': 'gre'})
+changed: [192.168.100.32] => (item={'option': 'mechanism_drivers', 'value': 'openvswitch'})
+changed: [192.168.100.31] => (item={'option': 'type_drivers', 'value': 'flat,vlan,gre,vxlan'})
+changed: [192.168.100.31] => (item={'option': 'tenant_network_types', 'value': 'gre'})
+changed: [192.168.100.31] => (item={'option': 'mechanism_drivers', 'value': 'openvswitch'})
+
+TASK: [1.b In the [ml2_type_gre] section, configure the tunnel identifier (id) range] *** 
+changed: [192.168.100.32]
+changed: [192.168.100.31]
+
+TASK: [1.c In the [securitygroup] section, enable security groups, enable ipset, and configure the OVS iptables firewall driver] *** 
+changed: [192.168.100.31] => (item={'option': 'enable_security_group', 'value': 'True'})
+changed: [192.168.100.31] => (item={'option': 'enable_ipset', 'value': 'True'})
+changed: [192.168.100.31] => (item={'option': 'firewall_driver', 'value': 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver'})
+changed: [192.168.100.32] => (item={'option': 'enable_security_group', 'value': 'True'})
+changed: [192.168.100.32] => (item={'option': 'enable_ipset', 'value': 'True'})
+changed: [192.168.100.32] => (item={'option': 'firewall_driver', 'value': 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver'})
+
+TASK: [1.d.1 Get the host part of the IP] ************************************* 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [1.d.2 In the [ovs] section, enable tunnels and configure the local tunnel endpoint:] *** 
+changed: [192.168.100.32] => (item={'option': 'local_ip ', 'value': u'192.168.101.32'})
+changed: [192.168.100.31] => (item={'option': 'local_ip ', 'value': u'192.168.101.31'})
+
+TASK: [1.e In the [agent] section, enable GRE tunnels] ************************ 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+PLAY [Add a networking component > Install and configure compute node > configure the Open vSwitch (OVS) service] *** 
+
+TASK: [1. Restart the OVS service] ******************************************** 
+changed: [192.168.100.32]
+changed: [192.168.100.31]
+
+PLAY [Add a networking component > Install and configure compute node > configure Compute to use Networking] *** 
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+TASK: [1.a In the [DEFAULT] section, configure the APIs and drivers] ********** 
+changed: [192.168.100.32] => (item={'option': 'network_api_class', 'value': 'nova.network.neutronv2.api.API'})
+changed: [192.168.100.32] => (item={'option': 'security_group_api', 'value': 'neutron'})
+changed: [192.168.100.32] => (item={'option': 'linuxnet_interface_driver', 'value': 'nova.network.linux_net.LinuxOVSInterfaceDriver'})
+changed: [192.168.100.32] => (item={'option': 'firewall_driver', 'value': 'nova.virt.firewall.NoopFirewallDriver'})
+changed: [192.168.100.31] => (item={'option': 'network_api_class', 'value': 'nova.network.neutronv2.api.API'})
+changed: [192.168.100.31] => (item={'option': 'security_group_api', 'value': 'neutron'})
+changed: [192.168.100.31] => (item={'option': 'linuxnet_interface_driver', 'value': 'nova.network.linux_net.LinuxOVSInterfaceDriver'})
+changed: [192.168.100.31] => (item={'option': 'firewall_driver', 'value': 'nova.virt.firewall.NoopFirewallDriver'})
+
+TASK: [1.b In the [neutron] section, configure access parameters] ************* 
+changed: [192.168.100.31] => (item={'option': 'url', 'value': u'http://controller:9696'})
+changed: [192.168.100.31] => (item={'option': 'auth_strategy', 'value': 'keystone'})
+changed: [192.168.100.31] => (item={'option': 'admin_auth_url', 'value': u'http://controller:35357/v2.0'})
+changed: [192.168.100.31] => (item={'option': 'admin_tenant_name', 'value': 'service'})
+changed: [192.168.100.31] => (item={'option': 'admin_username', 'value': 'neutron'})
+changed: [192.168.100.31] => (item={'option': 'admin_password', 'value': u'neutron_user_password_aXp7s50'})
+changed: [192.168.100.32] => (item={'option': 'url', 'value': u'http://controller:9696'})
+changed: [192.168.100.32] => (item={'option': 'auth_strategy', 'value': 'keystone'})
+changed: [192.168.100.32] => (item={'option': 'admin_auth_url', 'value': u'http://controller:35357/v2.0'})
+changed: [192.168.100.32] => (item={'option': 'admin_tenant_name', 'value': 'service'})
+changed: [192.168.100.32] => (item={'option': 'admin_username', 'value': 'neutron'})
+changed: [192.168.100.32] => (item={'option': 'admin_password', 'value': u'neutron_user_password_aXp7s50'})
+
+TASK: [WORKAROUND FOR BROKEN INI_FILE DEFAULT-SECTION HANDELING, RENAMING [DEFAULT] SECTION] *** 
+changed: [192.168.100.31]
+changed: [192.168.100.32]
+
+PLAY [Add a networking component > Install and configure compute node > finalize the installation] *** 
+
+TASK: [Restart the Compute and Networking services:] ************************** 
+changed: [192.168.100.31] => (item=nova-compute)
+changed: [192.168.100.31] => (item=neutron-plugin-openvswitch-agent)
+changed: [192.168.100.32] => (item=nova-compute)
+changed: [192.168.100.32] => (item=neutron-plugin-openvswitch-agent)
+
+PLAY [Add a networking component > Install and configure compute node > finalize the installation] *** 
+
+TASK: [TODO] ****************************************************************** 
+ok: [192.168.100.31] => {
+    "msg": "TODO"
+}
+ok: [192.168.100.32] => {
+    "msg": "TODO"
+}
+
+PLAY [Add a networking component > Create initial networks > Create external networks] *** 
+
+TASK: [1. Create the external network] **************************************** 
+changed: [192.168.100.11]
+
+TASK: [2. Create a subnet on the external network] **************************** 
+changed: [192.168.100.11]
+
+PLAY [Add a networking component > Create initial networks > Create tenant networks] *** 
+
+TASK: [1.2 Create the tenant network] ***************************************** 
+changed: [192.168.100.11]
+
+TASK: [2. Create a subnet on the tenant network] ****************************** 
+changed: [192.168.100.11]
+
+TASK: [3.1 Create a router on the tenant network and attach the external and tenant networks to it] *** 
+changed: [192.168.100.11]
+
+TASK: [3.2 Attach the router to the demo tenant subnet] *********************** 
+changed: [192.168.100.11]
+
+TASK: [3.3 Attach the router to the external network by setting it as the gateway] *** 
+changed: [192.168.100.11]
+
+PLAY [Add a networking component > Create initial networks > Verify network connectivity] *** 
+
+TASK: [From a host on the the external network, ping the tenant router gateway] *** 
+changed: [localhost]
+
+PLAY [Add the dashboard > Install and configure] ****************************** 
+
+TASK: [1. install the dashboard components] *********************************** 
+changed: [192.168.100.11]
+
+TASK: [2.a Configure the dashboard to use OpenStack services on the controller node] *** 
+changed: [192.168.100.11]
+
+TASK: [2.b Allow all hosts to access the dashboard] *************************** 
+changed: [192.168.100.11]
+
+TASK: [2.c Configure the memcached session storage service] ******************* 
+changed: [192.168.100.11]
+
+TASK: [2.d Configure the dashboard to use OpenStack services on the controller node] *** 
+changed: [192.168.100.11]
+
+TASK: [3. To finalize installation, reload the web server configuration] ****** 
+changed: [192.168.100.11]
+
+PLAY [Add Object Storage > Install and configure the controller node > configure prerequisites] *** 
+
+TASK: [2.a.0 Delete the swift user if existent] ******************************* 
+failed: [192.168.100.11] => {"changed": true, "cmd": "openstack user delete swift", "delta": "0:00:03.475261", "end": "2015-09-30 13:39:49.135540", "rc": 1, "start": "2015-09-30 13:39:45.660279", "warnings": []}
+stderr: ERROR: openstack No user with a name or ID of 'swift' exists.
+...ignoring
+
+TASK: [2.a.1 Create the swift user] ******************************************* 
+changed: [192.168.100.11]
+
+TASK: [2.b Add the admin role to the swift user] ****************************** 
+changed: [192.168.100.11]
+
+TASK: [2.c Create the swift service entity] *********************************** 
+changed: [192.168.100.11]
+
+TASK: [3. Create the swift service entity] ************************************ 
+changed: [192.168.100.11]
+
+PLAY [Add Object Storage > Install and configure the controller node > install and configure the controller node components] *** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [1. Install the packages] *********************************************** 
+changed: [192.168.100.11] => (item=swift,swift-proxy,python-swiftclient,python-keystoneclient,python-keystonemiddleware,memcached)
+
+TASK: [2. Create the /etc/swift directory] ************************************ 
+changed: [192.168.100.11]
+
+TASK: [4. Edit the /etc/swift/proxy-server.conf file and complete the following actions] *** 
+changed: [192.168.100.11]
+
+PLAY [Add Object Storage > Install and configure the storage nodes > configure prerequisites] *** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.51]
+ok: [192.168.100.52]
+
+TASK: [3.c Install the supporting utility packages:] ************************** 
+changed: [192.168.100.52] => (item=xfsprogs,rsync)
+changed: [192.168.100.51] => (item=xfsprogs,rsync)
+
+TASK: [3.d Format the /dev/sdb1 and /dev/sdc1 partitions as XFS:] ************* 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [3.e Create the mount point directory structure:] *********************** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [3.f Edit the /etc/fstab file and add the following to it:] ************* 
+changed: [192.168.100.51] => (item=/dev/vdc /srv/node/vdc xfs noatime,nodiratime,nobarrier,logbufs=8 0 2)
+changed: [192.168.100.51] => (item=/dev/vdd /srv/node/vdd xfs noatime,nodiratime,nobarrier,logbufs=8 0 2)
+changed: [192.168.100.52] => (item=/dev/vdc /srv/node/vdc xfs noatime,nodiratime,nobarrier,logbufs=8 0 2)
+changed: [192.168.100.52] => (item=/dev/vdd /srv/node/vdd xfs noatime,nodiratime,nobarrier,logbufs=8 0 2)
+
+TASK: [3.g Mount the devices] ************************************************* 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [4.0 Get the host part of the IP] *************************************** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [4. Edit the /etc/rsyncd.conf file] ************************************* 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [5. Edit the /etc/default/rsync file and enable the rsync service] ****** 
+changed: [192.168.100.52] => (item=RSYNC_ENABLE=true)
+changed: [192.168.100.51] => (item=RSYNC_ENABLE=true)
+
+TASK: [6. Start the rsync service:] ******************************************* 
+changed: [192.168.100.52] => (item=rsync)
+changed: [192.168.100.51] => (item=rsync)
+
+PLAY [Install and configure storage node components] ************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.51]
+ok: [192.168.100.52]
+
+TASK: [Install the packages] ************************************************** 
+changed: [192.168.100.51] => (item=swift,swift-account,swift-container,swift-object)
+changed: [192.168.100.52] => (item=swift,swift-account,swift-container,swift-object)
+
+TASK: [Get the host part of the IP] ******************************************* 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:] *** 
+changed: [192.168.100.52]
+changed: [192.168.100.51]
+
+TASK: [Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:] *** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:] *** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:] *** 
+changed: [192.168.100.52]
+changed: [192.168.100.51]
+
+TASK: [Obtain the accounting, container, object, container-reconciler, and object-expirer service configuration files from the Object Storage source repository:] *** 
+changed: [192.168.100.52]
+changed: [192.168.100.51]
+
+TASK: [Ensure proper ownership of the mount point directory structure:] ******* 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [Create the recon directory and ensure proper ownership of it:] ********* 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+PLAY [Create Initial Rings: Account ring] ************************************* 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [Create the base account.builder file: with 2^10 (1024) maximum partitions, 3 replicas of each object, and 1 hour minimum time between moving a partition] *** 
+changed: [192.168.100.11]
+
+TASK: [Add each storage node to the ring DEVICE 1] **************************** 
+changed: [192.168.100.11] => (item=192.168.100.51)
+changed: [192.168.100.11] => (item=192.168.100.52)
+
+TASK: [Add each storage node to the ring DEVICE 2] **************************** 
+changed: [192.168.100.11] => (item=192.168.100.51)
+changed: [192.168.100.11] => (item=192.168.100.52)
+
+TASK: [Verify the ring contents:] ********************************************* 
+changed: [192.168.100.11]
+
+TASK: [Rebalance the ring:] *************************************************** 
+changed: [192.168.100.11]
+
+PLAY [Create Initial Rings: Container ring] *********************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [Create the base account.builder file: with 2^10 (1024) maximum partitions, 3 replicas of each object, and 1 hour minimum time between moving a partition] *** 
+changed: [192.168.100.11]
+
+TASK: [Add each storage node to the ring DEVICE 1] **************************** 
+changed: [192.168.100.11] => (item=192.168.100.51)
+changed: [192.168.100.11] => (item=192.168.100.52)
+
+TASK: [Add each storage node to the ring DEVICE 2] **************************** 
+changed: [192.168.100.11] => (item=192.168.100.51)
+changed: [192.168.100.11] => (item=192.168.100.52)
+
+TASK: [Verify the ring contents:] ********************************************* 
+changed: [192.168.100.11]
+
+TASK: [Rebalance the ring:] *************************************************** 
+changed: [192.168.100.11]
+
+PLAY [Create Initial Rings: Object ring] ************************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [Create the base account.builder file: with 2^10 (1024) maximum partitions, 3 replicas of each object, and 1 hour minimum time between moving a partition] *** 
+changed: [192.168.100.11]
+
+TASK: [Add each storage node to the ring DEVICE 1] **************************** 
+changed: [192.168.100.11] => (item=192.168.100.51)
+changed: [192.168.100.11] => (item=192.168.100.52)
+
+TASK: [Add each storage node to the ring DEVICE 2] **************************** 
+changed: [192.168.100.11] => (item=192.168.100.51)
+changed: [192.168.100.11] => (item=192.168.100.52)
+
+TASK: [Verify the ring contents:] ********************************************* 
+changed: [192.168.100.11]
+
+TASK: [Rebalance the ring:] *************************************************** 
+changed: [192.168.100.11]
+
+PLAY [Distribute Ring Configurations: Fetch] ********************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [Get the account.ring.gz file] ****************************************** 
+changed: [192.168.100.11]
+
+TASK: [Get the container.ring.gz file] **************************************** 
+changed: [192.168.100.11]
+
+TASK: [Get the object.ring.gz file] ******************************************* 
+changed: [192.168.100.11]
+
+PLAY [Distribute Ring Configurations: Push] *********************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.52]
+ok: [192.168.100.51]
+
+TASK: [Copy the account.ring.gz file to the /etc/swift directory on each storage node] *** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [Copy the container.ring.gz file to the /etc/swift directory on each storage node] *** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+TASK: [Copy the object.ring.gz file to the /etc/swift directory on each storage node] *** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+
+PLAY [Finalize installation: Controller and Storage Nodes] ******************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.51]
+ok: [192.168.100.52]
+ok: [192.168.100.11]
+
+TASK: [Copy the swift.conf file to the /etc/swift directory on each storage node and any additional nodes running the proxy service.] *** 
+changed: [192.168.100.52]
+changed: [192.168.100.11]
+changed: [192.168.100.51]
+
+TASK: [On all nodes, ensure proper ownership of the configuration directory:] *** 
+changed: [192.168.100.51]
+changed: [192.168.100.52]
+changed: [192.168.100.11]
+
+PLAY [Finalize installation: Controller Nodes] ******************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [On the controller node and any other nodes running the proxy service, restart the Object Storage proxy service including its dependencies:] *** 
+changed: [192.168.100.11] => (item=swift-proxy)
+
+PLAY [Finalize installation: Storage Nodes] *********************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.52]
+ok: [192.168.100.51]
+
+TASK: [On the storage nodes, start the Object Storage services:] ************** 
+changed: [192.168.100.52]
+changed: [192.168.100.51]
+
+PLAY [Verify Operation] ******************************************************* 
+
+GATHERING FACTS *************************************************************** 
+ok: [192.168.100.11]
+
+TASK: [TODO] ****************************************************************** 
+ok: [192.168.100.11] => {
+    "msg": "TODO"
+}
+
+PLAY [Postconfiguration > modify default security group] ********************** 
+
+TASK: [request list of security groups (uncleaned)] *************************** 
+changed: [192.168.100.11]
+
+TASK: [Allow all IPv4 ingress traffic] **************************************** 
+skipping: [192.168.100.11] => (item=(0, '+--------------------------------------+---------+------------------------+'))
+skipping: [192.168.100.11] => (item=(1, '| id                                   | name    | description            |'))
+skipping: [192.168.100.11] => (item=(2, '+--------------------------------------+---------+------------------------+'))
+changed: [192.168.100.11] => (item=(3, '| 0206e8dc-c005-44c4-af97-ba65d1c9a313 | default | Default security group |'))
+changed: [192.168.100.11] => (item=(4, '| 78b54ea1-5f8c-4db3-9fc6-1f39df36a8d5 | default | Default security group |'))
+skipping: [192.168.100.11] => (item=(5, '+--------------------------------------+---------+------------------------+'))
+
+PLAY RECAP ******************************************************************** 
+192.168.100.11             : ok=241  changed=199  unreachable=0    failed=0   
+192.168.100.111            : ok=21   changed=13   unreachable=0    failed=0   
+192.168.100.21             : ok=55   changed=46   unreachable=0    failed=0   
+192.168.100.31             : ok=65   changed=52   unreachable=0    failed=0   
+192.168.100.32             : ok=65   changed=52   unreachable=0    failed=0   
+192.168.100.51             : ok=49   changed=36   unreachable=0    failed=0   
+192.168.100.52             : ok=49   changed=36   unreachable=0    failed=0   
+localhost                  : ok=9    changed=4    unreachable=0    failed=0   
+
+---------------------------------------------------------
+running ./remove_aptcache_vm.sh
+Domain aptcache destroyed
+
+Domain aptcache has been undefined
+
+---------------------------------------------------------
+running ./snapshot_virtual_machines.sh initial
+Shutting down all VMs
+Domain compute1 is being shutdown
+
+Domain compute2 is being shutdown
+
+Domain controller is being shutdown
+
+Domain network is being shutdown
+
+Domain object1 is being shutdown
+
+Domain object2 is being shutdown
+
+------------------------------------------------------------
+compute1
+Domain snapshot initial created
+ Name                 Creation Time             State
+------------------------------------------------------------
+ initial              2015-09-30 15:40:40 +0200 shutoff
+
+------------------------------------------------------------
+compute2
+Domain snapshot initial created
+ Name                 Creation Time             State
+------------------------------------------------------------
+ initial              2015-09-30 15:40:40 +0200 shutoff
+
+------------------------------------------------------------
+controller
+Domain snapshot initial created
+ Name                 Creation Time             State
+------------------------------------------------------------
+ initial              2015-09-30 15:40:40 +0200 shutoff
+
+------------------------------------------------------------
+network
+Domain snapshot initial created
+ Name                 Creation Time             State
+------------------------------------------------------------
+ initial              2015-09-30 15:40:40 +0200 shutoff
+
+------------------------------------------------------------
+object1
+Domain snapshot initial created
+ Name                 Creation Time             State
+------------------------------------------------------------
+ initial              2015-09-30 15:40:40 +0200 shutoff
+
+------------------------------------------------------------
+object2
+Domain snapshot initial created
+ Name                 Creation Time             State
+------------------------------------------------------------
+ initial              2015-09-30 15:40:40 +0200 shutoff
+
+Starting all VMs
+Domain compute1 started
+
+Domain compute2 started
+
+Domain controller started
+
+Domain network started
+
+Domain object1 started
+
+Domain object2 started
+
+------------------------------------------------------------
+All VMs snapshotted as initial
+If logged in in Horizon, please re-login after snapshot.
+------------------------------------------------------------
+---------------------------------------------------------
+Installation took 15m 28s.
+To use the Horizon Web interface visit http://controller/horizon/
+  You may need to wait some time until the virtual machines are restarted and the Openstack services have reconnected.
+  Logins are 
+    user: "demo" password: "demo"
+    user: "admin" password: "admin"
+  as specified in the configuration.
+To use SSH execute
+  ssh ubuntu@compute1
+  ssh ubuntu@compute2
+  ssh ubuntu@controller
+  ssh ubuntu@network
+  ssh ubuntu@object1
+  ssh ubuntu@object2
