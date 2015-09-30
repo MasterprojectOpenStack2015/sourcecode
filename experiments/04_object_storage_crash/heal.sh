@@ -7,7 +7,7 @@ heading HEALING FAULT
 for node in "$@"
 do
   subheading "restarting Storage Node $node"
-  virsh start $node | log -vvv -i
+  virsh start $node 2>&1 | log -vvv -i
 done
 
 for node in "$@"
@@ -17,6 +17,6 @@ do
   do
     sleep 1
     log -vvv -n .
-  done
-done
+  done ;
+done ;
 
