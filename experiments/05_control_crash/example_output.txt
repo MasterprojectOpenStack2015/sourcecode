@@ -1,0 +1,27 @@
+mpos2015-source$ ./run_experiment.sh 05_control_crash
++ Crash Controller
+  * SETUP
+    - Checking services
+    - Creating instance on controller
+    - wait for instance to come up
+  * Running checks
+    - pinging the created instance
+      OK! 192.168.102.102
+    - pinging the controller
+      OK! controller
+  * CREATING FAULT
+    - shutting the controller down
+    - Waiting for the controller to shut down.
+  * Running checks
+    - pinging the created instance
+      OK! 192.168.102.102
+    - pinging the controller
+      ERROR!
+  * HEALING FAULT
+    - restarting the controller
+    - wait for controller to come up again
+  * Running checks
+    - pinging the created instance
+      OK! 192.168.102.102
+    - pinging the controller
+      OK! controller
