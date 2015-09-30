@@ -1,0 +1,16 @@
+mpos2015-source$ ./run_experiment.sh 02_memcache_flush
++ Flush Memcache
+  * SETUP
+    - on controller, get token from Keystone (as admin)
+  * Running checks
+    - attempting to create new token using first token
+    - token
+      OK! Token created.
+X-Subject-Token: 36e737434cc446a7a3d9ab95e9746cb9
+  * CREATING FAULT
+    - flushing memcache on controller
+  * Running checks
+    - attempting to create new token using first token
+    - token
+      ERROR! No token created.
+

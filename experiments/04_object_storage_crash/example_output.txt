@@ -1,0 +1,80 @@
+mpos2015-source$ ./run_experiment.sh 04_object_storage_crash
++ Crash Objct Storage
+  * HEALING FAULT
+    - restarting Storage Node object1
+    - restarting Storage Node object2
+    - waiting for object1 to come up again
+    - waiting for object2 to come up again
+  * SETUP
+    - uploading a file
+      OK! Successfully uploaded file
+  * Running checks
+    - pinging object1
+      OK! object1
+    - pinging object2
+      OK! object2
+    - downloading created file
+      OK! Successfully downloaded file.
+  * CREATING FAULT
+    - killing Storage Node object1
+  * Running checks
+    - pinging object1
+      ERROR!
+    - pinging object2
+      OK! object2
+    - downloading created file
+      OK! Successfully downloaded file.
+  * HEALING FAULT
+    - restarting Storage Node object1
+    - waiting for object1 to come up again
+  * Running checks
+    - pinging object1
+      OK! object1
+    - pinging object2
+      OK! object2
+    - downloading created file
+      OK! Successfully downloaded file.
+  * CREATING FAULT
+    - killing Storage Node object2
+  * Running checks
+    - pinging object1
+      OK! object1
+    - pinging object2
+      ERROR!
+    - downloading created file
+      OK! Successfully downloaded file.
+  * HEALING FAULT
+    - restarting Storage Node object2
+    - waiting for object2 to come up again
+  * Running checks
+    - pinging object1
+      OK! object1
+    - pinging object2
+      OK! object2
+    - downloading created file
+      OK! Successfully downloaded file.
+  * CREATING FAULT
+    - killing Storage Node object1
+    - killing Storage Node object2
+  * Running checks
+    - pinging object1
+      ERROR!
+    - pinging object2
+      ERROR!
+    - downloading created file
+      OK! File not accessible
+  * HEALING FAULT
+    - restarting Storage Node object1
+    - restarting Storage Node object2
+    - waiting for object1 to come up again
+    - waiting for object2 to come up again
+  * Running checks
+    - pinging object1
+      OK! object1
+    - pinging object2
+      OK! object2
+    - downloading created file
+      OK! Successfully downloaded file.
+  * CLEANUP
+    - Deleting file from object storage and controller
+      OK!

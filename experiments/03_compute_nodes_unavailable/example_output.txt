@@ -1,0 +1,57 @@
+mpos2015-source$ ./run_experiment.sh 03_compute_nodes_unavailable
++ Compute Node Availability
+  * SETUP
+    - create test instance while everything is working fine
+    - wait for instance to come up
+  * Running checks
+    - pinging the first created instance
+      OK! 192.168.102.102
+    - Service state according to nova on controller:
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| Id | Binary           | Host       | Zone     | Status  | State | Updated_at                 | Disabled Reason |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| 5  | nova-compute     | compute2   | nova     | enabled | up    | 2015-09-30T10:29:15.000000 | -               |
+| 6  | nova-compute     | compute1   | nova     | enabled | up    | 2015-09-30T10:29:16.000000 | -               |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+  * CREATING FAULT
+    - kill network connections off all compute hosts
+  * Running checks
+    - pinging the first created instance
+      OK! 192.168.102.102
+    - Service state according to nova on controller:
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| Id | Binary           | Host       | Zone     | Status  | State | Updated_at                 | Disabled Reason |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| 5  | nova-compute     | compute2   | nova     | enabled | up    | 2015-09-30T10:29:15.000000 | -               |
+| 6  | nova-compute     | compute1   | nova     | enabled | up    | 2015-09-30T10:29:16.000000 | -               |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+Type r<ENTER> to repeat this set of checks. <ENTER> continues to the next step.
+  * CREATING FAULT
+    - shut down all compute hosts
+  * Running checks
+    - pinging the first created instance
+      OK! 192.168.102.102
+    - Service state according to nova on controller:
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| Id | Binary           | Host       | Zone     | Status  | State | Updated_at                 | Disabled Reason |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| 5  | nova-compute     | compute2   | nova     | enabled | up    | 2015-09-30T10:29:15.000000 | -               |
+| 6  | nova-compute     | compute1   | nova     | enabled | up    | 2015-09-30T10:29:16.000000 | -               |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+Type r<ENTER> to repeat this set of checks. <ENTER> continues to the next step.
+  * HEALING FAULT
+    - restarting compute node compute1
+    - restarting compute node compute2
+    - wait for compute1 to come up again
+    - wait for compute2 to come up again
+  * Running checks
+    - pinging the first created instance
+      ERROR! 192.168.102.102
+    - Service state according to nova on controller:
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| Id | Binary           | Host       | Zone     | Status  | State | Updated_at                 | Disabled Reason |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+| 5  | nova-compute     | compute2   | nova     | enabled | up    | 2015-09-30T10:30:11.000000 | -               |
+| 6  | nova-compute     | compute1   | nova     | enabled | up    | 2015-09-30T10:30:03.000000 | -               |
++----+------------------+------------+----------+---------+-------+----------------------------+-----------------+
+Type r<ENTER> to repeat this set of checks. <ENTER> continues to the next step.
