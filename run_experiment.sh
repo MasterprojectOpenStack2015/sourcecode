@@ -34,8 +34,8 @@ then
 fi
 
 experiment=$1
-experiment_folder=`dirname $0`/experiments/$1
-experiment_file=`dirname $0`/experiments/$1/run.sh
+experiment_folder=`dirname $0`/experiments/$experiment
+experiment_file=`dirname $0`/experiments/$experiment/run.sh
 if [ ! -f "$experiment_file" ]
 then
   echo "ERROR: experiment \"$experiment_file\" not found."
