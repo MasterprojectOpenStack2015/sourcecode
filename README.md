@@ -11,6 +11,7 @@ Documentation
 The documentation is split in several parts.
 
 1. In the [documentation](documentation) folder you can find technical details about the software contained in this repository.
+2. The [MasterprojectOpenStack2015/report](https://github.com/MasterprojectOpenStack2015/report) repository contains worthy documentation.
 
 Installation
 ------------
