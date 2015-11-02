@@ -18,8 +18,9 @@ Installation
 
 1. Setup a fresh [Ubuntu 14.4](http://www.ubuntu.com/download/desktop).
 2. Make sure you have an internet connection.
-3. Clone this repository
+3. Install git and clone this repository
 
+        sudo apt-get -y install git
         git clone https://github.com/MasterprojectOpenStack2015/sourcecode.git
 
 4. Enter the repository and start the installation.
