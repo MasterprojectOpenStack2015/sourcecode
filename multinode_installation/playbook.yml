@@ -1,0 +1,3 @@
+---
+- include: playbooks/install_packages.yml
+- include: playbooks/libvirt.yml

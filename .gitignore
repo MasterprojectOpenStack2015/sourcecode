@@ -2,3 +2,4 @@
 *.out
 step_status
 ansible/installation/config/ansible/playbooks/roles/config
+multinode_installation/.vagrant/*
