@@ -1,5 +1,5 @@
 --- # equivalent of 'install_tools.sh' and 'install_ansible.sh'
-- hosts: localhost:all
+- hosts: all
   sudo: true
   tasks:
     - name: update apt cache

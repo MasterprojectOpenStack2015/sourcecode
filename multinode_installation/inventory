@@ -1,2 +1,2 @@
-[localhost]
-127.0.0.1 ansible_python_interpreter=python2
+[workstation]
+172.16.21.63

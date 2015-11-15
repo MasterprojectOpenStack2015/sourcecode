@@ -1,5 +1,5 @@
 --- # equivalent to the last part of 'install_lib_virt.sh'
-- hosts: localhost:all
+- hosts: all
   sudo: false
   tasks:
     - name: check user permissions for libvirt
@@ -8,7 +8,7 @@
       ignore_errors: true
       failed_when: false
 
-- hosts: localhost:all
+- hosts: all
   sudo: true
   tasks:
     - name: set libvirt permissions
