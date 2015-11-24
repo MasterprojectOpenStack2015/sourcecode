@@ -1,3 +1,4 @@
 ---
 - include: playbooks/install_packages.yml
 - include: playbooks/libvirt.yml
+- include: playbooks/copy_installation_script.yml

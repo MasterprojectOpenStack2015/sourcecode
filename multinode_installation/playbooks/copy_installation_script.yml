@@ -1,0 +1,10 @@
+--- # equivalent to the last part of 'install_lib_virt.sh'
+- hosts: all
+  sudo: false
+  tags:
+    - develop
+  tasks:
+    - name: Copy install.sh
+      copy: src=../../install.sh dest=~/installation_copy/
+    - name: Copy installation folde
+      copy: src=../../installation/ dest=~/installation_copy
