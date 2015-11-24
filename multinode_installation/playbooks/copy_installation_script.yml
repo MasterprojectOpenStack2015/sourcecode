@@ -1,10 +1,12 @@
---- # equivalent to the last part of 'install_lib_virt.sh'
+---
 - hosts: all
   sudo: false
-  tags:
-    - develop
   tasks:
     - name: Copy install.sh
-      copy: src=../../install.sh dest=~/installation_copy/
-    - name: Copy installation folde
-      copy: src=../../installation/ dest=~/installation_copy
+      copy: src=../../install.sh  dest=~/installation_copy/
+    - name: Copy installation folder
+      copy: src=../../installation/  dest=~/installation_copy/installation
+    - name: Overwrite certain installation scripts
+      copy: src={{ item }}  dest=~/installation_copy/installation backup=yes
+      with_items:
+        - ../installation_changed_files/install.sh
