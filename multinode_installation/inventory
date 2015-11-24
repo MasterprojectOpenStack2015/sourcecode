@@ -1,2 +1,2 @@
-[workstation]
-172.16.21.63
+[power_horse]
+172.16.21.63 ansible_ssh_user=mpws01
