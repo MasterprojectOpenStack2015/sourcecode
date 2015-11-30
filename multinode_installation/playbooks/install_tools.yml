@@ -1,4 +1,4 @@
---- # equivalent of 'install_tools.sh' and 'install_ansible.sh'
+--- # equivalent of 'install_tools.sh'
 - hosts: all
   sudo: true
   tasks:
@@ -12,8 +12,6 @@
         - bzr
         - virt-manager
         - python-pip
-        - software-properties-common
-        - ansible
         - qemu-kvm
         - virtinst
         - libvirt-bin
