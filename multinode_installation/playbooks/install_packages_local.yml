@@ -12,6 +12,10 @@
         - git
         - libvirt-bin
         - ruby-dev
+        - libxslt-dev
+        - libxml2-dev
+        - libvirt-dev
+        - zlib1g-dev
     - name: Download vagrant.1.7.4
       get_url:
         url="https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4_x86_64.deb"
@@ -19,6 +23,8 @@
     - name: Install vagrant.1.7.4
       apt: deb="/tmp/vagrant.1.7.4.deb"
       sudo: true
+    - name: Install vagrant-libvirt
+      shell: vagrant plugin install vagrant-libvirt
 
 
 
