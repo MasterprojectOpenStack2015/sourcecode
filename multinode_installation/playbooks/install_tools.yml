@@ -1,0 +1,27 @@
+--- # equivalent of 'install_tools.sh'
+- hosts: all
+  sudo: true
+  tasks:
+    - name: update apt cache
+      apt: update_cache=yes
+    - name: install required packages
+      apt: name={{ item }} state=present
+      with_items:
+        - wcstools
+        - realpath
+        - bzr
+        - virt-manager
+        - python-pip
+        - qemu-kvm
+        - virtinst
+        - libvirt-bin
+        - genisoimage
+    - name: install python packages
+      pip: name={{ item }} state=present extra_args=--upgrade
+      with_items:
+        - Jinja2
+    - name: create locales
+      command: locale-gen de_DE.UTF-8
+    - name: reconfigure locales
+      command: dpkg-reconfigure locales
+
