@@ -15,8 +15,13 @@
         - qemu-kvm
         - virtinst
         - libvirt-bin
+        - genisoimage
     - name: install python packages
       pip: name={{ item }} state=present extra_args=--upgrade
       with_items:
         - Jinja2
+    - name: create locales
+      command: locale-gen de_DE.UTF-8
+    - name: reconfigure locales
+      command: dpkg-reconfigure locales
 
