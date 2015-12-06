@@ -13,6 +13,10 @@ tools/install_package bzr
 # for the virtual machine manager
 tools/install_package virt-manager
 
+# missing package on ubuntu server installation
+tools/install_package make
+tools/install_package genisoimage
+
 # for pip
 tools/install_package python-pip
 
