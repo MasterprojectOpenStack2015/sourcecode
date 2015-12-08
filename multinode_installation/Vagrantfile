@@ -1,9 +1,19 @@
 Vagrant.configure("2") do |config|
-  config.vm.define :datacenter do |datacenter|
+  config.vm.define :datacenter1 do |datacenter|
     datacenter.vm.box = "sputnik13/trusty64"
     datacenter.vm.provider :libvirt do |domain|
-      domain.memory = 6000
-      domain.cpus = 2
+      domain.memory = 26000
+      domain.cpus = 16
+      domain.nested = true
+      domain.volume_cache = 'none'
+    end
+  end
+
+  config.vm.define :datacenter2 do |datacenter|
+    datacenter.vm.box = "sputnik13/trusty64"
+    datacenter.vm.provider :libvirt do |domain|
+      domain.memory = 26000
+      domain.cpus = 16
       domain.nested = true
       domain.volume_cache = 'none'
     end
