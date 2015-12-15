@@ -299,3 +299,4 @@ mkdir -p $vm_images_directory
 mkdir -p $ansible_temp_directory
 vm_base_image_file=$vm_images_directory/$vm_base_image_name
 
+ANSIBLE_CONFIG=`realpath $ansible_configuration_directory/ansible.cfg`
