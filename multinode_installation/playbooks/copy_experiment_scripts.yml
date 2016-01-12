@@ -1,0 +1,8 @@
+---
+- hosts: all
+  sudo: false
+  tasks:
+    - name: Copy run_experiment.sh
+      copy: src=../../run_experiment.sh  dest={{ installation_folder }}/  mode="u=rwx"
+    - name: Copy experiments folder
+      copy: src=../../experiments/  dest={{ installation_folder }}/experiments  mode="u=rwx"

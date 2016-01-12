@@ -3,10 +3,10 @@
   sudo: false
   tasks:
     - name: Copy install.sh
-      copy: src=../../install.sh  dest=~/installation_copy/  mode="u=rwx"
+      copy: src=../../install.sh  dest={{ installation_folder }}/  mode="u=rwx"
     - name: Copy installation folder
-      copy: src=../../installation/  dest=~/installation_copy/installation  mode="u=rwx"
+      copy: src=../../installation/  dest={{ installation_folder }}/installation  mode="u=rwx"
     - name: Overwrite certain installation scripts
-      copy: src={{ item }}  dest=~/installation_copy/installation backup=yes  mode="u=rwx"
+      copy: src={{ item }}  dest={{ installation_folder }}/installation backup=yes  mode="u=rwx"
       with_items:
         - ../installation_changed_files/install.sh
