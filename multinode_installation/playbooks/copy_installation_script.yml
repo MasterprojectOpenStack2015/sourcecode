@@ -6,7 +6,11 @@
       copy: src=../../install.sh  dest={{ installation_folder }}/  mode="u=rwx"
     - name: Copy installation folder
       copy: src=../../installation/  dest={{ installation_folder }}/installation  mode="u=rwx"
-    - name: Overwrite certain installation scripts
-      copy: src={{ item }}  dest={{ installation_folder }}/installation backup=yes  mode="u=rwx"
+    - name: Patch by copy
+      copy: src=../installation_changed_files/{{ item }}  dest={{ installation_folder }}/installation/{{ item }} backup=yes  mode="u=rwx"
       with_items:
-        - ../installation_changed_files/install.sh
+        - install.sh
+    - name: Patch by template
+      template: src=../installation_changed_files/{{ item }}.j2  dest={{ installation_folder }}/installation/{{ item }}.sh backup=yes  mode="u=rwx"
+      with_items:
+        - config/installation_configuration

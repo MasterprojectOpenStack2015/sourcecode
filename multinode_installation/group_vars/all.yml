@@ -1,2 +1,4 @@
 ---
 installation_folder: ~/installation_copy/
+region:
+  ip_management_prefix: 192.168.{{200 + region_id}}
