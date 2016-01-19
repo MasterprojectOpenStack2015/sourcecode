@@ -11,6 +11,8 @@
       with_items:
         - install.sh
     - name: Patch by template
-      template: src=../installation_changed_files/{{ item }}.j2  dest={{ installation_folder }}/installation/{{ item }}.sh backup=yes  mode="u=rwx"
+      template: src=../installation_changed_files/{{ item }}.j2  dest={{ installation_folder }}/installation/{{ item }} backup=yes  mode="u=rwx"
       with_items:
-        - config/installation_configuration
+        - config/installation_configuration.sh
+        - config/network/management.xml
+
