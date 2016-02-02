@@ -5,8 +5,9 @@
 
 echo "Starting all VMs"
 
+vms_to_start=$(ls ../config/vm/ | tr '\n' '|' | sed 's/.$//') 
 list_shutdown_domains() {
-	virsh list --inactive | grep "shut off" | awk '{ print $2}'
+	virsh list --inactive | grep "shut off" | grep -E $vms_to_start | awk '{ print $2}'
 }
 
 list_shutdown_domains | while read DOMAIN; do
