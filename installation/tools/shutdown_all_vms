@@ -5,9 +5,11 @@
 
 echo "Shutting down all VMs"
 
+vms_to_shutdown=$(ls ../config/vm/ | tr '\n' '|' | sed 's/.$//') 
 list_running_domains() {
-	virsh list | grep running | awk '{ print $2}'
+        virsh list | grep running | grep -E $vms_to_shutdown | awk '{ print $2}'
 }
+
 
 list_running_domains | while read DOMAIN; do
 	# Try to shutdown given domain.
