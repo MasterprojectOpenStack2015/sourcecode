@@ -2,7 +2,7 @@
 - name: a play that runs entirely on the ansible host
   hosts: 127.0.0.1
   connection: local
-  sudo: true
+  become: yes
   tasks:
     - name: Update apt cache
       apt: update_cache=yes

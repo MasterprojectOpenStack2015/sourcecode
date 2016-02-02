@@ -1,6 +1,6 @@
 --- # equivalent to the last part of 'install_lib_virt.sh'
 - hosts: all
-  sudo: false
+  become: yes
   tasks:
     - name: check user permissions for libvirt
       shell: virsh list
@@ -9,7 +9,7 @@
       failed_when: false
 
 - hosts: all
-  sudo: true
+  become: yes
   tasks:
     - name: set libvirt permissions
       replace: dest=/etc/libvirt/libvirtd.conf regexp='unix_sock_rw_perms\s*=.*' replace='unix_sock_rw_perms = "0777"' backup=yes
