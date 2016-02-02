@@ -24,7 +24,6 @@
         dest="/tmp/vagrant.1.7.4.deb"
     - name: Install vagrant.1.7.4
       apt: deb="/tmp/vagrant.1.7.4.deb"
-      sudo: true
 
 
 
