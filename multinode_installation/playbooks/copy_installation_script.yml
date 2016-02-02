@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  sudo: false
   tasks:
     - name: Copy install.sh
       copy: src=../../install.sh  dest={{ installation_folder }}/  mode="u=rwx"

@@ -1,6 +1,6 @@
 --- # equivalent of 'install_tools.sh'
 - hosts: all
-  sudo: true
+  become : yes
   tasks:
     - name: update apt cache
       apt: update_cache=yes
