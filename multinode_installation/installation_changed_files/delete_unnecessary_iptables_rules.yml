@@ -1,0 +1,24 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  ignore_errors: yes # these are deletions, if they don't exist, that's fine
+   # we can't use ansible module iptables
+   # inverse of network with exclamation mark ! is not yet implemented
+  tasks:
+    - name: Delete unnecessary masquerade tcp
+      command: iptables -t nat -D POSTROUTING -s 192.168.102.0/24 ! -d 192.168.102.0/24 -p tcp -j MASQUERADE --to-ports 1024-65535
+    - name: Delete unnecessary masquerade udp
+      command: iptables -t nat -D POSTROUTING -s 192.168.102.0/24 ! -d 192.168.102.0/24 -p udp -j MASQUERADE --to-ports 1024-65535
+    - name: Delete unnecessary masquerade
+      command: iptables -t nat -D POSTROUTING -s 192.168.102.0/24 ! -d 192.168.102.0/24 -j MASQUERADE
+
+
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+    - name: Delete reject forward
+      iptables: state=absent chain=FORWARD out_interface=br_management jump=REJECT
+    - name: Delete reject forward
+      iptables: state=absent chain=FORWARD in_interface=br_management jump=REJECT
