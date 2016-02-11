@@ -25,7 +25,7 @@
     register: security_group_list_result
 
   - name: "Allow all IPv4 ingress traffic"
-    shell: "neutron security-group-rule-create --ethertype ipv4 --direction ingress --remote-ip-prefix 0.0.0.0/0 {{item.1|regex_replace('^\\| ([^\\|]*)\\|.*$', '\\\\1')}}"
+    shell: "neutron security-group-rule-create --ethertype ipv4 --direction ingress --remote-ip-prefix 0.0.0.0/0 {{item.1|regex_replace('^\\| ([^\\|]*)\\|.*$', '\\1')}}"
 #   remove first three lines (table header) and the last one
     with_indexed_items: "{{security_group_list_result.stdout_lines}}"
     when: item.0 > 2 and not item.0 == (security_group_list_result.stdout_lines|length - 1)
