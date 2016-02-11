@@ -5,7 +5,7 @@
     - config
   sudo: True
   gather_facts: False
-  environment: config.environment.demo
+  environment: "{{ config.environment.demo }}"
   tasks:
 
   - name: delete test file on controller

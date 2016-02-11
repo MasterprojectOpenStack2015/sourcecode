@@ -7,7 +7,7 @@
   sudo: True
   gather_facts: False
   # 2. Source the admin credentials to gain access to admin-only CLI commands
-  environment: config.environment.admin
+  environment: "{{ config.environment.admin }}"
 
   tasks:
 
@@ -36,7 +36,7 @@
     # 2. Source the admin credentials to gain access to admin-only CLI commands
     # -------------------------------------------------------------------------
     #
-    # this is done by `environment: config.environment.admin`
+    # this is done by `environment: "{{ config.environment.admin }}"`
 
     # 3. To create the service credentials, complete these steps
     # ----------------------------------------------------------

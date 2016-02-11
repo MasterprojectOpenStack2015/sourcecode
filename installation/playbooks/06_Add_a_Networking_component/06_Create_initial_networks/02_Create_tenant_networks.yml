@@ -6,7 +6,7 @@
     - config
   sudo: True
   gather_facts: False
-  environment: config.environment.demo
+  environment: "{{ config.environment.demo }}"
 
   tasks:
   - name: "1.2 Create the tenant network"
