@@ -6,7 +6,7 @@
   sudo: True
   # gather_facts: False is important for 4.0 Get the host part of the IP 
   gather_facts: True
-  environment: config.environment.admin
+  environment: "{{ config.environment.admin }}"
   vars: 
     # Use this instead of /dev/sdb1
     partition1: "/dev/{{ config.object_partition_1_name }}"

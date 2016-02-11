@@ -7,7 +7,7 @@
   sudo: True
   gather_facts: False
   # 1. Source the admin credentials to gain access to admin-only CLI commands
-  environment: config.environment.admin
+  environment: "{{ config.environment.admin }}"
   tasks:
 
   # 2. create the Identity service credentials

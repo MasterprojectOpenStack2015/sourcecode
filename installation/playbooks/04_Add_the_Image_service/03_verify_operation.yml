@@ -28,11 +28,11 @@
 
   - name: 2.2 Check ansible environment admin credentials to gain access to admin-only CLI commands 2.0
     shell: test "$OS_IMAGE_API_VERSION" = "2"
-    environment: config.environment.admin
+    environment: "{{ config.environment.admin }}"
 
   - name: 2.3 Check ansible environment demo credentials to gain access to admin-only CLI commands 2.0
     shell: test "$OS_IMAGE_API_VERSION" = "2"
-    environment: config.environment.demo
+    environment: "{{ config.environment.demo }}"
 
   # 3. Create a temporary local directory
   # -------------------------------------
@@ -62,7 +62,7 @@
                   --disk-format qcow2 \
                   --container-format bare \
                   --visibility public
-    environment: config.environment.admin
+    environment: "{{ config.environment.admin }}"
     register: glance_image_create
 
   - name: 5.2. Check the output for name and visibility
@@ -76,7 +76,7 @@
 
   - name: 6.1 Confirm upload of the image and validate attributes
     shell: glance image-list
-    environment: config.environment.admin
+    environment: "{{ config.environment.admin }}"
     register: glance_image_list
 
   - name: 6.2 Check the output for {{ config.default_image_name }}

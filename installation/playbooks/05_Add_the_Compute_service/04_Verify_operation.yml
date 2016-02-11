@@ -12,13 +12,13 @@
     - config
   sudo: False
   gather_facts: True
-  environment: config.environment.admin
+  environment: "{{ config.environment.admin }}"
   tasks:
 
   # 1. Source the admin credentials
   # -------------------------------
   #
-  # Thisis done by `environment: config.environment.admin`
+  # Thisis done by `environment: "{{ config.environment.admin }}"`
 
   - name: 1. Source the admin credentials to gain access to admin-only CLI commands
     # run with bash http://docs.ansible.com/shell_module.html

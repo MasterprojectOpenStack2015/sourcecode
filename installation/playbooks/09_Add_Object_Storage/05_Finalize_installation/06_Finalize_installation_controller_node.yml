@@ -5,7 +5,7 @@
     - config
   sudo: True
   gather_facts: True
-  environment: config.environment.admin
+  environment: "{{ config.environment.admin }}"
   tasks:
 
 #restarting memcached will break keystone, so we don't do it

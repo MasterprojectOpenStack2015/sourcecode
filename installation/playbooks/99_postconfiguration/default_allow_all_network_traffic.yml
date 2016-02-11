@@ -5,7 +5,7 @@
     - config
   sudo: True
   gather_facts: False
-  environment: config.environment.admin
+  environment: "{{ config.environment.admin }}"
 
 # to avoid stupid questions why instances are not reachable later, allow all traffic
 # there are multiple security groups with the same name, so we have to use the IDs
