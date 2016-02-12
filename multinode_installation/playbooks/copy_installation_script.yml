@@ -9,3 +9,4 @@
       copy: src={{ item }}  dest={{ installation_folder }}/installation backup=yes  mode="u=rwx"
       with_items:
         - ../installation_changed_files/install.sh
+        - ../installation_changed_files/setup_virtual_machines.sh
