@@ -10,6 +10,7 @@ date_of_installation_start=$(date +"%s")
 
 tools/step ./create_ssh_keys.sh
 tools/step ./create_virtual_networks.sh
+tools/step ansible-playbook delete_unnecessary_iptables_rules.yml
 tools/step ./create_virtual_machine_image.sh
 tools/step ./create_virtual_machines.sh
 tools/step ./configure_ansible_for_vms.sh
