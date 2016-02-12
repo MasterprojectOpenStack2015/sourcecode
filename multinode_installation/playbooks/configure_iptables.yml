@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+      # TODO: avoid duplicate iptables rules
+    - name: Enable masquerade on region X to enable internet access for openstack VMs
+      # TODO: refactor for more than 2 regions, delete the NOT (-d)
+      command: iptables -t nat -A POSTROUTING -s {{ region.ip_management_prefix }}.0/24 ! -d 192.168.{{200 + item}}.0/24 -j MASQUERADE
+      with_items: "{{ other_region_ids }}"
+
+    - name: Add route to all other regions
+      command: route add -net 192.168.{{ 200 + item }}.0 netmask 255.255.255.0 gw 192.168.123.{{ 100 + item }}
+      with_items: "{{ other_region_ids }}"
+
+
+
+

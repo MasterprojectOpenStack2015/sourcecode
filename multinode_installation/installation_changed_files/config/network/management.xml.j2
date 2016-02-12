@@ -2,8 +2,7 @@
 	<name>management</name>
 	<forward mode='nat' />
 	<bridge name='br_management' stp='on' delay='0' />
-	<ip address='{{ ip_management_prefix }}.1' netmask='255.255.255.0'>
+	<ip address='{{region.ip_management_prefix}}.1' netmask='255.255.255.0'>
 	</ip>
 </network>
-
 
