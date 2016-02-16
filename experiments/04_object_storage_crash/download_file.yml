@@ -3,7 +3,7 @@
   hosts: controller
   roles:
     - config
-  sudo: True
+  become: yes
   gather_facts: False
   environment: "{{ config.environment.demo }}"
   tasks:
