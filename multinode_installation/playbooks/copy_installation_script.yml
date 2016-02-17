@@ -11,9 +11,13 @@
         - install.sh
         - delete_unnecessary_iptables_rules.yml
         - setup_virtual_machines.sh
+
+    - name: Ensures {{installation_folder}}/installation/group_vars dir exists
+      file: path={{installation_folder }}/installation/group_vars state=directory
     - name: Patch by template
       template: src=../installation_changed_files/{{ item }}.j2  dest={{ installation_folder }}/installation/{{ item }} backup=yes  mode="u=rwx"
       with_items:
         - config/installation_configuration.sh
         - config/network/management.xml
+        - group_vars/all.yml
 
