@@ -15,7 +15,7 @@
   
   - name: 2.1 List loaded extensions to verify successful launch of the neutron-server process
     shell: neutron ext-list
-    environment: config.environment.admin
+    environment: "{{ config.environment.admin }}"
     register: neutron_ext_list
 
   - name: 2.1 Check that extensions are present

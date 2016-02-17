@@ -8,7 +8,7 @@
   gather_facts: False
   # set the environment variables according to
   #  http://docs.ansible.com/ansible/playbooks_environment.html
-  environment: config.environment.token
+  environment: "{{ config.environment.token }}"
 
   tasks:
   - name: "Create the service entity for the Identity service"

@@ -1,0 +1,24 @@
+Vagrant.configure("2") do |config|
+  region_ids = Array((1..2))
+  region_ids.each do |region_id| 
+    config.vm.define "region#{region_id}" do |region|
+      region.vm.box = "sputnik13/trusty64"
+      region.vm.provider :libvirt do |domain|
+        domain.memory = 26000
+        domain.cpus = 16
+        domain.nested = true
+        domain.volume_cache = 'none'
+      end
+      region.vm.network :private_network, :ip => "192.168.123.10#{region_id}", :libvirt__forward_mode => 'none'
+
+      region.vm.provision :ansible do |ansible|
+        ansible.playbook = "playbook.yml"
+        ansible.extra_vars = { region_id: region_id, other_region_ids: (region_ids - [region_id])}
+
+        # https://gist.github.com/phantomwhale/9657134
+        ansible.raw_arguments = Shellwords.shellsplit(ENV['ANSIBLE_ARGS']) if ENV['ANSIBLE_ARGS']
+      end
+
+    end
+  end
+end

@@ -9,7 +9,7 @@
 
 # IP Addresses
 #warning, something other than /24 doesn't actually work, fixing 2 blocks below should suffice to enable it
-ip_management_prefix=192.168.100
+ip_management_prefix={{ ip_management_prefix }}
 ip_tunnel_prefix=192.168.101 
 ip_external_prefix=192.168.102
 ip_demo_prefix=192.168.200
@@ -299,3 +299,4 @@ mkdir -p $vm_images_directory
 mkdir -p $ansible_temp_directory
 vm_base_image_file=$vm_images_directory/$vm_base_image_name
 
+ANSIBLE_CONFIG=`realpath $ansible_configuration_directory/ansible.cfg`

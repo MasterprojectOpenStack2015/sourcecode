@@ -1,0 +1,19 @@
+--- # equivalent to the last part of 'install_lib_virt.sh'
+- hosts: all
+  become: yes
+  tasks:
+    - name: check user permissions for libvirt
+      shell: virsh list
+      register: virsh_list_result
+      ignore_errors: true
+      failed_when: false
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: set libvirt permissions
+      replace: dest=/etc/libvirt/libvirtd.conf regexp='unix_sock_rw_perms\s*=.*' replace='unix_sock_rw_perms = "0777"' backup=yes
+      when: "'Permission denied' in virsh_list_result.stderr"
+    - name: restart libvirt
+      command: service libvirt-bin restart
+      when: "'Permission denied' in virsh_list_result.stderr"

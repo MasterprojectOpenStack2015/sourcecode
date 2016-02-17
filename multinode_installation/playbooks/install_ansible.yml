@@ -1,0 +1,13 @@
+--- # equivalent of 'install_ansible.sh'
+- hosts: all
+  become: yes
+  tasks:
+    - name: add ansible ppa
+      apt_repository: repo='ppa:ansible/ansible'
+    - name: update apt cache
+      apt: update_cache=yes
+    - name: install ansible packages
+      apt: name={{ item }} state=present
+      with_items:
+        - software-properties-common
+        - ansible

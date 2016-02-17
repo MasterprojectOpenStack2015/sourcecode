@@ -1,0 +1,32 @@
+--- # installs all dependencies on the machine that starts up the datacenters
+- name: a play that runs entirely on the ansible host
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt: update_cache=yes
+    - name: Install dependencies
+      apt: name={{ item }} state=present
+      with_items:
+        - git
+        - libvirt-bin
+        - ruby-dev
+        - libxslt-dev
+        - libxml2-dev
+        - libvirt-dev
+        - zlib1g-dev
+        - make
+        - genisoimage
+    - name: Download vagrant.1.7.4
+      get_url:
+        url="https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4_x86_64.deb"
+        dest="/tmp/vagrant.1.7.4.deb"
+    - name: Install vagrant.1.7.4
+      apt: deb="/tmp/vagrant.1.7.4.deb"
+
+
+
+
+
+

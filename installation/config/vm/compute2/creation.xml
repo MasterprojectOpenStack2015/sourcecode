@@ -1,8 +1,9 @@
 <domain type='kvm'>
     <name>{{ vm_name }}</name>
-    <memory>8194304</memory>
-    <vcpu>1</vcpu>
-    
+    <memory unit='G'>4</memory>
+    <memory>4294964</memory>
+    <vcpu>2</vcpu>
+
     <cpu>
     <model>Westmere</model>
         <feature policy='require' name='vmx' />
